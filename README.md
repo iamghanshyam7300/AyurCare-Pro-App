@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AyurDiet Pro - React Native Mobile App
 
 Mobile-friendly React Native application for the AyurDiet Pro healthcare management system.
