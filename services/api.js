@@ -119,6 +119,9 @@ export const patientsAPI = {
   getAll: (params) => api.get("/patients", { params }),
   getMine: () => api.get('/patients/doctor/me'),
 
+  // ADD THIS ↓↓↓↓↓↓↓
+  getMyDoctor: () => api.get("/patients/stats/doctor"),
+
   create: (data) => api.post("/patients", data),
   getById: (id) => api.get(`/patients/${id}`),
   update: (id, data) => api.put(`/patients/${id}`, data),
@@ -128,6 +131,8 @@ export const patientsAPI = {
   getHealthRecords: (id, params) =>
     api.get(`/patients/${id}/health-records`, { params }),
 };
+
+
 
 /* ----------------------------------------------------
    APPOINTMENTS API

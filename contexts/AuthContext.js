@@ -10,6 +10,9 @@ import React, {
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { authAPI } from "../services/api";
+import { loadTokensToCache } from "../services/api";
+
+
 
 // ========================
 // CONTEXT
@@ -94,41 +97,63 @@ export const AuthProvider = ({ children }) => {
   // CHECK TOKEN ON APP START
   // ----------------------------------------------------
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const token = await AsyncStorage.getItem("accessToken");
+  const init = async () => {
+    
+    console.log("🔑 Loading token into axios cache...");
+    await loadTokensToCache();   // ⭐ MOST IMPORTANT LINE
+  
+    const token = await AsyncStorage.getItem("accessToken");
+    console.log("TOKEN CHECK:", token);
 
-        if (token) {
-          dispatch({ type: "AUTH_START" });
-          const res = await authAPI.getMe();
-          dispatch({ type: "AUTH_SUCCESS", payload: res.data.data });
-        } else {
-          dispatch({ type: "SET_LOADING", payload: false });
-        }
+    if (token) {
+      try {
+        dispatch({ type: "AUTH_START" });
+
+        const res = await authAPI.getMe();
+        dispatch({ type: "AUTH_SUCCESS", payload: res.data.data });
+
       } catch (err) {
-        await AsyncStorage.removeItem("accessToken");
-        await AsyncStorage.removeItem("refreshToken");
+        console.log("❌ /auth/me failed", err);
+        await AsyncStorage.clear();
         dispatch({ type: "AUTH_FAILURE", payload: "Session expired" });
       }
-    };
+    } else {
+      dispatch({ type: "SET_LOADING", payload: false });
+    }
+  };
 
-    checkAuth();
-  }, []);
+  init();
+}, []);
+
+
 
   // ----------------------------------------------------
   // LOGIN
   // ----------------------------------------------------
   const login = async (credentials) => {
-    dispatch({ type: "AUTH_START" });
+  dispatch({ type: "AUTH_START" });
 
+  try {
     const res = await authAPI.login(credentials);
+
     const { accessToken, refreshToken, ...userData } = res.data.data;
 
     await AsyncStorage.setItem("accessToken", accessToken);
     await AsyncStorage.setItem("refreshToken", refreshToken);
 
+    // ⭐ Load token into axios cache immediately
+    await loadTokensToCache();
+
     dispatch({ type: "AUTH_SUCCESS", payload: userData });
-  };
+
+    return res.data.data;   // ⭐ VERY IMPORTANT (fixes your issue)
+  } catch (err) {
+    dispatch({ type: "AUTH_FAILURE", payload: err.response?.data?.message });
+    throw err;   // ❗ MUST throw to let LoginPage catch properly
+  }
+};
+
+
 
   // ----------------------------------------------------
   // REGISTER

@@ -76,3 +76,4 @@ ayucareapp/
 - For iOS simulator, use `localhost` or your machine's IP
 - For physical devices, use your computer's local network IP address
 
+
