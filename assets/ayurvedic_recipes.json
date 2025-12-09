@@ -1,0 +1,3209 @@
+[
+  {
+    "id": 1,
+    "name": "Basmati Rice",
+    "type": "whole_food",
+    "ingredients": ["1/2 cup basmati rice", "1 cup water"],
+    "instructions": "Rinse rice thoroughly. Cook with water in a pot or rice cooker until fluffy (about 15 mins).",
+    "preparation_time_min": 2,
+    "cooking_time_min": 15,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["light", "soft", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "neutral"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Moong Dal (Split Yellow Mung Beans)",
+    "type": "whole_food",
+    "ingredients": ["1/3 cup split yellow moong dal", "1 cup water", "pinch of turmeric", "pinch of salt"],
+    "instructions": "Rinse dal. Boil with turmeric and water until soft (20 mins). Season lightly.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 20,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["light", "dry", "soft"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Ghee (Clarified Butter)",
+    "type": "whole_food",
+    "ingredients": ["1/4 cup unsalted butter"],
+    "instructions": "Melt butter on low heat. Simmer until milk solids sink and turn golden. Strain through cheesecloth.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 15,
+    "servings": 1,
+    "allergy_info": ["dairy"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["unctuous", "heavy", "smooth", "soft"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Fresh Ginger",
+    "type": "whole_food",
+    "ingredients": ["1 small slice (5g) fresh ginger root"],
+    "instructions": "Peel and chew directly, or grate into tea.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent"],
+      "guna": ["light", "sharp", "dry"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Raw Honey",
+    "type": "whole_food",
+    "ingredients": ["1 tsp raw, unheated honey"],
+    "instructions": "Consume directly or mix in warm (not hot) water.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["honey"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["dry", "light", "rough"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Cow's Milk",
+    "type": "whole_food",
+    "ingredients": ["1 cup whole cow's milk", "pinch of cardamom (optional)"],
+    "instructions": "Gently boil milk with cardamom. Cool to warm before drinking.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 5,
+    "servings": 1,
+    "allergy_info": ["dairy"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["unctuous", "heavy", "cold", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Garlic",
+    "type": "whole_food",
+    "ingredients": ["1 raw garlic clove"],
+    "instructions": "Peel and chew, or mince into food.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent"],
+      "guna": ["light", "sharp", "penetrating"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Fresh Coconut",
+    "type": "whole_food",
+    "ingredients": ["1/4 cup fresh coconut meat"],
+    "instructions": "Scrape flesh from shell and eat fresh.",
+    "preparation_time_min": 5,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["tree nuts"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "cold", "unctuous"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Lemon",
+    "type": "whole_food",
+    "ingredients": ["1/2 lemon"],
+    "instructions": "Squeeze juice into warm water or use in dressings.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sour"],
+      "guna": ["light", "sharp"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 10,
+    "name": "Bitter Gourd (Karela)",
+    "type": "whole_food",
+    "ingredients": ["1/2 cup sliced bitter gourd", "pinch turmeric", "pinch salt", "1 tsp ghee"],
+    "instructions": "Sauté with ghee and spices to reduce bitterness.",
+    "preparation_time_min": 8,
+    "cooking_time_min": 12,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["bitter", "astringent"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Cumin Seeds",
+    "type": "whole_food",
+    "ingredients": ["1/2 tsp cumin seeds"],
+    "instructions": "Dry roast lightly or steep in hot water for tea.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 3,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent", "bitter"],
+      "guna": ["light", "dry"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "neutral",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Coriander Seeds",
+    "type": "whole_food",
+    "ingredients": ["1/2 tsp coriander seeds"],
+    "instructions": "Crush lightly and steep in hot water for 10 mins.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 10,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent", "bitter"],
+      "guna": ["light", "dry"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Fennel Seeds",
+    "type": "whole_food",
+    "ingredients": ["1 tsp fennel seeds"],
+    "instructions": "Chew directly or brew in hot water for 5–7 mins.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 7,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "pungent"],
+      "guna": ["light", "dry"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "neutral"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Turmeric",
+    "type": "whole_food",
+    "ingredients": ["1/4 tsp turmeric powder or 1 thin slice fresh root"],
+    "instructions": "Add to milk, soups, or rice dishes.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["bitter", "pungent"],
+      "guna": ["light", "dry", "sharp"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "neutral",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Cardamom",
+    "type": "whole_food",
+    "ingredients": ["2 green cardamom pods"],
+    "instructions": "Crush pods and add to milk or chew seeds.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "pungent"],
+      "guna": ["light", "dry"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Kitchari (Moong Dal + Rice)",
+    "type": "recipe",
+    "ingredients": ["2 tbsp basmati rice", "2 tbsp split moong dal", "1/2 tsp ghee", "1/4 tsp cumin seeds", "pinch turmeric", "pinch salt", "1 cup water"],
+    "instructions": "Sauté cumin in ghee. Add rinsed rice and dal, then water and turmeric. Simmer 20–25 mins until soft.",
+    "preparation_time_min": 5,
+    "cooking_time_min": 25,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["light", "soft", "unctuous"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Golden Milk (Turmeric Milk)",
+    "type": "recipe",
+    "ingredients": ["1 cup milk", "1/4 tsp turmeric", "1/8 tsp black pepper", "1/2 tsp ghee", "pinch cardamom", "1/2 tsp raw honey (optional)"],
+    "instructions": "Warm milk with turmeric, pepper, and ghee for 5 mins. Add honey after cooling slightly.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 7,
+    "servings": 1,
+    "allergy_info": ["dairy", "honey"],
+    "ayurveda": {
+      "rasa": ["sweet", "bitter", "pungent"],
+      "guna": ["unctuous", "heavy", "smooth"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "neutral"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Cumin-Coriander-Fennel Tea (CCF Tea)",
+    "type": "recipe",
+    "ingredients": ["1/4 tsp cumin seeds", "1/4 tsp coriander seeds", "1/4 tsp fennel seeds", "1 cup water"],
+    "instructions": "Boil seeds in water for 10 mins. Strain and drink warm.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 10,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent", "sweet", "bitter"],
+      "guna": ["light", "dry"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Coconut Chutney",
+    "type": "recipe",
+    "ingredients": ["2 tbsp fresh coconut", "2 tbsp cilantro", "1 small green chili", "1/2 inch ginger", "1/2 lemon juice", "pinch salt"],
+    "instructions": "Grind all ingredients into a smooth paste with a splash of water.",
+    "preparation_time_min": 8,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["tree nuts"],
+    "ayurveda": {
+      "rasa": ["sweet", "pungent", "sour"],
+      "guna": ["heavy", "unctuous", "sharp"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 20,
+    "name": "Ginger-Lemon-Honey Tea",
+    "type": "recipe",
+    "ingredients": ["1/2 inch ginger (sliced)", "1/2 lemon", "1 tsp raw honey", "1 cup hot water"],
+    "instructions": "Steep ginger in hot water for 5 mins. Add lemon and honey once cooled to warm.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 5,
+    "servings": 1,
+    "allergy_info": ["honey"],
+    "ayurveda": {
+      "rasa": ["pungent", "sour", "sweet"],
+      "guna": ["light", "dry", "sharp"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Oats Porridge with Ghee",
+    "type": "recipe",
+    "ingredients": ["1/4 cup rolled oats", "3/4 cup water or milk", "1/2 tsp ghee", "pinch cinnamon", "1 date (chopped)"],
+    "instructions": "Cook oats in liquid for 5 mins. Stir in ghee, cinnamon, and date.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 7,
+    "servings": 1,
+    "allergy_info": ["gluten", "dairy"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Mung Bean Soup",
+    "type": "recipe",
+    "ingredients": ["1/3 cup whole green mung beans (soaked)", "1/2 inch ginger", "1/4 tsp cumin", "pinch turmeric", "1/2 tsp ghee", "cilantro"],
+    "instructions": "Soak beans overnight. Simmer with spices for 30–40 mins. Finish with ghee.",
+    "preparation_time_min": 5,
+    "cooking_time_min": 40,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["light", "dry"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Almonds (Soaked & Peeled)",
+    "type": "whole_food",
+    "ingredients": ["4 raw almonds"],
+    "instructions": "Soak overnight. Peel skin and eat in the morning.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["tree nuts"],
+    "ayurveda": {
+      "rasa": ["sweet", "bitter"],
+      "guna": ["heavy", "unctuous", "rough"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Dates",
+    "type": "whole_food",
+    "ingredients": ["2 medjool dates"],
+    "instructions": "Pit and eat as is or blend into smoothies.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "neutral",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Sesame Seeds",
+    "type": "whole_food",
+    "ingredients": ["1 tbsp white sesame seeds"],
+    "instructions": "Dry roast 2–3 mins until fragrant. Cool and consume.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 3,
+    "servings": 1,
+    "allergy_info": ["sesame"],
+    "ayurveda": {
+      "rasa": ["sweet", "bitter"],
+      "guna": ["heavy", "unctuous", "hot"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Amla (Indian Gooseberry)",
+    "type": "whole_food",
+    "ingredients": ["1 fresh amla or 1/2 tsp powder"],
+    "instructions": "Eat raw (sour!) or mix powder in water.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sour", "sweet", "bitter", "astringent", "pungent"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Neem Leaves (in small quantity)",
+    "type": "whole_food",
+    "ingredients": ["2–3 fresh neem leaves"],
+    "instructions": "Chew directly or steep in hot water (use sparingly).",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["bitter"],
+      "guna": ["light", "dry", "sharp"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 28,
+    "name": "Tulsi (Holy Basil) Tea",
+    "type": "recipe",
+    "ingredients": ["8–10 tulsi leaves", "1 cup water", "optional: 1/2 inch ginger"],
+    "instructions": "Boil leaves (and ginger) in water for 7 mins. Strain.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 7,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent", "bitter"],
+      "guna": ["light", "dry", "sharp"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Jaggery",
+    "type": "whole_food",
+    "ingredients": ["1 small piece (10g) jaggery"],
+    "instructions": "Dissolve in warm water or use in recipes.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "moist"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 30,
+    "name": "Pumpkin Soup",
+    "type": "recipe",
+    "ingredients": ["1/2 cup pumpkin cubes", "1/4 cup coconut milk", "1/4 tsp cumin", "1/2 tsp ghee", "pinch salt"],
+    "instructions": "Steam pumpkin, blend with coconut milk and spices.",
+    "preparation_time_min": 6,
+    "cooking_time_min": 15,
+    "servings": 1,
+    "allergy_info": ["tree nuts"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Watermelon",
+    "type": "whole_food",
+    "ingredients": ["1 cup cubed watermelon"],
+    "instructions": "Eat fresh and chilled.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["light", "cold", "liquid"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Pomegranate",
+    "type": "whole_food",
+    "ingredients": ["1/2 cup pomegranate seeds"],
+    "instructions": "Deseed fruit and eat seeds directly.",
+    "preparation_time_min": 8,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent", "sour"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 33,
+    "name": "Celery",
+    "type": "whole_food",
+    "ingredients": ["2–3 stalks celery"],
+    "instructions": "Wash and chop. Eat raw or juice (max 2 stalks).",
+    "preparation_time_min": 4,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["bitter", "astringent"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Cilantro (Coriander Leaves)",
+    "type": "whole_food",
+    "ingredients": ["2 tbsp fresh cilantro"],
+    "instructions": "Chop and use as garnish or in chutneys.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["bitter", "astringent"],
+      "guna": ["light", "dry"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 35,
+    "name": "Mint",
+    "type": "whole_food",
+    "ingredients": ["5–6 fresh mint leaves"],
+    "instructions": "Chop into salads, teas, or chutneys.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent", "bitter"],
+      "guna": ["light", "dry", "sharp"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Quinoa (in moderation)",
+    "type": "whole_food",
+    "ingredients": ["1/4 cup quinoa", "1/2 cup water"],
+    "instructions": "Rinse well, cook like rice for 15 mins.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 15,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["astringent", "sweet"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "neutral",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 37,
+    "name": "Sweet Potato",
+    "type": "whole_food",
+    "ingredients": ["1 small sweet potato (100g)"],
+    "instructions": "Steam or bake until tender (20–25 mins).",
+    "preparation_time_min": 3,
+    "cooking_time_min": 25,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "neutral",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 38,
+    "name": "Beetroot",
+    "type": "whole_food",
+    "ingredients": ["1/2 cup cooked beetroot"],
+    "instructions": "Steam or roast. Eat warm or chilled.",
+    "preparation_time_min": 4,
+    "cooking_time_min": 30,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["heavy", "unctuous"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "neutral",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 39,
+    "name": "Asafoetida (Hing)",
+    "type": "whole_food",
+    "ingredients": ["a pinch (1/8 tsp) asafoetida powder"],
+    "instructions": "Add to hot oil before cooking lentils.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent"],
+      "guna": ["light", "sharp", "penetrating"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 40,
+    "name": "Cinnamon",
+    "type": "whole_food",
+    "ingredients": ["1/4 tsp cinnamon powder or 1 small stick"],
+    "instructions": "Add to milk, oatmeal, or teas.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent", "sweet"],
+      "guna": ["light", "dry", "sharp"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Triphala Tea",
+    "type": "recipe",
+    "ingredients": ["1/2 tsp triphala powder", "1 cup hot water"],
+    "instructions": "Steep powder in hot water for 10 mins. Strain if gritty.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 10,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["bitter", "astringent", "sour"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 42,
+    "name": "Avocado",
+    "type": "whole_food",
+    "ingredients": ["1/2 ripe avocado"],
+    "instructions": "Scoop flesh, sprinkle with lemon and salt.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "neutral",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 43,
+    "name": "Chia Pudding (Ayurvedic-style)",
+    "type": "recipe",
+    "ingredients": ["1 tbsp chia seeds", "1/2 cup coconut milk", "pinch cardamom", "1 date (chopped)"],
+    "instructions": "Mix all, refrigerate overnight. Blend before serving if desired.",
+    "preparation_time_min": 5,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["tree nuts"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "unctuous", "cold"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 44,
+    "name": "Black Pepper",
+    "type": "whole_food",
+    "ingredients": ["1/8 tsp freshly ground black pepper"],
+    "instructions": "Add to food or teas to enhance absorption.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["pungent"],
+      "guna": ["light", "sharp", "dry"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 45,
+    "name": "Licorice Root (Yashtimadhu)",
+    "type": "whole_food",
+    "ingredients": ["1/4 tsp licorice powder"],
+    "instructions": "Steep in hot water for 5–7 mins. Avoid if hypertensive.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 7,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet"],
+      "guna": ["heavy", "smooth", "unctuous"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 46,
+    "name": "Barley Soup",
+    "type": "recipe",
+    "ingredients": ["3 tbsp pearl barley", "1/2 cup mixed veggies", "1/4 tsp cumin", "1/2 tsp ghee", "1 cup water"],
+    "instructions": "Simmer barley and veggies in water with spices for 30 mins.",
+    "preparation_time_min": 6,
+    "cooking_time_min": 30,
+    "servings": 1,
+    "allergy_info": ["gluten"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["light", "dry", "rough"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "pacifying"
+    }
+  },
+  {
+    "id": 47,
+    "name": "Rose Petal Jam (Gulkand)",
+    "type": "whole_food",
+    "ingredients": ["1 tsp gulkand (rose petal preserve)"],
+    "instructions": "Consume directly or mix in milk.",
+    "preparation_time_min": 1,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["none"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["heavy", "smooth", "cool"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "neutral"
+    }
+  },
+  {
+    "id": 48,
+    "name": "Saffron Milk",
+    "type": "recipe",
+    "ingredients": ["1 cup milk", "2–3 saffron strands", "1/2 tsp ghee", "1/2 tsp raw honey"],
+    "instructions": "Warm milk with saffron and ghee. Add honey once warm.",
+    "preparation_time_min": 2,
+    "cooking_time_min": 6,
+    "servings": 1,
+    "allergy_info": ["dairy", "honey"],
+    "ayurveda": {
+      "rasa": ["sweet", "bitter"],
+      "guna": ["unctuous", "heavy", "smooth"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 49,
+    "name": "Cucumber Raita",
+    "type": "recipe",
+    "ingredients": ["1/4 cup yogurt", "1/4 cup grated cucumber", "pinch cumin", "2 mint leaves", "pinch rock salt"],
+    "instructions": "Mix all ingredients. Chill 10 mins before serving.",
+    "preparation_time_min": 6,
+    "cooking_time_min": 0,
+    "servings": 1,
+    "allergy_info": ["dairy"],
+    "ayurveda": {
+      "rasa": ["sweet", "astringent"],
+      "guna": ["cold", "heavy", "unctuous"],
+      "virya": "cooling"
+    },
+    "prakriti": {
+      "vata": "aggravating",
+      "pitta": "pacifying",
+      "kapha": "aggravating"
+    }
+  },
+  {
+    "id": 50,
+    "name": "Ashwagandha Milk",
+    "type": "recipe",
+    "ingredients": ["1 cup milk", "1/2 tsp ashwagandha powder", "1/2 tsp ghee", "1 date", "pinch cardamom"],
+    "instructions": "Simmer milk with ashwagandha and cardamom for 5 mins. Blend with date and ghee.",
+    "preparation_time_min": 3,
+    "cooking_time_min": 7,
+    "servings": 1,
+    "allergy_info": ["dairy"],
+    "ayurveda": {
+      "rasa": ["bitter", "astringent"],
+      "guna": ["heavy", "unctuous", "rough"],
+      "virya": "heating"
+    },
+    "prakriti": {
+      "vata": "pacifying",
+      "pitta": "aggravating",
+      "kapha": "aggravating"
+    }
+  },
+
+{
+  "id": 51,
+  "name": "Spinach (Palak)",
+  "type": "whole_food",
+  "ingredients": ["1 cup fresh spinach leaves (30g)"],
+  "instructions": "Wash thoroughly. Steam lightly or sauté with a pinch of cumin and ghee for 3–5 minutes. Avoid overcooking.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 5,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating",
+    "pitta": "pacifying",
+    "kapha": "pacifying"
+  }
+},
+
+
+{
+  "id": 52,
+  "name": "Meetha Neem (Moringa Leaves / Sahjan Ke Patte)",
+  "type": "whole_food",
+  "ingredients": ["1/2 cup fresh moringa leaves, washed (approx. 30g)"],
+  "instructions": "Wash thoroughly. Sauté in ghee with cumin seeds, turmeric, and a pinch of asafoetida for 4–6 minutes until wilted and fragrant. Can be added to dal, khichdi, or made into a light soup. Avoid overcooking to preserve nutrients.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 6,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "sweet (post-digestive)"],
+    "guna": ["light", "dry"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating if eaten dry or raw; pacifying when cooked with ghee and spices",
+    "pitta": "neutral to slightly aggravating (bitter + heating); use in moderation during high pitta",
+    "kapha": "highly pacifying (excellent for clearing mucus, boosting metabolism, and reducing fat)"
+  }
+},
+
+{
+  "id": 53,
+  "name": "Chana Chana (Whole Chickpea Curry)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup dried whole chickpeas (chana), soaked overnight (approx. 200g)",
+    "1 tbsp ghee or coconut oil",
+    "1/2 tsp cumin seeds",
+    "1 small onion, finely chopped",
+    "1 small tomato, chopped",
+    "1/2 tsp grated ginger",
+    "1 green chili, slit (optional)",
+    "1/2 tsp turmeric powder",
+    "1/2 tsp coriander powder",
+    "1/4 tsp cumin powder",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "1.5 cups water",
+    "Fresh coriander leaves for garnish (optional)"
+  ],
+  "instructions": "Soak whole chickpeas overnight and drain. In a pressure cooker or pot, add soaked chickpeas and enough water to cover; cook until tender (about 3–4 whistles or 45–60 minutes on stove). In a separate pan, heat ghee. Add cumin seeds and let them sizzle. Add hing, ginger, green chili, and sauté for 30 seconds. Add onions and cook until golden. Stir in tomatoes, turmeric, coriander, and cumin powders; cook until oil separates. Add cooked chickpeas with some of their cooking water. Simmer for 10–15 minutes to blend flavors. Garnish with fresh coriander if desired. Serve warm with rice or flatbread.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 60,
+  "servings": 3,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["heavy", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (especially if undercooked or eaten in excess; better when well-cooked with digestive spices)",
+    "pitta": "neutral to slightly pacifying",
+    "kapha": "aggravating (due to heaviness and bulk)"
+  }
+},
+{
+  "id": 54,
+  "name": "Masoor Dal (Red Lentil Curry)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup whole or split red masoor dal (approx. 200g)",
+    "1 tbsp ghee or coconut oil",
+    "1/2 tsp cumin seeds",
+    "1 small onion, finely chopped",
+    "1 small tomato, chopped",
+    "1/2 tsp grated ginger",
+    "1 green chili, slit (optional)",
+    "1/2 tsp turmeric powder",
+    "1/2 tsp coriander powder",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "2–2.5 cups water",
+    "Fresh coriander leaves for garnish (optional)"
+  ],
+  "instructions": "Rinse masoor dal thoroughly until water runs clear. In a pot, combine dal and water; bring to a boil, then simmer for 15–20 minutes (or 3–4 whistles in a pressure cooker) until soft and mushy. In a separate pan, heat ghee. Add cumin seeds and let them sizzle. Add hing, ginger, and green chili; sauté 30 seconds. Add onions and cook until translucent. Stir in tomatoes, turmeric, and coriander powder; cook until oil begins to separate. Add the cooked dal and mix well. Simmer for 5–10 minutes to blend flavors. Adjust consistency with warm water if needed. Garnish with fresh coriander and serve warm with rice or roti.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 25,
+  "servings": 3,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "soft"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (especially when cooked well with digestive spices)",
+    "pitta": "pacifying",
+    "kapha": "neutral to slightly aggravating in excess (due to mild heaviness)"
+  }
+},
+{
+  "id": 55,
+  "name": "Idli (Fermented Rice & Urad Dal Steamed Cakes)",
+  "type": "whole_food",
+  "ingredients": [
+    "1/2 cup urad dal (black gram, skinned)",
+    "1.5 cups idli rice or parboiled rice",
+    "1/4 tsp fenugreek seeds (optional, aids fermentation)",
+    "Salt to taste",
+    "Water as needed for grinding"
+  ],
+  "instructions": "Soak urad dal and rice separately for 4–6 hours. Grind urad dal with fenugreek to a light, fluffy batter. Grind rice to a slightly coarse texture. Mix both batters with salt, cover, and ferment in a warm place for 8–12 hours until doubled in volume. Stir gently, pour into greased idli molds, and steam for 10–12 minutes. Cool slightly before unmolding. Serve with coconut chutney or sambar.",
+  "preparation_time_min": 30,
+  "cooking_time_min": 12,
+  "servings": 4,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "soft", "unctuous"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (when well-fermented and eaten warm with ghee or digestive accompaniments)",
+    "pitta": "pacifying",
+    "kapha": "slightly aggravating in excess (due to heaviness from fermentation and rice); best eaten in moderation with ginger or black pepper"
+  }
+},
+{
+  "id": 56,
+  "name": "Dhokla (Steamed Fermented Chickpea Flour Snack)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup besan (chickpea flour / gram flour)",
+    "1/4 cup yogurt (optional, for fermentation aid)",
+    "1/2 tsp ginger-green chili paste",
+    "1/4 tsp turmeric powder",
+    "1/2 tsp baking soda or Eno fruit salt (for instant version)",
+    "1/2 tsp mustard seeds (for tempering)",
+    "1/2 tsp sesame seeds (for tempering)",
+    "A few curry leaves",
+    "1 tbsp oil or ghee",
+    "1–1.25 cups water",
+    "Salt to taste",
+    "Lemon juice or fresh coriander for garnish (optional)"
+  ],
+  "instructions": "Mix besan, salt, turmeric, ginger-chili paste, and enough water to make a smooth, thick batter. For fermented version, let sit 4–6 hours in warm place; for instant, skip fermentation and use Eno/baking soda. Just before steaming, add baking soda or Eno and mix quickly. Pour into greased steamer tray and steam for 15–20 minutes. Let cool slightly, then cut into diamonds. Heat oil, temper with mustard seeds, sesame seeds, and curry leaves. Pour over dhokla. Garnish with coriander or lemon juice. Serve warm or at room temperature.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 20,
+  "servings": 3,
+  "allergy_info": ["legumes", "dairy (if yogurt used)"],
+  "ayurveda": {
+    "rasa": ["astringent", "slightly sweet"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "neutral to slightly aggravating (due to dryness of besan); balance with ghee or coconut chutney",
+    "pitta": "pacifying (especially when not overly spiced)",
+    "kapha": "pacifying (light, dry, and steamed—ideal in moderation)"
+  }
+},
+{
+  "id": 57,
+  "name": "Poha (Flattened Rice Stir-Fry)",
+  "type": "whole_food",
+  "ingredients": [
+    "1.5 cups thick poha (flattened rice)",
+    "1 tbsp ghee or coconut oil",
+    "1/2 tsp mustard seeds",
+    "1/2 tsp cumin seeds",
+    "1 small onion, finely chopped",
+    "1/2 tsp grated ginger",
+    "1 green chili, slit",
+    "1/4 tsp turmeric powder",
+    "1 small potato, boiled and diced (optional)",
+    "A few curry leaves",
+    "Salt to taste",
+    "Fresh coriander and lemon juice for garnish",
+    "Water or warm milk for rinsing poha (minimal)"
+  ],
+  "instructions": "Rinse poha quickly under water and drain well—do not soak. Heat ghee in a pan. Add mustard and cumin seeds; let them pop. Add curry leaves, ginger, green chili, and sauté 30 seconds. Add onion and potato (if using); cook until soft. Stir in turmeric and salt. Add drained poha, mix gently, and cook 2–3 minutes on low heat. Garnish with coriander and lemon juice. Serve warm.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 8,
+  "servings": 2,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating (due to dryness); balance with ghee and warm spices like cumin",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light and dry—ideal in moderation)"
+  }
+},
+{
+  "id": 58,
+  "name": "Rajma (Kidney Bean Curry)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup dried kidney beans (rajma), soaked overnight",
+    "1.5 tbsp ghee or oil",
+    "1 tsp cumin seeds",
+    "1 medium onion, finely chopped",
+    "1 tbsp ginger-garlic paste",
+    "1 medium tomato, pureed",
+    "1/2 tsp turmeric powder",
+    "1 tsp coriander powder",
+    "1/2 tsp cumin powder",
+    "1/4 tsp garam masala (optional)",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "3 cups water (plus soaking/cooking water)",
+    "Fresh coriander for garnish"
+  ],
+  "instructions": "Soak rajma overnight (8–12 hours). Drain and pressure cook with fresh water until very soft (4–5 whistles or 45–60 mins). In a pan, heat ghee. Add cumin seeds and hing; sauté 30 seconds. Add onions, cook until golden. Add ginger-garlic paste; cook 2 mins. Stir in tomato puree, turmeric, coriander, and cumin powders; cook until oil separates. Add cooked rajma with some broth. Simmer 10–15 mins. Finish with garam masala and coriander. Serve hot with rice.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 60,
+  "servings": 3,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["heavy", "dense"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (heavy and hard to digest; best with digestive spices like ginger, hing, and cumin)",
+    "pitta": "neutral to slightly pacifying",
+    "kapha": "aggravating (due to heaviness and bulk); consume in small portions"
+  }
+},
+{
+  "id": 59,
+  "name": "Arhar Dal (Split Pigeon Pea Curry)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup split arhar dal (toor dal)",
+    "1.5 tbsp ghee",
+    "1/2 tsp mustard seeds",
+    "1/2 tsp cumin seeds",
+    "1 small onion, finely chopped (optional)",
+    "1 small tomato, chopped",
+    "1/2 tsp turmeric powder",
+    "1/2 tsp coriander powder",
+    "1/4 tsp red chili powder (optional)",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "2.5 cups water",
+    "Fresh coriander for garnish (optional)"
+  ],
+  "instructions": "Wash toor dal thoroughly. Cook with water and turmeric in a pressure cooker for 3–4 whistles or until soft and mushy. In a separate pan, heat ghee. Add mustard and cumin seeds; let them splutter. Add hing, then onions (if using), and sauté until golden. Add tomatoes and spices; cook until oil separates. Pour in cooked dal, mix well, and simmer 5–7 minutes. Garnish and serve warm with rice or roti.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 25,
+  "servings": 3,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "soft"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (one of the most vata-friendly dals when well-cooked with ghee and hing)",
+    "pitta": "pacifying",
+    "kapha": "neutral (lighter than other dals; fine in moderation)"
+  }
+},
+{
+  "id": 60,
+  "name": "Groundnut (Roasted Peanuts)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup raw peanuts (with or without skin)",
+    "Pinch of rock salt (sendha namak) or sea salt (optional)",
+    "1/4 tsp turmeric (optional, for seasoning)"
+  ],
+  "instructions": "Dry roast raw peanuts in a heavy pan on low-medium heat, stirring constantly, until golden and fragrant (8–10 mins). Alternatively, roast in oven at 180°C (350°F) for 12–15 mins. Cool, then rub off skins if desired. Lightly sprinkle with salt and turmeric. Store in an airtight container. Consume in moderation (1–2 tbsp per serving).",
+  "preparation_time_min": 5,
+  "cooking_time_min": 10,
+  "servings": 4,
+  "allergy_info": ["peanuts", "tree nuts"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["heavy", "unctuous", "oily"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying (oily and nourishing—excellent in small amounts)",
+    "pitta": "aggravating (due to heating potency and oiliness); avoid in excess or during summer",
+    "kapha": "aggravating (heavy, oily, and dense); consume sparingly or avoid"
+  }
+},
+{
+  "id": 61,
+  "name": "Carrot (Gajar)",
+  "type": "whole_food",
+  "ingredients": ["1 medium carrot, peeled and sliced or grated (approx. 70g)"],
+  "instructions": "Wash thoroughly and peel if not organic. Eat raw for crispness and maximum nutrients, or steam/sauté lightly in ghee with a pinch of cumin for 5–7 minutes until tender-crisp. Avoid prolonged cooking to preserve beta-carotene and vitamin C.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 5,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "slightly oily"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying (sweet and grounding; best cooked with ghee)",
+    "pitta": "neutral to slightly aggravating (due to heating virya); balance with cooling herbs like coriander or eat raw in moderation",
+    "kapha": "slightly aggravating in excess (sweet taste increases kapha); best consumed cooked and spiced with ginger or black pepper"
+  }
+},
+{
+  "id": 62,
+  "name": "Onion (Pyaaz)",
+  "type": "whole_food",
+  "ingredients": ["1 medium onion, raw or cooked (approx. 100g)"],
+  "instructions": "Peel and slice, chop, or grate as needed. For raw use (e.g., in salads), soak briefly in water or lemon juice to reduce sharpness. For cooking, sauté in ghee or oil with cumin or mustard seeds until golden—5–8 minutes. Can be used as a base for dals, curries, or stir-fries. Avoid excessive frying to prevent pitta aggravation.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 8,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "sweet"],
+    "guna": ["heavy", "unctuous", "slimy"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying (unctuous and grounding; especially when cooked)",
+    "pitta": "aggravating (due to pungent taste and heating potency); best used in small amounts or well-cooked with cooling spices like coriander",
+    "kapha": "aggravating (heavy, sweet, and slimy qualities increase kapha); use sparingly and balance with ginger, black pepper, or turmeric"
+  }
+},
+{
+  "id": 63,
+  "name": "Lahsun (Garlic)",
+  "type": "whole_food",
+  "ingredients": ["2–3 cloves fresh garlic (approx. 10g)"],
+  "instructions": "Peel garlic cloves. Use raw for maximum medicinal potency (e.g., in chutneys or infused honey), or sauté gently in ghee or oil for 1–2 minutes to mellow its sharpness. Avoid overcooking or high-heat frying, which can create irritants. Often used as a flavor base in dals, soups, and kitchari.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent"],
+    "guna": ["light", "unctuous", "sharp"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying (warm, oily, and grounding; excellent for circulation and digestion)",
+    "pitta": "aggravating (strong heating and sharp qualities); use in very small amounts or avoid in excess, especially during summer or pitta imbalance",
+    "kapha": "pacifying (stimulates digestion, clears congestion, and reduces stagnation)"
+  }
+},
+{
+  "id": 64,
+  "name": "Beans (Green Beans / French Beans)",
+  "type": "whole_food",
+  "ingredients": ["1 cup fresh green beans, trimmed and chopped (approx. 100g)"],
+  "instructions": "Wash thoroughly. Steam or sauté in ghee with a pinch of cumin and turmeric for 5–7 minutes until tender-crisp. Avoid overcooking to retain nutrients and texture.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating (due to dryness); balance with ghee and spices",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light and diuretic)"
+  }
+},
+{
+  "id": 65,
+  "name": "Sesame Seeds (Til)",
+  "type": "whole_food",
+  "ingredients": ["1 tbsp raw or lightly roasted white sesame seeds (approx. 10g)"],
+  "instructions": "Dry roast on low heat for 2–3 minutes until golden and fragrant. Cool and store in an airtight container. Use in chutneys, laddoos, or sprinkle over vegetables. Best consumed with jaggery or dates for balance.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 3,
+  "servings": 1,
+  "allergy_info": ["sesame"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent", "bitter"],
+    "guna": ["heavy", "unctuous", "oily"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (warm, oily, nourishing—ideal in winter)",
+    "pitta": "aggravating in excess (heating); use sparingly in summer",
+    "kapha": "aggravating (heavy and oily); consume in very small amounts"
+  }
+},
+{
+  "id": 66,
+  "name": "Lal Bhaji (Red Amaranth Greens)",
+  "type": "whole_food",
+  "ingredients": ["1 cup fresh red amaranth leaves, chopped (approx. 40g)"],
+  "instructions": "Wash thoroughly. Sauté in ghee with cumin seeds, a pinch of asafoetida, and green chili for 4–6 minutes until wilted but still vibrant. Add a splash of water if needed. Avoid overcooking.",
+  "preparation_time_min": 4,
+  "cooking_time_min": 6,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["astringent", "bitter"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and rough qualities); always cook with ghee and digestive spices",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light and detoxifying)"
+  }
+},
+{
+  "id": 67,
+  "name": "Apple (Seb)",
+  "type": "whole_food",
+  "ingredients": ["1 medium apple, washed and cored (approx. 150g)"],
+  "instructions": "Eat raw with skin (if organic) for fiber. For vata balance, stew with cinnamon and a drop of ghee. Best consumed between meals—not with dairy or heavy meals.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating raw (dry quality); pacifying when cooked with warming spices",
+    "pitta": "pacifying (cooling and soothing)",
+    "kapha": "pacifying (astringent quality helps reduce kapha)"
+  }
+},
+{
+  "id": 68,
+  "name": "Orange (Santra)",
+  "type": "whole_food",
+  "ingredients": ["1 medium orange, peeled (approx. 130g)"],
+  "instructions": "Eat fresh segments between meals. Avoid combining with dairy or starches. Best consumed alone for optimal digestion.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "sour"],
+    "guna": ["light", "liquid"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "neutral to slightly aggravating (sour can stimulate vata if excessive); consume in moderation",
+    "pitta": "aggravating in excess (due to sour taste and citric acid); limit during pitta imbalance",
+    "kapha": "pacifying (light and detoxifying; excellent in morning)"
+  }
+},
+{
+  "id": 69,
+  "name": "Wheat Flour (Whole Wheat Atta)",
+  "type": "whole_food",
+  "ingredients": ["1 cup whole wheat flour (approx. 120g)"],
+  "instructions": "Use to make roti, paratha, or porridge. Always combine with digestive spices (ajwain, cumin) or ghee for easier digestion. Avoid if gluten-sensitive.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 10,
+  "servings": 2,
+  "allergy_info": ["gluten", "wheat"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "dense", "sticky"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (grounding and nourishing)",
+    "pitta": "neutral to slightly pacifying (cooling virya)",
+    "kapha": "aggravating (heavy and dense); best avoided or used minimally in kapha imbalance"
+  }
+},
+{
+  "id": 70,
+  "name": "Rice Flour (Chawal ka Atta)",
+  "type": "whole_food",
+  "ingredients": ["1 cup rice flour (approx. 120g)"],
+  "instructions": "Use for gluten-free dosa, pancakes, or thickening soups. Lighter than wheat but still starchy—best combined with lentils or vegetables for balance.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 8,
+  "servings": 2,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating (dry); balance with ghee or coconut milk",
+    "pitta": "pacifying",
+    "kapha": "neutral to slightly aggravating in excess (starchy); use in moderation"
+  }
+},
+{
+  "id": 71,
+  "name": "Corn Flour (Makai ka Atta)",
+  "type": "whole_food",
+  "ingredients": ["1 cup corn flour (approx. 120g)"],
+  "instructions": "Use to make roti, porridge, or as a thickener. Best consumed warm with ghee and digestive spices like black pepper or ginger to aid digestion.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 10,
+  "servings": 2,
+  "allergy_info": ["corn"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (rough and drying); use only with ample ghee and warm liquids",
+    "pitta": "aggravating (heating potency); avoid in summer or pitta imbalance",
+    "kapha": "neutral to slightly aggravating (heavy); consume in small amounts"
+  }
+},
+{
+  "id": 72,
+  "name": "Pea (Matar)",
+  "type": "whole_food",
+  "ingredients": ["1/2 cup fresh or frozen green peas (approx. 75g)"],
+  "instructions": "Steam or sauté in ghee with cumin, ginger, and a pinch of turmeric for 5–7 minutes. Avoid overcooking. Can be added to rice, dals, or stir-fries.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "slightly oily"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "neutral to slightly aggravating (heavy); balance with digestive spices",
+    "pitta": "pacifying",
+    "kapha": "aggravating (sweet and heavy); use sparingly"
+  }
+},
+{
+  "id": 73,
+  "name": "Corn (Makai / Sweet Corn)",
+  "type": "whole_food",
+  "ingredients": ["1 cob fresh corn or 1/2 cup corn kernels (approx. 85g)"],
+  "instructions": "Boil or steam kernels for 5–7 minutes. Alternatively, sauté in ghee with black pepper and salt. Best eaten warm and not combined with dairy.",
+  "preparation_time_min": 4,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["corn"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (rough and hard to digest); consume only with ghee and digestive spices",
+    "pitta": "aggravating (heating); avoid in excess during summer",
+    "kapha": "aggravating (sweet and starchy); limit intake"
+  }
+},
+{
+  "id": 74,
+  "name": "Cabbage (Patta Gobi)",
+  "type": "whole_food",
+  "ingredients": ["1 cup shredded cabbage (approx. 80g)"],
+  "instructions": "Wash thoroughly. Lightly sauté in ghee with cumin seeds, turmeric, and a pinch of asafoetida for 5–7 minutes until tender-crisp. Avoid raw consumption if vata is imbalanced.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and gassy); always cook with ghee and digestive spices",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light and detoxifying)"
+  }
+},
+{
+  "id": 75,
+  "name": "Radish (Mooli)",
+  "type": "whole_food",
+  "ingredients": ["1/2 cup sliced white radish (approx. 60g)"],
+  "instructions": "Peel if skin is tough. Eat raw in small amounts in salads, or better yet, sauté or steam with cumin, black pepper, and a touch of ghee for 6–8 minutes. Avoid excess raw consumption.",
+  "preparation_time_min": 4,
+  "cooking_time_min": 8,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "bitter"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (drying and stimulating); use only cooked with oil/spices",
+    "pitta": "aggravating (heating and pungent); avoid in excess or during pitta imbalance",
+    "kapha": "highly pacifying (cleansing, decongestant, and metabolic stimulant)"
+  }
+},
+{
+  "id": 76,
+  "name": "Lemon (Nimbu)",
+  "type": "whole_food",
+  "ingredients": ["1/2 lemon, juiced (approx. 15ml)"],
+  "instructions": "Use fresh juice in warm water (not hot) for digestion, or add a few drops to cooked dishes at the end. Avoid combining with milk or yogurt.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sour", "astringent"],
+    "guna": ["light", "liquid"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying in small amounts (sour taste grounds vata)",
+    "pitta": "aggravating in excess (sour increases acidity); use very moderately",
+    "kapha": "highly pacifying (stimulates digestion and clears congestion)"
+  }
+},
+{
+  "id": 77,
+  "name": "Beetroot (Chukandar)",
+  "type": "whole_food",
+  "ingredients": ["1 medium beetroot, peeled and grated or cubed (approx. 100g)"],
+  "instructions": "Steam or roast until tender (20–25 mins). Can be eaten warm with cumin and ghee. Raw beet juice is potent—use sparingly and only in pitta-balanced individuals.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 25,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["heavy", "unctuous"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (moist, grounding)",
+    "pitta": "pacifying (cooling and blood-purifying)",
+    "kapha": "slightly aggravating (heavy and sweet); consume in moderation"
+  }
+},
+{
+  "id": 78,
+  "name": "Cauliflower (Gobi)",
+  "type": "whole_food",
+  "ingredients": ["1 cup cauliflower florets (approx. 100g)"],
+  "instructions": "Wash and steam or sauté in ghee with turmeric, ginger, and cumin for 6–8 minutes. Avoid overcooking. Best served warm with digestive spices.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 8,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and gassy); always cook well with oil and spices",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light and detoxifying)"
+  }
+},
+{
+  "id": 79,
+  "name": "Potato (Aloo)",
+  "type": "whole_food",
+  "ingredients": ["1 medium potato, peeled and cubed (approx. 150g)"],
+  "instructions": "Boil, steam, or sauté in ghee with cumin, turmeric, and a pinch of hing for 10–12 minutes. Avoid frying. Eat warm and in moderation.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 12,
+  "servings": 1,
+  "allergy_info": ["nightshades (solanine)"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "slimy", "dense"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (grounding and moist)",
+    "pitta": "neutral to slightly pacifying",
+    "kapha": "aggravating (heavy, sweet, and starchy); limit intake"
+  }
+},
+{
+  "id": 80,
+  "name": "Sweet Potato (Shakarkandi)",
+  "type": "whole_food",
+  "ingredients": ["1 medium sweet potato, peeled and cubed (approx. 130g)"],
+  "instructions": "Steam or bake until tender (20–25 mins). For balance, add a pinch of cinnamon or black pepper. Avoid excessive oil or sugar.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 25,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "unctuous", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (nourishing and grounding)",
+    "pitta": "aggravating in excess (sweet + heating); consume moderately",
+    "kapha": "aggravating (sweet and heavy); best avoided during kapha imbalance"
+  }
+},
+{
+  "id": 81,
+  "name": "Tomato (Tamatar)",
+  "type": "whole_food",
+  "ingredients": ["1 medium tomato, chopped or cooked (approx. 120g)"],
+  "instructions": "Best used cooked—sauté in ghee with spices until oil separates. Raw use may aggravate pitta; avoid combining with dairy or cucumber.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 6,
+  "servings": 1,
+  "allergy_info": ["nightshades"],
+  "ayurveda": {
+    "rasa": ["sour", "sweet"],
+    "guna": ["heavy", "slimy", "liquid"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying in cooked form (moist and sour)",
+    "pitta": "aggravating (sour + heating; increases acidity); minimize or avoid",
+    "kapha": "slightly aggravating (slimy and heavy); use in small cooked amounts"
+  }
+},
+{
+  "id": 82,
+  "name": "Green Methi (Fresh Fenugreek Leaves)",
+  "type": "whole_food",
+  "ingredients": ["1/2 cup chopped fresh methi leaves (approx. 30g)"],
+  "instructions": "Wash well. Sauté in ghee with cumin, turmeric, and a pinch of hing for 4–6 minutes until reduced and aromatic. Avoid raw use due to bitterness.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 6,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and bitter); always cook with ghee and spices",
+    "pitta": "pacifying (cooling and detoxifying)",
+    "kapha": "highly pacifying (reduces fat, clears mucus, stimulates metabolism)"
+  }
+},
+{
+  "id": 83,
+  "name": "Methi Seeds (Fenugreek Seeds)",
+  "type": "whole_food",
+  "ingredients": ["1/2 tsp methi seeds (approx. 2g)"],
+  "instructions": "Dry roast lightly to reduce bitterness, or soak overnight and consume on empty stomach for blood sugar support. More commonly used as a spice—temper 1/4–1/2 tsp in hot oil before adding other ingredients.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "sweet"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating in excess (drying); balance with ghee or milk if used medicinally",
+    "pitta": "neutral to slightly aggravating (bitter pacifies, but heating may irritate); use moderately",
+    "kapha": "highly pacifying (excellent for metabolism, digestion, and clearing ama)"
+  }
+},
+{
+  "id": 84,
+  "name": "Kaju (Cashew Nuts)",
+  "type": "whole_food",
+  "ingredients": ["2–3 raw or soaked cashew nuts (approx. 15g)"],
+  "instructions": "Soak in water for 2–4 hours to improve digestibility. Consume raw, blend into milk, or use in savory sauces. Avoid frying or excessive roasting.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["tree nuts"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "unctuous", "oily"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (nourishing and grounding)",
+    "pitta": "aggravating in excess (heating and oily); limit intake in summer or pitta imbalance",
+    "kapha": "aggravating (heavy and sweet); consume in very small amounts"
+  }
+},
+{
+  "id": 85,
+  "name": "Kishmish (Golden Raisins)",
+  "type": "whole_food",
+  "ingredients": ["1 tbsp golden raisins (approx. 15g)"],
+  "instructions": "Soak in warm water for 10–15 minutes to plump. Eat alone, add to milk, or use in rice dishes. Best consumed mid-morning for energy.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["sulfites (in some processed varieties)"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "unctuous", "moist"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (lubricating and nutritive)",
+    "pitta": "pacifying (cooling and soothing)",
+    "kapha": "aggravating (sweet and heavy); use sparingly or with ginger/saunf"
+  }
+},
+{
+  "id": 86,
+  "name": "Anjeer (Dried Fig)",
+  "type": "whole_food",
+  "ingredients": ["1–2 dried figs (approx. 20g)"],
+  "instructions": "Soak overnight in water. Consume in the morning on empty stomach or blend into warm milk. Excellent for digestion and elimination.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "unctuous", "dense"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (moist, grounding, and laxative in nature)",
+    "pitta": "pacifying",
+    "kapha": "aggravating (heavy and sweet); consume only occasionally and with digestive spices"
+  }
+},
+{
+  "id": 87,
+  "name": "Munakka (Black Raisins)",
+  "type": "whole_food",
+  "ingredients": ["1 tbsp munakka (approx. 15g)"],
+  "instructions": "Soak in warm water for 15 minutes. Eat directly or add to desserts. Often used in Ayurvedic remedies for anemia and weakness.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "unctuous"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (nourishing and blood-building)",
+    "pitta": "pacifying",
+    "kapha": "aggravating (sweet and dense); best taken with black pepper or saunf"
+  }
+},
+{
+  "id": 88,
+  "name": "Badam (Almond)",
+  "type": "whole_food",
+  "ingredients": ["4–6 soaked and peeled almonds (approx. 20g)"],
+  "instructions": "Soak overnight, peel skin in the morning, and eat on empty stomach. Can be ground into paste for milk or desserts. Avoid dry/raw consumption.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["tree nuts"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter (skin)"],
+    "guna": ["heavy", "unctuous", "oily"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (nourishes nerves and tissues)",
+    "pitta": "neutral to slightly aggravating (heating); peel skin to reduce pitta effect",
+    "kapha": "aggravating (heavy and oily); consume in strict moderation"
+  }
+},
+{
+  "id": 89,
+  "name": "Akhrot (Walnut)",
+  "type": "whole_food",
+  "ingredients": ["2 walnut halves (approx. 15g)"],
+  "instructions": "Soak for 4–6 hours to reduce astringency. Eat in the morning or add to warm milk. Best consumed during colder months.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["tree nuts"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent", "bitter"],
+    "guna": ["heavy", "unctuous", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (excellent for brain, nerves, and dryness)",
+    "pitta": "aggravating (heating and bitter); avoid in excess or during summer",
+    "kapha": "aggravating (heavy and oily); use only in small doses"
+  }
+},
+{
+  "id": 90,
+  "name": "Saunf (Fennel Seeds)",
+  "type": "whole_food",
+  "ingredients": ["1/2 tsp fennel seeds (approx. 2g)"],
+  "instructions": "Chew raw after meals to aid digestion and freshen breath. Or steep in hot water for 5–10 minutes to make a soothing tea. Can be dry roasted for enhanced flavor.",
+  "preparation_time_min": 1,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (carminative and calming)",
+    "pitta": "highly pacifying (cooling, anti-inflammatory)",
+    "kapha": "pacifying (light and clears mucus)"
+  }
+},
+{
+  "id": 91,
+  "name": "Soonth (Dry Ginger Powder)",
+  "type": "whole_food",
+  "ingredients": ["1/4 tsp dry ginger powder (soonth) (approx. 1g)"],
+  "instructions": "Mix with honey, warm water, or milk for digestion. Add to teas, dals, or kitchari. Avoid during high pitta or inflammation.",
+  "preparation_time_min": 1,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "sweet (post-digestive)"],
+    "guna": ["light", "dry", "sharp"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (warms digestion and circulation)",
+    "pitta": "aggravating (strong heating effect); avoid in excess or during summer",
+    "kapha": "highly pacifying (excellent for clearing congestion and stimulating agni)"
+  }
+},
+{
+  "id": 92,
+  "name": "Besan Cheela",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup besan (chickpea flour)",
+    "1/2 cup finely chopped onion",
+    "1/4 cup grated carrot or spinach (optional)",
+    "1/2 tsp ginger-green chili paste",
+    "1/4 tsp turmeric powder",
+    "1/2 tsp cumin seeds",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "Water as needed (for thin batter)",
+    "1 tsp ghee per cheela"
+  ],
+  "instructions": "Mix besan, salt, turmeric, hing, and cumin in a bowl. Add chopped veggies and ginger-chili paste. Gradually add water to make a flowing (not watery) batter. Rest 10 minutes. Heat pan, pour ladle of batter, spread thin. Drizzle ghee, cook 2–3 mins per side until golden. Serve with green chutney.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 8,
+  "servings": 2,
+  "allergy_info": ["legumes", "peanuts (cross-contamination risk in some besan)"],
+  "ayurveda": {
+    "rasa": ["astringent", "slightly sweet"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating (dry); must use ghee and avoid excess raw onion",
+    "pitta": "pacifying (cooling virya)",
+    "kapha": "highly pacifying (light, dry, warm when cooked)"
+  }
+},
+{
+  "id": 93,
+  "name": "Moong Dal Cheela",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup split yellow moong dal, soaked 3–4 hours",
+    "1/4 cup finely chopped onion",
+    "2 tbsp grated zucchini or spinach (optional)",
+    "1/2 tsp cumin seeds",
+    "1/2 tsp grated ginger",
+    "1 green chili, slit (optional)",
+    "1/4 tsp turmeric powder",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "Water as needed (for smooth batter)",
+    "1 tsp ghee per cheela"
+  ],
+  "instructions": "Drain soaked moong dal. Blend with minimal water to a smooth, thick batter. Mix in spices, veggies, and salt. Rest 10 mins. Heat pan, spread thin layer, drizzle ghee, cook 2–3 mins each side. Soft, digestible, and nourishing.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 10,
+  "servings": 2,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "soft", "unctuous"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (easiest to digest dal, grounding)",
+    "pitta": "pacifying",
+    "kapha": "neutral to slightly aggravating in excess; add black pepper or ginger to balance"
+  }
+},
+{
+  "id": 94,
+  "name": "Oats Cheela",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup rolled oats (gluten-free if needed)",
+    "1/2 cup water",
+    "1/4 cup grated carrot or zucchini",
+    "2 tbsp chopped onion",
+    "1/2 tsp cumin seeds",
+    "1/4 tsp turmeric",
+    "1/2 tsp flaxseed powder (optional, for binding)",
+    "Salt to taste",
+    "1 tsp ghee or coconut oil per cheela"
+  ],
+  "instructions": "Blend oats with water to a smooth paste. Add veggies, spices, and salt. Rest 5–10 mins. Heat pan, spread batter thin, cook 2–3 mins per side with ghee. Crispy edges, soft center.",
+  "preparation_time_min": 12,
+  "cooking_time_min": 8,
+  "servings": 2,
+  "allergy_info": ["gluten (unless certified GF oats)"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating (dry/rough); always pair with ghee or chutney",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light, warming when spiced)"
+  }
+},
+{
+  "id": 95,
+  "name": "Vegetable Cheela",
+  "type": "whole_food",
+  "ingredients": [
+    "3/4 cup besan or moong dal batter (prepared as above)",
+    "1/2 cup mixed finely chopped veggies (carrot, bell pepper, spinach, onion, cabbage)",
+    "1/2 tsp cumin seeds",
+    "1/2 tsp coriander powder",
+    "1/4 tsp turmeric",
+    "1/2 tsp grated ginger",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "Water as needed",
+    "1 tsp ghee per cheela"
+  ],
+  "instructions": "Prepare base batter (besan or moong). Mix in all veggies and spices. Adjust consistency. Cook on medium heat with ghee until crisp and cooked through. Best served fresh.",
+  "preparation_time_min": 18,
+  "cooking_time_min": 10,
+  "servings": 2,
+  "allergy_info": ["legumes (if using besan/moong)"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent", "pungent (from ginger/spices)"],
+    "guna": ["moderate", "light if moong-based"],
+    "virya": "cooling to neutral"
+  },
+  "prakriti": {
+    "vata": "neutral if moong-based + ghee; aggravating if besan + raw cabbage/onion",
+    "pitta": "pacifying (especially moong base)",
+    "kapha": "pacifying (light, spiced, warm)"
+  }
+},
+{
+  "id": 96,
+  "name": "Whole Moong Cheela (Hari Moong Cheela)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup whole green moong (with skin), soaked 4–6 hours",
+    "1/4 cup chopped onion",
+    "2 tbsp chopped fenugreek leaves (methi) or spinach",
+    "1/2 tsp cumin seeds",
+    "1/2 tsp grated ginger",
+    "1 green chili (optional)",
+    "1/4 tsp turmeric",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "Water as needed",
+    "1 tsp ghee per cheela"
+  ],
+  "instructions": "Drain soaked whole moong. Blend with minimal water to a coarse, textured batter (do not over-blend). Mix in spices and veggies. Rest 10 mins. Cook on medium heat with ghee until both sides golden. Hearty, fiber-rich, and deeply nourishing.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 12,
+  "servings": 2,
+  "allergy_info": ["legumes"],
+  "ayurveda": {
+    "rasa": ["astringent", "sweet"],
+    "guna": ["heavy", "rough", "dense"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (rough, hard to digest); use only with ample ghee, cumin, and hing",
+    "pitta": "pacifying (but limit if digestion is weak)",
+    "kapha": "neutral to slightly aggravating (heavy); best with extra ginger and black pepper"
+  }
+},
+{
+  "id": 97,
+  "name": "Multigrain Roti",
+  "type": "whole_food",
+  "ingredients": [
+    "1/2 cup whole wheat flour (atta)",
+    "2 tbsp jowar (sorghum) flour",
+    "2 tbsp bajra (pearl millet) flour",
+    "1 tbsp ground flaxseed or roasted chia",
+    "1/4 tsp ajwain (carom seeds)",
+    "Pinch of salt",
+    "Warm water as needed",
+    "1/2 tsp ghee (optional, for serving)"
+  ],
+  "instructions": "Mix all flours, ajwain, and salt. Gradually add warm water to form a soft, pliable dough. Rest 15–20 minutes. Divide into balls, roll into thin rotis. Cook on a hot tawa until golden spots appear on both sides. Apply ghee if desired. Serve warm with dal or sabzi.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 12,
+  "servings": 2,
+  "allergy_info": ["gluten (from wheat)"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["heavy", "dense", "grounding"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (nourishing, warm when fresh)",
+    "pitta": "neutral to slightly pacifying",
+    "kapha": "aggravating (heavy); best eaten in small portions or without wheat"
+  }
+},
+{
+  "id": 98,
+  "name": "Millet Roti (Jowar or Bajra Bhakri)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup jowar (sorghum) or bajra (pearl millet) flour",
+    "1/4 tsp salt",
+    "1/2 tsp ghee or oil (for binding)",
+    "Hot water as needed"
+  ],
+  "instructions": "In a bowl, mix millet flour and salt. Add ghee. Gradually pour hot water while stirring until dough forms (should be soft but firm). Knead well. Divide into balls, flatten by hand (not rolling pin). Cook on tawa, pressing gently with a cloth, until charred spots appear. Best served hot with ghee and onion.",
+  "preparation_time_min": 8,
+  "cooking_time_min": 10,
+  "servings": 2,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["heavy", "dry", "rough"],
+    "virya": "heating (bajra) / cooling (jowar)"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry/rough); must eat hot with ghee or sesame oil",
+    "pitta": "jowar = pacifying; bajra = aggravating in summer",
+    "kapha": "pacifying (especially jowar—light, warming, metabolic)"
+  }
+},
+{
+  "id": 99,
+  "name": "Oats & Moong Dal Bread(Roti)",
+  "type": "whole_food",
+  "ingredients": [
+    "1/2 cup rolled oats (blended to flour)",
+    "1/2 cup yellow moong dal flour (or soaked & ground moong)",
+    "1/4 cup grated carrot or zucchini",
+    "1/2 tsp cumin seeds",
+    "1/4 tsp turmeric",
+    "1/2 tsp baking soda (optional, for rise)",
+    "1 tbsp flaxseed gel (1 tsp flax + 3 tbsp water, soaked 10 mins)",
+    "Salt to taste",
+    "Water as needed",
+    "1 tsp ghee for greasing"
+  ],
+  "instructions": "Mix dry ingredients. Add flax gel, grated veg, and enough water to form thick batter. Add baking soda last. Pour into greased loaf pan. Steam for 25–30 mins or bake at 180°C (350°F) for 30–35 mins. Cool before slicing. Eat warm with chutney.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 30,
+  "servings": 4,
+  "allergy_info": ["gluten (unless certified GF oats)"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "soft"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (moong + oats = grounding)",
+    "pitta": "pacifying",
+    "kapha": "neutral to slightly aggravating; add ginger/black pepper to balance"
+  }
+},
+{
+  "id": 100,
+  "name": "Sprouted Grain Bread(Roti)",
+  "type": "whole_food",
+  "ingredients": [
+    "1 cup mixed sprouted grains (wheat, moong, moth beans), drained",
+    "2 tbsp ground sunflower or pumpkin seeds",
+    "1 tbsp psyllium husk (isabgol)",
+    "1/2 tsp cumin powder",
+    "1/4 tsp hing (asafoetida)",
+    "1/2 tsp sea salt",
+    "Water as needed (approx. 1/4 cup)",
+    "1 tsp ghee for greasing"
+  ],
+  "instructions": "Grind sprouted grains to a coarse paste. Add psyllium husk, seeds, spices, and salt. Mix well—dough should be thick and sticky. Rest 10 mins (psyllium will absorb moisture). Transfer to greased loaf pan. Bake at 175°C (350°F) for 40–45 mins. Cool completely before slicing. Store refrigerated.",
+  "preparation_time_min": 20,
+  "cooking_time_min": 45,
+  "servings": 6,
+  "allergy_info": ["gluten (if wheat sprouts used)"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["moderate", "nourishing", "easier to digest than unsprouted"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (sprouting reduces gas, adds enzymes)",
+    "pitta": "pacifying",
+    "kapha": "neutral; best in moderation due to density"
+  }
+},
+{
+  "id": 101,
+  "name": "Coconut & Rice Flour Flatbread(Roti)",
+  "type": "whole_food",
+  "ingredients": [
+    "1/2 cup rice flour",
+    "1/4 cup desiccated coconut (unsweetened)",
+    "1/4 cup tapioca starch or arrowroot (optional, for pliability)",
+    "1/2 tsp salt",
+    "1/2 tsp cumin seeds",
+    "3/4 cup hot water",
+    "1 tbsp coconut oil or ghee"
+  ],
+  "instructions": "Mix rice flour, coconut, tapioca, salt, and cumin. Add hot water and oil; stir into soft dough. Rest 10 mins. Divide into balls, roll between parchment paper. Cook on medium-hot tawa 2–3 mins per side until firm and slightly crisp. Best served fresh with coconut chutney.",
+  "preparation_time_min": 12,
+  "cooking_time_min": 10,
+  "servings": 2,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "dry", "unctuous (from coconut)"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (coconut oil adds moisture); avoid if too dry",
+    "pitta": "highly pacifying (cooling, soothing)",
+    "kapha": "aggravating in excess (coconut is heavy); use sparingly"
+  }
+},
+{
+  "id": 102,
+  "name": "Egg (Anda Bhurji)",
+  "type": "whole_food",
+  "ingredients": [
+    "2 organic eggs",
+    "1 tsp ghee or coconut oil",
+    "1/4 tsp cumin seeds",
+    "2 tbsp finely chopped onion",
+    "1 tbsp chopped tomato (optional)",
+    "1/4 tsp turmeric powder",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "Fresh coriander leaves (optional)"
+  ],
+  "instructions": "Beat eggs with salt and turmeric. Heat ghee in a pan. Add cumin and hing; sizzle 10 seconds. Add onions, sauté until soft. Add tomatoes (if using), cook 1 minute. Pour in egg mixture. Stir gently until softly set (2–3 minutes). Do not overcook. Garnish with coriander. Serve warm with roti or alone.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 6,
+  "servings": 1,
+  "allergy_info": ["eggs"],
+  "ayurveda": {
+    "rasa": ["sweet", "salty"],
+    "guna": ["heavy", "unctuous", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying (nourishing, grounding)",
+    "pitta": "aggravating in excess (heating and dense); eat occasionally, avoid fried or spicy versions",
+    "kapha": "aggravating (heavy, increases mucus); consume only in small amounts, well-spiced with ginger/black pepper"
+  }
+},
+{
+  "id": 103,
+  "name": "Chicken (Ayurvedic Chicken Curry)",
+  "type": "whole_food",
+  "ingredients": [
+    "250g boneless chicken (thigh or breast), cubed",
+    "1 tbsp ghee",
+    "1/2 tsp cumin seeds",
+    "1/2 tsp coriander seeds (lightly crushed)",
+    "1 small onion, finely chopped",
+    "1/2 tbsp ginger-garlic paste",
+    "1 small tomato, chopped",
+    "1/2 tsp turmeric powder",
+    "1/2 tsp fennel powder (saunf)",
+    "1 green cardamom pod (optional)",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "2–3 tbsp water",
+    "Fresh coriander for garnish"
+  ],
+  "instructions": "Heat ghee. Add cumin, coriander seeds, cardamom, and hing; sizzle 20 seconds. Add onions, cook until golden. Add ginger-garlic paste; sauté 1 minute. Add tomatoes and spices; cook until oil separates. Add chicken, mix well. Cover and cook on low heat 12–15 minutes, stirring occasionally. Add minimal water if needed. Finish with fennel powder and coriander. Serve with rice or millet roti.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 20,
+  "servings": 2,
+  "allergy_info": ["poultry"],
+  "ayurveda": {
+    "rasa": ["sweet", "salty"],
+    "guna": ["heavy", "unctuous"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying (especially dark meat with ghee and warming spices)",
+    "pitta": "aggravating (heating and dense); consume rarely, with cooling sides like cucumber raita",
+    "kapha": "aggravating (heavy, builds tissue/mucus); eat only occasionally, well-spiced with black pepper, ginger, and minimal oil"
+  }
+},
+{
+  "id": 104,
+  "name": "Meat (Goat/Lamb Curry)",
+  "type": "whole_food",
+  "ingredients": [
+    "300g goat or lamb meat (bone-in preferred for flavor)",
+    "1.5 tbsp ghee",
+    "1/2 tsp cumin seeds",
+    "1/2 tsp fenugreek seeds (methi, optional)",
+    "1 onion, finely chopped",
+    "1 tbsp ginger-garlic paste",
+    "1 tomato, pureed",
+    "1/2 tsp turmeric powder",
+    "1 tsp coriander powder",
+    "1/4 tsp cinnamon powder",
+    "2 cloves",
+    "1 black cardamom",
+    "Pinch of asafoetida (hing)",
+    "Salt to taste",
+    "1 cup water or bone broth",
+    "Fresh coriander (optional)"
+  ],
+  "instructions": "Wash and pat-dry meat. In a heavy pot, heat ghee. Add whole spices (cumin, fenugreek, cloves, cardamom) and hing; sizzle 30 seconds. Add onions; cook until deep golden. Add ginger-garlic paste; sauté 2 minutes. Stir in tomato puree and dry spices; cook until oil surfaces. Add meat, coat well. Add water/broth, cover, and simmer gently for 45–60 minutes (or pressure cook 4–5 whistles) until tender. Skim excess fat if needed. Garnish and serve warm with roti or rice.",
+  "preparation_time_min": 20,
+  "cooking_time_min": 60,
+  "servings": 2,
+  "allergy_info": ["red meat"],
+  "ayurveda": {
+    "rasa": ["sweet", "salty"],
+    "guna": ["very heavy", "unctuous", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (deeply nourishing, builds strength—ideal in winter)",
+    "pitta": "strongly aggravating; avoid during inflammation, summer, or pitta imbalance",
+    "kapha": "aggravating (increases bulk and lethargy); consume only during extreme depletion, well-spiced, and in small portions"
+  }
+},
+{
+  "id": 105,
+  "name": "Alsi (Flaxseeds)",
+  "type": "whole_food",
+  "ingredients": ["1 tbsp ground flaxseeds (approx. 10g)"],
+  "instructions": "Grind fresh just before use (whole seeds pass undigested). Mix with warm water, honey, or warm milk. Can be added to doughs or smoothies. Best taken in morning on empty stomach for fiber and omega-3s.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent", "bitter"],
+    "guna": ["heavy", "unctuous", "slimy"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (lubricating, nourishing, relieves dryness)",
+    "pitta": "neutral to slightly aggravating (heating); use in moderation",
+    "kapha": "aggravating (heavy, slimy, increases mucus); avoid in excess"
+  }
+},
+{
+  "id": 106,
+  "name": "Arbi Leaves (Colocasia / Taro Leaves)",
+  "type": "whole_food",
+  "ingredients": ["10–12 young arbi leaves, washed and chopped (approx. 50g)"],
+  "instructions": "Wash thoroughly. Finely chop and sauté in ghee with cumin, turmeric, and a pinch of hing for 6–8 minutes until soft. Can be rolled into patra or added to dal. **Never eat raw**—contains calcium oxalate crystals.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 8,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry/rough); always cook with ghee and spices",
+    "pitta": "pacifying",
+    "kapha": "pacifying (detoxifying, clears congestion)"
+  }
+},
+{
+  "id": 107,
+  "name": "Bottle Gourd (Lauki)",
+  "type": "whole_food",
+  "ingredients": ["1 cup chopped bottle gourd (approx. 100g)"],
+  "instructions": "Peel if skin is tough. Chop and cook with cumin, a pinch of hing, and minimal water for 8–10 minutes until soft. Can be made into a mild dal or juice (strained, with a drop of lemon). Best eaten warm.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 10,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "unctuous", "moist"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (moist, calming)",
+    "pitta": "highly pacifying (cooling, diuretic)",
+    "kapha": "neutral to slightly aggravating in excess (sweet); best with black pepper or ginger"
+  }
+},
+{
+  "id": 108,
+  "name": "Mustard (Mustard Seeds)",
+  "type": "whole_food",
+  "ingredients": ["1/2 tsp black or yellow mustard seeds (approx. 2g)"],
+  "instructions": "Use whole for tempering (tadka)—heat in ghee/oil until they pop. Adds pungency to dals and vegetables. Can be ground into paste (with turmeric) for topical use or cooking. Avoid raw consumption in large amounts.",
+  "preparation_time_min": 1,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["mustard"],
+  "ayurveda": {
+    "rasa": ["pungent", "bitter"],
+    "guna": ["light", "dry", "sharp"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (drying, sharp); use only in small amounts as spice",
+    "pitta": "aggravating (strong heating); avoid in excess or summer",
+    "kapha": "highly pacifying (stimulates digestion, clears mucus)"
+  }
+},
+{
+  "id": 109,
+  "name": "Soya (Soybean)",
+  "type": "whole_food",
+  "ingredients": ["1/2 cup cooked soybeans or rehydrated soy chunks (approx. 70g)"],
+  "instructions": "Soak dried soybeans 8–12 hours, then pressure cook until soft (4–5 whistles). For chunks, soak in hot water 15 mins, squeeze out water, then cook in spiced gravy. Always cook thoroughly—never raw.",
+  "preparation_time_min": 15,
+  "cooking_time_min": 45,
+  "servings": 1,
+  "allergy_info": ["soy"],
+  "ayurveda": {
+    "rasa": ["astringent", "sweet"],
+    "guna": ["heavy", "dry", "dense"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry, gassy, hard to digest); use only well-cooked with hing, cumin, and ghee",
+    "pitta": "pacifying in moderation",
+    "kapha": "aggravating (heavy, builds bulk); consume rarely and well-spiced"
+  }
+},
+{
+  "id": 110,
+  "name": "Ridge Gourd (Turai)",
+  "type": "whole_food",
+  "ingredients": ["1 cup chopped ridge gourd (approx. 100g)"],
+  "instructions": "Peel if mature. Chop and sauté in ghee with cumin, turmeric, and green chili for 6–8 minutes. Can be cooked with lentils or tomatoes. Avoid overcooking—retain slight firmness.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 8,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "unctuous"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating if raw; pacifying when cooked with ghee",
+    "pitta": "pacifying",
+    "kapha": "pacifying (light, clears mucus)"
+  }
+},
+{
+  "id": 111,
+  "name": "Guava (Amrood)",
+  "type": "whole_food",
+  "ingredients": ["1 medium guava, washed (with or without skin) (approx. 60g)"],
+  "instructions": "Eat fresh between meals. Skin is rich in fiber—consume if organic. Avoid combining with dairy or heavy meals. Best in morning for digestion.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["astringent", "sweet"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating in excess (astringent dries tissues); eat ripe, with a drop of honey if needed",
+    "pitta": "pacifying (cooling, rich in vitamin C)",
+    "kapha": "highly pacifying (astringent, reduces mucus, supports metabolism)"
+  }
+},
+{
+  "id": 112,
+  "name": "Drumstick (Sahjan)",
+  "type": "whole_food",
+  "ingredients": ["2–3 drumstick pods, chopped (approx. 80g)"],
+  "instructions": "Wash, chop into 2-inch pieces. Cook in sambar, dal, or light stew for 10–15 minutes until tender (skin is edible, pulp is scooped out). Do not overcook—retain nutrients.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 15,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "dry"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry, light); balance with ghee or coconut milk in sambar",
+    "pitta": "neutral to slightly aggravating (heating); use moderately",
+    "kapha": "highly pacifying (excellent for joints, immunity, and clearing ama)"
+  }
+},
+{
+  "id": 113,
+  "name": "Brinjal (Baingan)",
+  "type": "whole_food",
+  "ingredients": ["1 small brinjal, cubed (approx. 100g)"],
+  "instructions": "Wash, cube (keep skin on). Sauté in ghee with mustard seeds, curry leaves, turmeric, and tamarind paste for 8–10 minutes until soft. Avoid frying; steaming or stewing is better for digestion.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 10,
+  "servings": 1,
+  "allergy_info": ["nightshades"],
+  "ayurveda": {
+    "rasa": ["astringent", "sweet"],
+    "guna": ["heavy", "slimy", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (heavy, slimy, hard to digest); use only well-spiced with hing and cumin",
+    "pitta": "aggravating (heating, nightshade); avoid during inflammation",
+    "kapha": "aggravating (increases mucus); consume rarely and with strong spices"
+  }
+},
+{
+  "id": 114,
+  "name": "Turnip (Shalgam)",
+  "type": "whole_food",
+  "ingredients": ["1 medium turnip, peeled and cubed (approx. 120g)"],
+  "instructions": "Peel and chop. Steam or sauté in ghee with cumin, black pepper, and a pinch of hing for 8–10 minutes. Can be added to soups or kitchari. Best eaten warm.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 10,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "sweet"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry, rough); always cook with ghee and digestive spices",
+    "pitta": "aggravating (heating); avoid in summer or pitta imbalance",
+    "kapha": "highly pacifying (decongestant, metabolic stimulant)"
+  }
+},
+{
+  "id": 115,
+  "name": "Capsicum (Bell Pepper)",
+  "type": "whole_food",
+  "ingredients": ["1 medium capsicum (any color), chopped (approx. 100g)"],
+  "instructions": "Wash, deseed, and chop. Sauté in ghee with cumin and turmeric for 5–7 minutes until slightly soft but crisp. Avoid raw if vata is high. Never combine with milk.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["nightshades"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry, rough); cook well with oil and spices",
+    "pitta": "aggravating (heating); limit red/yellow varieties in summer",
+    "kapha": "pacifying (light, clears stagnation)"
+  }
+},
+{
+  "id": 116,
+  "name": "Papaya (Papita)",
+  "type": "whole_food",
+  "ingredients": ["1 cup ripe papaya cubes (approx. 150g)"],
+  "instructions": "Peel, deseed, and slice ripe papaya. Eat fresh between meals—ideally in the morning on an empty stomach for optimal digestion. Avoid combining with dairy, cold drinks, or heavy meals. Unripe (green) papaya should only be used in cooked dishes like sabzi or curry.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["latex (cross-reactivity in some individuals)"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent (unripe: bitter)"],
+    "guna": ["light", "unctuous", "slimy (when ripe)"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying when ripe (moist, grounding); unripe is aggravating (dry, rough)",
+    "pitta": "pacifying (cooling, supports liver); avoid excess if acidity is high",
+    "kapha": "aggravating in excess (sweet, moist); consume in small amounts, preferably with ginger or black pepper"
+  }
+},
+{
+  "id": 117,
+  "name": "Mushroom (Khumb)",
+  "type": "whole_food",
+  "ingredients": ["1 cup fresh mushrooms, sliced (approx. 70g)"],
+  "instructions": "Wipe clean (do not soak in water). Sauté in ghee or coconut oil with cumin seeds, grated ginger, a pinch of turmeric, and black pepper for 5–7 minutes until tender and golden. Avoid raw consumption. Best paired with light grains or vegetables—not with dairy or heavy legumes.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["fungi"],
+  "ayurveda": {
+    "rasa": ["sweet", "umami (savory)"],
+    "guna": ["heavy", "slimy", "dense"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (heavy, difficult to digest; can increase ama); consume only occasionally, well-cooked with digestive spices",
+    "pitta": "neutral to slightly pacifying (cooling), but may increase toxins if digestion is weak; avoid in excess",
+    "kapha": "strongly aggravating (heavy, moist, increases mucus and stagnation); best avoided during kapha imbalance or in damp seasons"
+  }
+},
+{
+  "id": 118,
+  "name": "Broccoli (Hari Phool Gobi)",
+  "type": "whole_food",
+  "ingredients": ["1 cup broccoli florets (approx. 90g)"],
+  "instructions": "Wash thoroughly. Steam for 4–5 minutes or sauté in ghee with cumin seeds, turmeric, and a pinch of asafoetida (hing) for 5–6 minutes until bright green and tender-crisp. Avoid overcooking. Best served warm, not raw—especially for vata or kapha imbalance.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 6,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry, rough, and gassy); must be cooked well with ghee and digestive spices like cumin or hing",
+    "pitta": "pacifying (cooling and detoxifying)",
+    "kapha": "highly pacifying (light, clears congestion, supports metabolism)"
+  }
+},
+{
+  "id": 119,
+  "name": "Kale (Karam Saag)",
+  "type": "whole_food",
+  "ingredients": ["1 cup chopped kale leaves, stems removed (approx. 60g)"],
+  "instructions": "Wash thoroughly. Chop finely and sauté in ghee with cumin seeds, a pinch of asafoetida (hing), and grated ginger for 5–7 minutes until wilted and tender. Adding a splash of lemon juice at the end enhances iron absorption. Avoid raw consumption, especially in vata or kapha imbalance.",
+  "preparation_time_min": 6,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and rough qualities increase vata); always cook with ghee and warming spices",
+    "pitta": "pacifying (cooling, detoxifying, supports liver)",
+    "kapha": "highly pacifying (light, clears mucus, boosts metabolism)"
+  }
+},
+{
+  "id": 120,
+  "name": "Zucchini (Jugni / Courgette)",
+  "type": "whole_food",
+  "ingredients": ["1 medium zucchini, sliced or cubed (approx. 120g)"],
+  "instructions": "Wash and trim ends. Leave skin on for fiber. Sauté in ghee with cumin seeds, turmeric, and a pinch of hing for 5–7 minutes until tender but still firm. Can also be lightly steamed or added to kitchari. Avoid overcooking or frying.",
+  "preparation_time_min": 4,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "unctuous", "moist"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (moist and grounding, especially when cooked with ghee)",
+    "pitta": "pacifying (cooling and hydrating)",
+    "kapha": "neutral to slightly aggravating in excess (sweet and moist); balance with ginger or black pepper"
+  }
+},
+{
+  "id": 121,
+  "name": "Yam (Jimikand / Suran)",
+  "type": "whole_food",
+  "ingredients": ["1 cup peeled and cubed yam (approx. 120g)"],
+  "instructions": "Peel yam thoroughly (use gloves if handling raw—it can cause skin irritation). Rinse well to remove latex. Boil or steam until tender (15–20 mins), or sauté in ghee with cumin, turmeric, and a pinch of asafoetida for 10–12 minutes. Never eat raw. Best consumed warm, in moderation, and well-spiced to aid digestion.",
+  "preparation_time_min": 8,
+  "cooking_time_min": 15,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["heavy", "unctuous", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (nourishing, warming, grounding—excellent in winter)",
+    "pitta": "aggravating in excess (heating potency); avoid during summer or pitta imbalance",
+    "kapha": "aggravating (heavy, sweet, increases mucus); consume only occasionally and with digestive spices like black pepper or ginger"
+  }
+},
+{
+  "id": 122,
+  "name": "Ivy Gourd / Kundru",
+  "type": "whole_food",
+  "ingredients": ["1 cup fresh ivy gourd, sliced (approx. 100g)"],
+  "instructions": "Wash thoroughly. Slit or slice lengthwise. Sauté in ghee or oil with mustard seeds, curry leaves, turmeric, and a pinch of asafoetida for 6–8 minutes until tender. Can also be cooked with lentils or tamarind. Avoid raw consumption.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 8,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and light); always cook with ghee and digestive spices",
+    "pitta": "pacifying (cooling, supports liver and blood purification)",
+    "kapha": "highly pacifying (excellent for metabolism, diabetes, and clearing mucus)"
+  }
+},
+{
+  "id": 123,
+  "name": "Cluster Bean (Gawar Phali)",
+  "type": "whole_food",
+  "ingredients": ["1 cup fresh cluster beans, chopped (approx. 100g)"],
+  "instructions": "Wash thoroughly. Trim ends and chop into 1-inch pieces. Sauté in ghee with cumin seeds, turmeric, a pinch of asafoetida (hing), and a little grated coconut or jaggery (optional) for 7–9 minutes until tender but not mushy. Avoid overcooking to retain texture and nutrients.",
+  "preparation_time_min": 6,
+  "cooking_time_min": 9,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry, rough, and slightly gassy); always cook with ghee and digestive spices like cumin or hing",
+    "pitta": "pacifying (cooling, detoxifying, supports liver)",
+    "kapha": "highly pacifying (light, clears mucus, beneficial for metabolism and blood sugar)"
+  }
+},
+{
+  "id": 124,
+  "name": "Parval (Pointed Gourd / Parwal)",
+  "type": "whole_food",
+  "ingredients": ["1 cup chopped parval (approx. 100g)"],
+  "instructions": "Wash and peel if skin is tough (young parval may not need peeling). Slit lengthwise and remove seeds if mature. Chop or leave whole. Sauté in ghee with panch phoron or cumin seeds, turmeric, and a pinch of asafoetida for 8–10 minutes. Can be cooked with potatoes or in a light tomato-based gravy. Avoid raw consumption.",
+  "preparation_time_min": 7,
+  "cooking_time_min": 10,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "unctuous", "moist"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (moist and grounding when cooked with ghee)",
+    "pitta": "pacifying (cooling and soothing to digestive tract)",
+    "kapha": "neutral to slightly aggravating in excess (sweet quality); best cooked with ginger, black pepper, or pungent spices"
+  }
+},
+{
+  "id": 125,
+  "name": "Amla (Indian Gooseberry)",
+  "type": "whole_food",
+  "ingredients": ["1 fresh amla, deseeded and sliced (approx. 30g)"],
+  "instructions": "Wash thoroughly. Remove seeds and chop or grate. Can be eaten raw with a pinch of honey and black pepper, or added to chutneys, pickles, or herbal teas. For daily use, amla powder (1/4 tsp) mixed in warm water is common. Avoid combining with milk.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sour", "sweet", "bitter", "astringent", "pungent", "umami (all six tastes except salty)"],
+    "guna": ["light", "dry", "cooling"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying in moderation (especially when combined with sesame oil or jaggery); raw amla may be drying—balance with ghee or dates",
+    "pitta": "highly pacifying (one of the best cooling and rejuvenative fruits for pitta)",
+    "kapha": "highly pacifying (astringent and light; excellent for metabolism, immunity, and clearing mucus)"
+  }
+},
+{
+  "id": 126,
+  "name": "Lotus Stem (Kamal Kakdi / Bhein)",
+  "type": "whole_food",
+  "ingredients": ["1 cup sliced lotus stem (approx. 100g)"],
+  "instructions": "Wash thoroughly. Peel outer fibrous layer if needed. Slice into thin rounds or half-moons. Soak in water with a few drops of lemon juice to prevent browning. Sauté in ghee with cumin seeds, turmeric, and a pinch of asafoetida for 8–10 minutes until tender-crisp. Can also be stir-fried with potatoes or added to curries.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 10,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "astringent"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and rough qualities); always cook with ghee and digestive spices like cumin or ginger",
+    "pitta": "pacifying (cooling, purifies blood, supports liver)",
+    "kapha": "highly pacifying (light, astringent, clears mucus and supports circulation)"
+  }
+},
+{
+  "id": 127,
+  "name": "Tinda (Apple Gourd / Indian Round Gourd)",
+  "type": "whole_food",
+  "ingredients": ["1 medium tinda, peeled and sliced (approx. 120g)"],
+  "instructions": "Wash and peel the tinda. Cut in halves, remove seeds if mature, and slice or cube. Sauté in ghee with cumin seeds, turmeric, a pinch of asafoetida (hing), and a small amount of tomato or yogurt for 8–10 minutes until tender. Can also be cooked with potatoes or in a light curry. Avoid overcooking to retain shape and nutrients.",
+  "preparation_time_min": 6,
+  "cooking_time_min": 10,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "unctuous", "moist"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying (moist and grounding when cooked with ghee)",
+    "pitta": "pacifying (cooling and soothing to the digestive tract)",
+    "kapha": "neutral to slightly aggravating in excess (sweet quality); best balanced with ginger, black pepper, or cumin"
+  }
+},
+
+{
+  "id": 129,
+  "name": "Curry Leaves (Kadi Patta)",
+  "type": "whole_food",
+  "ingredients": ["10–12 fresh curry leaves (approx. 2g)"],
+  "instructions": "Wash and pat dry. Use whole in tempering (tadka)—heat ghee or oil, add mustard seeds, then curry leaves; let them sizzle 15–20 seconds until aromatic. Can also be finely chopped and added to chutneys, dals, or rice dishes. Best used fresh; dried leaves have reduced potency.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "pungent"],
+    "guna": ["light", "dry", "sharp"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "aggravating in excess (drying), but balancing in small amounts due to carminative properties; always use with ghee or oil",
+    "pitta": "aggravating (bitter + heating); use moderately, especially in summer or acidity",
+    "kapha": "highly pacifying (stimulates digestion, clears mucus, reduces ama and fat)"
+  }
+},
+{
+  "id": 130,
+  "name": "Arrowroot (Koypchini / Ararot)",
+  "type": "whole_food",
+  "ingredients": ["2 tbsp arrowroot powder (approx. 15g)"],
+  "instructions": "Use as a gluten-free thickener: mix with cold water to make a slurry, then stir into soups, sauces, or kheer at the end of cooking. For digestive support, mix 1 tsp in warm water or herbal tea. Can also be used in pancakes or porridge. Avoid high-heat prolonged cooking to preserve properties.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "dry", "cooling"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating (dry quality); best combined with ghee, milk, or mashed banana if used as food",
+    "pitta": "highly pacifying (cooling, soothing to mucous membranes, excellent during acidity or diarrhea)",
+    "kapha": "pacifying (light, absorbent, helps dry excess moisture and mucus)"
+  }
+},
+{
+  "id": 131,
+  "name": "Olive (Jaitun)",
+  "type": "whole_food",
+  "ingredients": ["4–5 pitted olives (approx. 20g)"],
+  "instructions": "Rinse briefly to reduce saltiness if using brined olives. Eat as is, or chop and add to salads, grain bowls, or cooked vegetable dishes. Best consumed in moderation. Avoid combining with milk or sweet fruits.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sour", "astringent", "slightly bitter"],
+    "guna": ["heavy", "unctuous", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying in small amounts (oily and grounding), but excess may increase ama; best with digestive spices",
+    "pitta": "aggravating (sour + heating; high in oleic acid—can increase acidity); avoid during pitta imbalance or summer",
+    "kapha": "aggravating (heavy, oily, increases mucus); consume very sparingly or avoid in kapha-dominant conditions"
+  }
+},
+{
+  "id": 132,
+  "name": "Lettuce (Salad Patta)",
+  "type": "whole_food",
+  "ingredients": ["1 cup chopped fresh lettuce leaves (approx. 40g)"],
+  "instructions": "Wash thoroughly and pat dry. Best consumed raw in salads with lemon, olive oil, or a light dressing. For vata or kapha imbalance, lightly sauté in ghee with cumin and black pepper for 2–3 minutes. Avoid combining with dairy or heavy legumes.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "bitter"],
+    "guna": ["light", "dry", "rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "aggravating (dry and rough qualities increase vata); avoid raw if vata is high—cook lightly with ghee",
+    "pitta": "pacifying (cooling and hydrating, especially romaine or butter lettuce)",
+    "kapha": "pacifying (light, low-calorie, clears mild stagnation)"
+  }
+},
+{
+  "id": 133,
+  "name": "Chilly (Green Chili / Hari Mirch)",
+  "type": "whole_food",
+  "ingredients": ["1 green chili, whole or sliced (approx. 5g)"],
+  "instructions": "Wash and use whole, sliced, or finely chopped. Add to tempering, curries, chutneys, or dals for heat and flavor. For reduced pungency, remove seeds. Use sparingly—especially in pitta imbalance or sensitive digestion.",
+  "preparation_time_min": 2,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent"],
+    "guna": ["light", "dry", "sharp", "penetrating"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying in small amounts (stimulates digestion and circulation), but aggravating in excess (causes dryness and anxiety)",
+    "pitta": "strongly aggravating (intense heating and sharp qualities—increases acidity, inflammation, and irritability)",
+    "kapha": "highly pacifying (excellent for clearing mucus, boosting agni, and reducing stagnation)"
+  }
+},
+{
+  "id": 134,
+  "name": "Giloy (Tinospora cordifolia / Guduchi)",
+  "type": "whole_food",
+  "ingredients": ["1 small piece fresh giloy stem (approx. 2-inch), chopped, or 1/4 tsp dried powder"],
+  "instructions": "Wash fresh stem thoroughly. Crush or chop finely. Boil in 1 cup water for 10–15 minutes to make a decoction (kadha). Strain and drink warm, preferably in the morning on empty stomach. Alternatively, mix dried powder in warm water or honey. Avoid long-term continuous use without guidance.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 15,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "astringent"],
+    "guna": ["light", "dry"],
+    "virya": "heating",
+    "vipaka": "sweet"
+  },
+  "prakriti": {
+    "vata": "pacifying in moderate doses (supports immunity and nervous system), but may dry tissues in excess—balance with ghee or milk if needed",
+    "pitta": "pacifying (despite heating virya, its bitter rasa and sweet vipaka cool pitta long-term; excellent for fever and inflammation)",
+    "kapha": "highly pacifying (clears ama, boosts agni, and reduces toxins and congestion)"
+  }
+},
+{
+  "id": 135,
+  "name": "Jeera (Cumin Seeds)",
+  "type": "whole_food",
+  "ingredients": ["1/2 tsp whole cumin seeds (approx. 2g)"],
+  "instructions": "Use whole for tempering—heat in ghee or oil until fragrant (15–20 seconds)—or dry roast and grind for powders. Can be steeped in hot water for 5–10 minutes to make a digestive tea. Best used fresh; store in airtight container away from light.",
+  "preparation_time_min": 1,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "bitter"],
+    "guna": ["light", "dry", "sharp"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (carminative, reduces gas, kindles agni without overheating)",
+    "pitta": "neutral to slightly aggravating in excess (heating), but beneficial in small amounts for digestion; avoid during high pitta or acidity",
+    "kapha": "highly pacifying (dries mucus, stimulates metabolism, clears stagnation)"
+  }
+},
+{
+  "id": 136,
+  "name": "Ajwain (Carom Seeds)",
+  "type": "whole_food",
+  "ingredients": ["1/2 tsp ajwain (carom seeds) (approx. 2g)"],
+  "instructions": "Use whole in tempering (tadka)—heat in ghee or oil until fragrant (10–15 seconds). Can be chewed raw after meals for digestion, or steeped in hot water for 5–7 minutes to make a soothing tea. Also added to doughs (e.g., paratha) to reduce gas.",
+  "preparation_time_min": 1,
+  "cooking_time_min": 2,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "bitter"],
+    "guna": ["light", "dry", "sharp", "penetrating"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "highly pacifying (excellent for bloating, gas, and abdominal discomfort; kindles agni strongly)",
+    "pitta": "aggravating in excess (intense heating potency); use sparingly during summer, acidity, or inflammation",
+    "kapha": "highly pacifying (clears mucus, respiratory congestion, and sluggish digestion)"
+  }
+},
+{
+  "id": 137,
+  "name": "Clove (Laung)",
+  "type": "whole_food",
+  "ingredients": ["2–3 whole cloves (approx. 0.5g)"],
+  "instructions": "Use whole in rice, curries, or teas—remove before eating. For toothache, chew gently or hold near affected area. To make clove tea, simmer 2–3 cloves in 1 cup water for 5–7 minutes. Do not use in excess—strong and heating.",
+  "preparation_time_min": 1,
+  "cooking_time_min": 7,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["pungent", "bitter"],
+    "guna": ["light", "dry", "sharp", "penetrating"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying in small doses (warming, analgesic, improves circulation), but aggravating in excess (drying)",
+    "pitta": "aggravating (strong heating and sharp qualities—increases heat, acidity, and inflammation); avoid during pitta imbalance or summer",
+    "kapha": "highly pacifying (excellent for lung congestion, mucus, and low agni; antimicrobial and stimulating)"
+  }
+},
+{
+  "id": 138,
+  "name": "Mango (Aam)",
+  "type": "whole_food",
+  "ingredients": ["1 small ripe mango, peeled and cubed (approx. 150g)"],
+  "instructions": "Eat fresh when fully ripe—ideally between meals, not with other foods. Avoid combining with milk, yogurt, or heavy meals. Raw (unripe) mango can be used in small amounts in cooked dishes like dal or kachumber with roasted cumin and black salt.",
+  "preparation_time_min": 5,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet", "sour (unripe: sour, astringent)"],
+    "guna": ["heavy", "unctuous", "dense"],
+    "virya": "cooling (ripe) / heating (unripe)"
+  },
+  "prakriti": {
+    "vata": "pacifying when ripe (grounding, nourishing); unripe is aggravating (drying, sour)",
+    "pitta": "ripe: neutral to slightly aggravating in excess (sweet + sour may increase acidity); unripe: strongly aggravating—avoid in summer or pitta imbalance",
+    "kapha": "aggravating (heavy, sweet, increases mucus); consume only occasionally in small amounts, preferably with ginger, black pepper, or cardamom"
+  }
+},
+{
+  "id": 139,
+  "name": "Kiwi (Kiwi Fruit)",
+  "type": "whole_food",
+  "ingredients": ["1 medium kiwi, peeled and sliced (approx. 75g)"],
+  "instructions": "Wash thoroughly. Peel skin (or eat with skin if organic and well-scrubbed). Eat fresh between meals—ideally in the morning. Avoid combining with dairy, melons, or heavy foods. Best consumed alone for optimal digestion.",
+  "preparation_time_min": 3,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sour", "sweet"],
+    "guna": ["light", "liquid", "slightly rough"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating in excess (sour can stimulate vata; rough skin may increase dryness); best eaten ripe and peeled",
+    "pitta": "aggravating in excess (high acidity and sour taste increase pitta); limit during summer or acidity",
+    "kapha": "pacifying (light, sour, and metabolic—helps clear mucus and boost digestion)"
+  }
+},
+{
+  "id": 140,
+  "name": "Dragon Fruit (Pitaya)",
+  "type": "whole_food",
+  "ingredients": ["1 medium dragon fruit, peeled and cubed (approx. 150g)"],
+  "instructions": "Cut in half and scoop out the flesh with a spoon, or peel and slice. Eat fresh between meals—preferably in the morning. Avoid combining with dairy, bananas, or heavy foods. Best consumed alone for light digestion.",
+  "preparation_time_min": 4,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["sweet"],
+    "guna": ["light", "dry", "cooling"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "slightly aggravating in excess (dry and light qualities may increase vata); balance with a few drops of ghee or eat with soaked almonds if vata is high",
+    "pitta": "highly pacifying (cooling, hydrating, and soothing—excellent during summer or inflammation)",
+    "kapha": "pacifying (light, low in sugar relative to other fruits—supports detox and metabolism)"
+  }
+},
+{
+  "id": 141,
+  "name": "Jackfruit (Kathal)",
+  "type": "whole_food",
+  "ingredients": ["1 cup ripe jackfruit bulbs or young unripe pieces (approx. 150g)"],
+  "instructions": "For **ripe jackfruit**: Peel, deseed, and eat fresh—sweet and aromatic. For **unripe (young) jackfruit**: Peel outer skin, remove core, cut into cubes, and cook in curries or stir-fries like a vegetable (sauté in ghee with turmeric, cumin, and hing for 10–15 minutes). Never combine ripe jackfruit with dairy.",
+  "preparation_time_min": 10,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["latex (cross-reactivity with banana, avocado, or birch pollen)"],
+  "ayurveda": {
+    "rasa": ["sweet (ripe)", "astringent (unripe)"],
+    "guna": ["heavy", "unctuous (ripe)", "dense"],
+    "virya": "heating"
+  },
+  "prakriti": {
+    "vata": "pacifying when ripe (nourishing and grounding); unripe is aggravating (hard to digest, dry)",
+    "pitta": "aggravating (heating potency—especially ripe); avoid during summer, acidity, or inflammation",
+    "kapha": "aggravating (heavy, sweet, increases mucus); consume only occasionally in small amounts, preferably unripe and well-spiced"
+  }
+},
+{
+  "id": 142,
+  "name": "Aloe Vera (Ghritkumari)",
+  "type": "whole_food",
+  "ingredients": ["2 tbsp fresh inner leaf gel (approx. 30g)"],
+  "instructions": "Wash a thick aloe leaf thoroughly. Peel and carefully scrape out the clear inner gel—avoid the yellow latex layer (aloin), which is bitter and laxative. Consume fresh gel on an empty stomach, mixed with a few drops of honey or lemon. For skin use, apply pure gel topically. Do not consume daily for more than 7–10 days without guidance.",
+  "preparation_time_min": 8,
+  "cooking_time_min": 0,
+  "servings": 1,
+  "allergy_info": ["none"],
+  "ayurveda": {
+    "rasa": ["bitter", "sweet (post-digestive)"],
+    "guna": ["heavy", "unctuous", "slimy"],
+    "virya": "cooling"
+  },
+  "prakriti": {
+    "vata": "pacifying in small doses (moisturizing for dryness), but excess may cause coldness or sluggishness—use with warming spices like ginger if needed",
+    "pitta": "highly pacifying (one of the best cooling herbs—excellent for digestion, skin, liver, and inflammation)",
+    "kapha": "aggravating in excess (heavy, slimy, increases mucus); use only short-term and in small amounts during kapha imbalance"
+  }
+}
+
+
+
+
+
+]

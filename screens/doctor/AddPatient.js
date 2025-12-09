@@ -1,5 +1,5 @@
 // /screens/doctor/AddPatient.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,10 +11,12 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  Modal,
+  FlatList,
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../../colors";
-import { patientsAPI } from "../../services/api";
+import { patientsAPI, diseaseAPI } from "../../services/api"; 
 import { useAuth } from "../../contexts/AuthContext";
 
 const GENDERS = ["Male", "Female", "Other"];
@@ -60,9 +62,34 @@ const ChipSelector = ({ label, selectedValue, onSelect, options }) => (
   </View>
 );
 
+// --- NEW: DOSHA BADGE COMPONENT ---
+const DoshaBadge = ({ name, value }) => {
+  if (value === 0) return null; // Don't show neutral
+  
+  const isIncrease = value > 0;
+  const bgColor = isIncrease ? "#FFEBEE" : "#E0F2F1"; // Red tint vs Teal tint
+  const textColor = isIncrease ? "#D32F2F" : "#00695C";
+  const icon = isIncrease ? "arrow-up" : "arrow-down";
+
+  return (
+    <View style={[styles.doshaBadge, { backgroundColor: bgColor }]}>
+      <Text style={[styles.doshaBadgeText, { color: textColor }]}>
+        {name}
+      </Text>
+      <Ionicons name={icon} size={10} color={textColor} style={{ marginLeft: 2 }} />
+    </View>
+  );
+};
+
 export default function AddPatient({ navigation }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  
+  // Disease State
+  const [diseases, setDiseases] = useState([]); 
+  const [diseaseModalVisible, setDiseaseModalVisible] = useState(false);
+  const [diseaseSearch, setDiseaseSearch] = useState("");
+  const [selectedDisease, setSelectedDisease] = useState(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -79,7 +106,33 @@ export default function AddPatient({ navigation }) {
     allergies: "",
     medications: "",
     address: "",
+    diseaseId: null,
   });
+
+  // Load Diseases on Mount
+  useEffect(() => {
+    loadDiseases();
+  }, []);
+
+  const loadDiseases = async () => {
+    try {
+      const res = await diseaseAPI.getAll({ limit: 100 });
+      let list = [];
+      
+      if (res.data && res.data.data && Array.isArray(res.data.data.data)) {
+          list = res.data.data.data;
+      } else if (res.data && Array.isArray(res.data.data)) {
+          list = res.data.data;
+      } else if (Array.isArray(res.data)) {
+          list = res.data;
+      }
+
+      setDiseases(list);
+    } catch (err) {
+      console.warn("Failed to load diseases:", err);
+      setDiseases([]);
+    }
+  };
 
   const handleChange = (key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -94,32 +147,30 @@ export default function AddPatient({ navigation }) {
     setLoading(true);
 
     try {
-      // 1. Auto-generate Patient Code (Hidden from UI)
       const autoPatientCode = `P-${Date.now().toString().slice(-6)}`;
-
-      // 2. Format Dosha (Vata-Pitta -> VATA_PITTA)
+      
       let formattedDosha = form.doshaType.toUpperCase().replace(/-/g, "_");
       if (formattedDosha === "TRI_DOSHA") formattedDosha = "TRIDOSHA";
 
       const payload = {
         ...form,
         doctorId: user.id,
-        patientCode: autoPatientCode, // FIX 1: Required by backend
+        patientCode: autoPatientCode,
         
-        // Numbers
         age: form.age ? parseInt(form.age) : null,
         height: form.height ? parseFloat(form.height) : null,
         weight: form.weight ? parseFloat(form.weight) : null,
         
-        // Fix Enums
-        gender: form.gender.toLowerCase(), // FIX 2: Male -> male
-        doshaType: formattedDosha,         // FIX 3: Vata -> VATA
+        gender: form.gender.toLowerCase(),
+        doshaType: formattedDosha,
+        
+        diseaseId: selectedDisease ? selectedDisease.id : null,
       };
 
       console.log("Sending Payload:", payload);
       await patientsAPI.create(payload);
 
-      Alert.alert("Success", "Patient created successfully. Login details sent via email.", [
+      Alert.alert("Success", "Patient created successfully.", [
         { text: "OK", onPress: () => navigation.goBack() },
       ]);
     } catch (err) {
@@ -131,10 +182,13 @@ export default function AddPatient({ navigation }) {
     }
   };
 
+  const filteredDiseases = (diseases || []).filter(d => 
+    (d.name || "").toLowerCase().includes(diseaseSearch.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
 
-      {/* --- KEYBOARD AVOIDING VIEW --- */}
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -152,7 +206,7 @@ export default function AddPatient({ navigation }) {
               label="Full Name *" 
               value={form.name} 
               onChangeText={(t) => handleChange("name", t)} 
-              placeholder="e.g. ankush gupta" 
+              placeholder="e.g. John Doe" 
             />
             <InputField 
               label="Email Address *" 
@@ -168,7 +222,7 @@ export default function AddPatient({ navigation }) {
                   label="Phone Number" 
                   value={form.phone} 
                   onChangeText={(t) => handleChange("phone", t)} 
-                  placeholder="+91 234..." 
+                  placeholder="+91..." 
                   keyboardType="phone-pad" 
                 />
               </View>
@@ -199,7 +253,40 @@ export default function AddPatient({ navigation }) {
             />
           </View>
 
-          {/* SECTION 2: AYURVEDA */}
+          {/* SECTION 2: DISEASE / CONDITION */}
+          <View style={styles.sectionCard}>
+            <View style={styles.sectionTitleRow}>
+              <MaterialCommunityIcons name="stethoscope" size={22} color={colors.primary} />
+              <Text style={styles.sectionHeader}>Disease / Condition</Text>
+            </View>
+
+            <Text style={styles.label}>Select Primary Condition</Text>
+            <TouchableOpacity 
+              style={[styles.dropdownBtn, selectedDisease && styles.dropdownBtnActive]} 
+              onPress={() => setDiseaseModalVisible(true)}
+            >
+              {selectedDisease ? (
+                <View style={styles.selectedDiseaseRow}>
+                   <Text style={[styles.dropdownText, {fontWeight: '600', color: colors.foreground}]}>
+                      {selectedDisease.name}
+                   </Text>
+                   {/* Mini badges inside selector */}
+                   <View style={styles.miniBadgeRow}>
+                      <DoshaBadge name="V" value={selectedDisease.vata} />
+                      <DoshaBadge name="P" value={selectedDisease.pitta} />
+                      <DoshaBadge name="K" value={selectedDisease.kapha} />
+                   </View>
+                </View>
+              ) : (
+                <Text style={[styles.dropdownText, {color: colors.foregroundLight}]}>
+                  Search & Select Disease...
+                </Text>
+              )}
+              <Ionicons name="chevron-down" size={20} color={selectedDisease ? colors.primary : colors.foregroundLight} />
+            </TouchableOpacity>
+          </View>
+
+          {/* SECTION 3: AYURVEDA */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionTitleRow}>
               <MaterialCommunityIcons name="leaf" size={20} color={colors.primary} />
@@ -213,7 +300,7 @@ export default function AddPatient({ navigation }) {
             />
           </View>
 
-          {/* SECTION 3: HEALTH METRICS */}
+          {/* SECTION 4: HEALTH METRICS */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionTitleRow}>
               <MaterialCommunityIcons name="heart-pulse" size={20} color="#FF6B6B" />
@@ -255,7 +342,7 @@ export default function AddPatient({ navigation }) {
             />
           </View>
 
-          {/* SECTION 4: MEDICAL HISTORY */}
+          {/* SECTION 5: MEDICAL HISTORY */}
           <View style={styles.sectionCard}>
             <View style={styles.sectionTitleRow}>
               <MaterialCommunityIcons name="doctor" size={20} color="#4ECDC4" />
@@ -285,7 +372,6 @@ export default function AddPatient({ navigation }) {
             />
           </View>
 
-          {/* FOOTER BUTTON INSIDE SCROLLVIEW */}
           <TouchableOpacity style={styles.saveBtn} onPress={handleSubmit} disabled={loading}>
             {loading ? (
               <ActivityIndicator color="#fff" />
@@ -294,31 +380,90 @@ export default function AddPatient({ navigation }) {
             )}
           </TouchableOpacity>
 
-          {/* Extra Space at Bottom */}
           <View style={{ height: 60 }} />
-
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {/* --- IMPROVED DISEASE SELECTION MODAL --- */}
+      <Modal visible={diseaseModalVisible} animationType="slide" transparent>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Select Condition</Text>
+              <TouchableOpacity onPress={() => setDiseaseModalVisible(false)} style={styles.closeModalBtn}>
+                <Ionicons name="close" size={22} color={colors.foreground} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Enhanced Search Input */}
+            <View style={styles.searchContainer}>
+              <Ionicons name="search" size={20} color={colors.foregroundLight} style={styles.searchIcon} />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search diseases..."
+                value={diseaseSearch}
+                onChangeText={setDiseaseSearch}
+                placeholderTextColor={colors.foregroundLight}
+                autoFocus
+              />
+              {diseaseSearch.length > 0 && (
+                <TouchableOpacity onPress={() => setDiseaseSearch("")}>
+                   <Ionicons name="close-circle" size={18} color={colors.foregroundLight} />
+                </TouchableOpacity>
+              )}
+            </View>
+
+            <FlatList
+              data={filteredDiseases}
+              keyExtractor={(item) => item.id}
+              contentContainerStyle={{ paddingBottom: 20 }}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => {
+                const isSelected = selectedDisease?.id === item.id;
+                return (
+                  <TouchableOpacity 
+                    style={[styles.diseaseItem, isSelected && styles.diseaseItemActive]}
+                    onPress={() => {
+                      setSelectedDisease(item);
+                      setDiseaseModalVisible(false);
+                    }}
+                  >
+                    <View style={{flex: 1}}>
+                        <Text style={[styles.diseaseName, isSelected && {color: colors.primary, fontWeight: '700'}]}>
+                            {item.name}
+                        </Text>
+                        
+                        {/* Dosha Badges Row */}
+                        <View style={styles.badgeRow}>
+                           <DoshaBadge name="Vata" value={item.vata} />
+                           <DoshaBadge name="Pitta" value={item.pitta} />
+                           <DoshaBadge name="Kapha" value={item.kapha} />
+                        </View>
+                    </View>
+
+                    {isSelected && (
+                        <Ionicons name="checkmark-circle" size={24} color={colors.primary} />
+                    )}
+                  </TouchableOpacity>
+                );
+              }}
+              ListEmptyComponent={
+                <View style={styles.emptyContainer}>
+                    <Ionicons name="search-outline" size={48} color={colors.border} />
+                    <Text style={styles.emptyText}>No diseases found matching "{diseaseSearch}"</Text>
+                </View>
+              }
+            />
+          </View>
+        </View>
+      </Modal>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingTop: Platform.OS === 'android' ? 40 : 60,
-    paddingBottom: 16,
-    paddingHorizontal: 20,
-    backgroundColor: colors.background,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  headerTitle: { fontSize: 20, fontWeight: "700", color: colors.foreground },
-  backBtn: { padding: 4 },
 
   scrollContent: { padding: 20, paddingBottom: 40 },
 
@@ -335,8 +480,8 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 2,
   },
-  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 8 },
-  sectionHeader: { fontSize: 18, fontWeight: "700", color: colors.foreground, marginBottom: 16 },
+  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 10 },
+  sectionHeader: { fontSize: 18, fontWeight: "700", color: colors.foreground },
 
   inputGroup: { marginBottom: 16 },
   label: { fontSize: 14, fontWeight: "600", color: colors.foreground, marginBottom: 8 },
@@ -367,6 +512,124 @@ const styles = StyleSheet.create({
   chipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
   chipText: { fontSize: 13, fontWeight: "600", color: colors.foregroundLight },
   chipTextActive: { color: "#fff" },
+
+  /* DROPDOWN STYLES */
+  dropdownBtn: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: colors.background,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    padding: 14,
+  },
+  dropdownBtnActive: {
+    borderColor: colors.primary,
+    backgroundColor: colors.primary + '08', // very light tint
+  },
+  dropdownText: { fontSize: 15, color: colors.foreground },
+  
+  selectedDiseaseRow: {
+      flex: 1,
+  },
+  miniBadgeRow: {
+      flexDirection: 'row',
+      gap: 6,
+      marginTop: 4,
+  },
+
+  /* MODAL STYLES */
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "flex-end",
+  },
+  modalContainer: {
+    backgroundColor: colors.background,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    height: "80%",
+    padding: 24,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: colors.foreground,
+  },
+  closeModalBtn: {
+      padding: 4,
+      backgroundColor: colors.card,
+      borderRadius: 20,
+  },
+  
+  /* Search */
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    height: 50,
+    marginBottom: 16,
+  },
+  searchIcon: { marginRight: 10 },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: colors.foreground,
+    height: '100%',
+  },
+
+  /* List Items */
+  diseaseItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    backgroundColor: colors.card,
+    borderRadius: 12,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'transparent', // prepare for active state
+  },
+  diseaseItemActive: {
+      borderColor: colors.primary,
+      backgroundColor: colors.primary + '05',
+  },
+  diseaseName: {
+    fontSize: 16,
+    color: colors.foreground,
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+  
+  /* Badges */
+  badgeRow: { flexDirection: 'row', gap: 8 },
+  doshaBadge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 8,
+      paddingVertical: 4,
+      borderRadius: 6,
+  },
+  doshaBadgeText: {
+      fontSize: 11,
+      fontWeight: '700',
+      textTransform: 'uppercase',
+  },
+
+  emptyContainer: { alignItems: 'center', marginTop: 40, opacity: 0.6 },
+  emptyText: { textAlign: 'center', marginTop: 12, fontSize: 16, color: colors.foregroundLight },
 
   saveBtn: {
     backgroundColor: colors.primary,

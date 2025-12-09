@@ -1,3 +1,4 @@
+// PatientSettings.js
 import React, { useState, useRef, useEffect } from "react";
 import {
   View,
@@ -11,6 +12,8 @@ import {
   Image,
   Alert,
   Keyboard,
+  Modal,
+  Pressable,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import LottieView from "lottie-react-native";
@@ -19,11 +22,78 @@ import { colors } from "../../colors";
 import { useAuth } from "../../contexts/AuthContext";
 import { usersAPI } from "../../services/api";
 
+// --- 1. LANGUAGE CONFIGURATION ---
+const LANGUAGES = [
+  { code: "en", label: "English", native: "English" },
+  { code: "hi", label: "Hindi", native: "हिंदी" },
+  { code: "mr", label: "Marathi", native: "मराठी" },
+  { code: "gu", label: "Gujarati", native: "ગુજરાતી" },
+  { code: "bn", label: "Bengali", native: "বাংলা" },
+  { code: "ta", label: "Tamil", native: "தமிழ்" },
+  { code: "te", label: "Telugu", native: "తెలుగు" },
+  { code: "kn", label: "Kannada", native: "ಕನ್ನಡ" },
+  { code: "or", label: "Odia", native: "ଓଡ଼ିଆ" },
+];
+
+// Simplified Dictionary for demonstration
+const DICTIONARY = {
+  en: {
+    title: "Patient Settings",
+    subtitle_view: "View profile",
+    subtitle_edit: "Editing profile",
+    section_profile: "Profile",
+    section_settings: "App Settings",
+    age: "Age",
+    gender: "Gender",
+    dosha: "Dosha",
+    history: "Medical History",
+    allergies: "Allergies",
+    medications: "Medications",
+    language: "Language",
+    save: "Save",
+    cancel: "Cancel",
+    edit: "Edit",
+    change_pass: "Change Password",
+    logout: "Logout",
+  },
+  hi: {
+    title: "रोगी सेटिंग्स",
+    subtitle_view: "प्रोफ़ाइल देखें",
+    subtitle_edit: "प्रोफ़ाइल संपादित करें",
+    section_profile: "प्रोफ़ाइल",
+    section_settings: "ऐप सेटिंग्स",
+    age: "आयु",
+    gender: "लिंग",
+    dosha: "दोष",
+    history: "चिकित्सा इतिहास",
+    allergies: "एलर्जी",
+    medications: "दवाएं",
+    language: "भाषा",
+    save: "सहेजें",
+    cancel: "रद्द करें",
+    edit: "संपादित करें",
+    change_pass: "पासवर्ड बदलें",
+    logout: "लॉग आउट",
+  },
+  // Note: For other languages, defaulting to English for this demo
+  // You can populate them similarly
+};
+
 export default function PatientSettings({ navigation }) {
   const { user, refreshUser, logout } = useAuth();
 
   const [editMode, setEditMode] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  // --- Language State ---
+  const [currentLang, setCurrentLang] = useState("en");
+  const [languageMenuVisible, setLanguageMenuVisible] = useState(false);
+
+  // Helper to get text
+  const t = (key) => {
+    const dict = DICTIONARY[currentLang] || DICTIONARY["en"];
+    return dict[key] || DICTIONARY["en"][key];
+  };
 
   const [formData, setFormData] = useState({
     age: user?.age?.toString() || "",
@@ -36,6 +106,10 @@ export default function PatientSettings({ navigation }) {
   });
 
   const [localAvatar, setLocalAvatar] = useState(user?.avatar || null);
+
+  // Bottom sheet + view modal visibility
+  const [avatarMenuVisible, setAvatarMenuVisible] = useState(false);
+  const [viewPhotoVisible, setViewPhotoVisible] = useState(false);
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -67,11 +141,11 @@ export default function PatientSettings({ navigation }) {
     });
   }, [user]);
 
-  const pickAvatar = async () => {
+  const pickAvatarFromGallery = async () => {
     try {
       const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permission.granted) {
-        Alert.alert("Permission needed", "Enable gallery access.");
+        Alert.alert("Permission needed", "Enable gallery access in settings.");
         return;
       }
 
@@ -82,11 +156,14 @@ export default function PatientSettings({ navigation }) {
         aspect: [1, 1],
       });
 
-      if (!res.cancelled) {
-        setLocalAvatar(res.uri);
-        setFormData({ ...formData, avatarUrl: res.uri });
+      if (!res.canceled && res.assets?.length > 0) {
+        const uri = res.assets[0].uri;
+        setLocalAvatar(uri);
+        setFormData((prev) => ({ ...prev, avatarUrl: uri }));
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn("pickAvatarFromGallery err:", e);
+    }
   };
 
   const cleanPayload = (obj) =>
@@ -146,6 +223,15 @@ export default function PatientSettings({ navigation }) {
     </TouchableOpacity>
   );
 
+  const onPressAvatar = () => {
+    setAvatarMenuVisible(true);
+  };
+
+  const removeAvatar = () => {
+    setLocalAvatar(null);
+    setFormData((p) => ({ ...p, avatarUrl: null }));
+  };
+
   return (
     <View style={styles.screen}>
       {/* FLOATING HEADER FIXED */}
@@ -158,9 +244,9 @@ export default function PatientSettings({ navigation }) {
           },
         ]}
       >
-        <Text style={styles.floatingTitle}>Patient Settings</Text>
+        <Text style={styles.floatingTitle}>{t("title")}</Text>
         <Text style={styles.floatingSubtitle}>
-          {editMode ? "Editing profile" : "View profile"}
+          {editMode ? t("subtitle_edit") : t("subtitle_view")}
         </Text>
       </Animated.View>
 
@@ -174,7 +260,7 @@ export default function PatientSettings({ navigation }) {
       >
         {/* PROFILE CARD FIXED POSITION */}
         <View style={styles.headerCard}>
-          <TouchableOpacity activeOpacity={0.8} onPress={pickAvatar}>
+          <TouchableOpacity activeOpacity={0.8} onPress={onPressAvatar}>
             <View style={styles.avatarWrap}>
               {localAvatar ? (
                 <Image source={{ uri: localAvatar }} style={styles.avatar} />
@@ -213,91 +299,108 @@ export default function PatientSettings({ navigation }) {
           </View>
         </View>
 
+        {/* --- APP SETTINGS CARD (LANGUAGE) --- */}
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>{t("section_settings")}</Text>
+          
+          <TouchableOpacity 
+            style={styles.kvRow} 
+            onPress={() => setLanguageMenuVisible(true)}
+          >
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 16, marginRight: 8}}>🌐</Text>
+                <Text style={styles.kvLabel}>{t("language")}</Text>
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.kvValue}>
+                    {LANGUAGES.find(l => l.code === currentLang)?.native}
+                </Text>
+                <Text style={[styles.kvValue, {marginLeft: 6, fontSize: 12}]}>▼</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         {/* DETAILS SECTION */}
         <View style={styles.sectionCard}>
-          <Text style={styles.sectionTitle}>Profile</Text>
+          <Text style={styles.sectionTitle}>{t("section_profile")}</Text>
 
           {!editMode ? (
             <>
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Age</Text>
+                <Text style={styles.kvLabel}>{t("age")}</Text>
                 <Text style={styles.kvValue}>{user?.age ?? "—"}</Text>
               </View>
 
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Gender</Text>
-                <Text style={styles.kvValue}>{user?.gender ?? "—"}</Text>
+                <Text style={styles.kvLabel}>{t("gender")}</Text>
+                <Text style={styles.kvValue}>
+                  {user?.gender ? user.gender.toUpperCase() : "—"}
+                </Text>
               </View>
 
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Dosha</Text>
+                <Text style={styles.kvLabel}>{t("dosha")}</Text>
                 <Text style={styles.kvValue}>{user?.doshaType ?? "—"}</Text>
               </View>
 
               <View style={styles.divider} />
 
               <View style={styles.block}>
-                <Text style={styles.blockTitle}>Medical History</Text>
+                <Text style={styles.blockTitle}>{t("history")}</Text>
                 <Text style={styles.blockBody}>
                   {user?.medicalHistory || "No medical history provided."}
                 </Text>
               </View>
 
               <View style={styles.block}>
-                <Text style={styles.blockTitle}>Allergies</Text>
+                <Text style={styles.blockTitle}>{t("allergies")}</Text>
                 <Text style={styles.blockBody}>
                   {user?.allergies || "None"}
                 </Text>
               </View>
 
               <View style={styles.block}>
-                <Text style={styles.blockTitle}>Medications</Text>
+                <Text style={styles.blockTitle}>{t("medications")}</Text>
                 <Text style={styles.blockBody}>
                   {user?.medications || "None"}
                 </Text>
               </View>
 
               {/* EDIT + CHANGE PASSWORD + LOGOUT */}
-                <View style={styles.actionsRow}>
+              <View style={styles.actionsRow}>
+                <TouchableOpacity
+                  style={styles.smallPrimary}
+                  onPress={() => setEditMode(true)}
+                >
+                  <Text style={styles.smallPrimaryText}>{t("edit")}</Text>
+                </TouchableOpacity>
 
-                  {/* EDIT BUTTON */}
-                  <TouchableOpacity
-                    style={styles.smallPrimary}
-                    onPress={() => setEditMode(true)}
-                  >
-                    <Text style={styles.smallPrimaryText}>Edit</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.smallPrimary}
+                  onPress={() => navigation.navigate("ChangePassword")}
+                >
+                  <Text style={styles.smallPrimaryText}>{t("change_pass")}</Text>
+                </TouchableOpacity>
 
-                  {/* CHANGE PASSWORD */}
-                  <TouchableOpacity
-                    style={styles.smallPrimary}
-                    onPress={() => navigation.navigate("ChangePassword")}
-                  >
-                    <Text style={styles.smallPrimaryText}>Change Password</Text>
-                  </TouchableOpacity>
-
-                  {/* LOGOUT BUTTON */}
-                  <TouchableOpacity
-                    style={[styles.smallOutline, { marginLeft: 8 }]}
-                    onPress={() =>
-                      Alert.alert("Logout", "Are you sure?", [
-                        { text: "Cancel", style: "cancel" },
-                        { text: "Logout", style: "destructive", onPress: logout },
-                      ])
-                    }
-                  >
-                    <Text style={styles.smallOutlineText}>Logout</Text>
-                  </TouchableOpacity>
-
-                </View>
-
+                <TouchableOpacity
+                  style={[styles.smallOutline, { marginLeft: 8 }]}
+                  onPress={() =>
+                    Alert.alert(t("logout"), "Are you sure?", [
+                      { text: "Cancel", style: "cancel" },
+                      { text: "Logout", style: "destructive", onPress: logout },
+                    ])
+                  }
+                >
+                  <Text style={styles.smallOutlineText}>{t("logout")}</Text>
+                </TouchableOpacity>
+              </View>
             </>
           ) : (
             <>
               {/* EDIT MODE */}
-              <Text style={styles.formLabel}>Age</Text>
+              <Text style={styles.formLabel}>{t("age")}</Text>
               <TextInput
-                placeholder="Age"
+                placeholder={t("age")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.age}
                 onChangeText={(t) => setFormData({ ...formData, age: t })}
@@ -305,7 +408,7 @@ export default function PatientSettings({ navigation }) {
                 style={styles.input}
               />
 
-              <Text style={styles.formLabel}>Gender</Text>
+              <Text style={styles.formLabel}>{t("gender")}</Text>
               <View style={{ flexDirection: "row", marginTop: 6 }}>
                 <GenderChip
                   value="male"
@@ -327,7 +430,7 @@ export default function PatientSettings({ navigation }) {
                 />
               </View>
 
-              <Text style={styles.formLabel}>Dosha</Text>
+              <Text style={styles.formLabel}>{t("dosha")}</Text>
               <TextInput
                 placeholder="VATA / PITTA / KAPHA"
                 placeholderTextColor={colors.foregroundLight}
@@ -338,9 +441,9 @@ export default function PatientSettings({ navigation }) {
                 style={styles.input}
               />
 
-              <Text style={styles.formLabel}>Medical History</Text>
+              <Text style={styles.formLabel}>{t("history")}</Text>
               <TextInput
-                placeholder="Medical history"
+                placeholder={t("history")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.medicalHistory}
                 onChangeText={(t) =>
@@ -350,9 +453,9 @@ export default function PatientSettings({ navigation }) {
                 multiline
               />
 
-              <Text style={styles.formLabel}>Allergies</Text>
+              <Text style={styles.formLabel}>{t("allergies")}</Text>
               <TextInput
-                placeholder="Allergies"
+                placeholder={t("allergies")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.allergies}
                 onChangeText={(t) =>
@@ -361,9 +464,9 @@ export default function PatientSettings({ navigation }) {
                 style={styles.input}
               />
 
-              <Text style={styles.formLabel}>Medications</Text>
+              <Text style={styles.formLabel}>{t("medications")}</Text>
               <TextInput
-                placeholder="Medications"
+                placeholder={t("medications")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.medications}
                 onChangeText={(t) =>
@@ -390,7 +493,7 @@ export default function PatientSettings({ navigation }) {
                     });
                   }}
                 >
-                  <Text style={styles.smallOutlineText}>Cancel</Text>
+                  <Text style={styles.smallOutlineText}>{t("cancel")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -399,7 +502,7 @@ export default function PatientSettings({ navigation }) {
                   disabled={saving}
                 >
                   <Text style={styles.smallPrimaryText}>
-                    {saving ? "Saving..." : "Save"}
+                    {saving ? "Saving..." : t("save")}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -418,6 +521,139 @@ export default function PatientSettings({ navigation }) {
           />
         </View>
       </Animated.ScrollView>
+
+      {/* ---------- View Photo Modal ---------- */}
+      <Modal
+        visible={viewPhotoVisible}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setViewPhotoVisible(false)}
+      >
+        <Pressable
+          style={styles.viewModalBackground}
+          onPress={() => setViewPhotoVisible(false)}
+        >
+          <Image source={{ uri: localAvatar }} style={styles.viewModalImage} />
+        </Pressable>
+      </Modal>
+
+      {/* ---------- Avatar Action Sheet ---------- */}
+      {avatarMenuVisible && (
+        <View style={styles.overlay}>
+          <Pressable style={styles.backdrop} onPress={() => setAvatarMenuVisible(false)} />
+          <View style={styles.menuBox}>
+            {localAvatar && (
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                  setAvatarMenuVisible(false);
+                  setViewPhotoVisible(true);
+                }}
+              >
+                <Text style={styles.menuText}>View Photo</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              style={styles.menuItem}
+              onPress={async () => {
+                setAvatarMenuVisible(false);
+                await pickAvatarFromGallery();
+              }}
+            >
+              <Text style={styles.menuText}>Choose from Gallery</Text>
+            </TouchableOpacity>
+
+            {localAvatar && (
+              <TouchableOpacity
+                style={styles.menuItem}
+                onPress={() => {
+                  setAvatarMenuVisible(false);
+                  Alert.alert(
+                    "Remove Photo",
+                    "Are you sure you want to remove your photo?",
+                    [
+                      { text: "Cancel", style: "cancel" },
+                      {
+                        text: "Remove",
+                        style: "destructive",
+                        onPress: () => removeAvatar(),
+                      },
+                    ]
+                  );
+                }}
+              >
+                <Text style={[styles.menuText, { color: "red" }]}>Remove Photo</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              style={[styles.menuItem, { marginBottom: 8 }]}
+              onPress={() => setAvatarMenuVisible(false)}
+            >
+              <Text style={[styles.menuText, { fontWeight: "700" }]}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* ---------- LANGUAGE SELECTION MODAL ---------- */}
+      <Modal
+        visible={languageMenuVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setLanguageMenuVisible(false)}
+      >
+        <View style={styles.overlay}>
+          <Pressable 
+            style={styles.backdrop} 
+            onPress={() => setLanguageMenuVisible(false)} 
+          />
+          <View style={[styles.menuBox, {maxHeight: '70%'}]}>
+            <Text style={styles.languageHeader}>Select Language</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {LANGUAGES.map((lang) => (
+                <TouchableOpacity
+                  key={lang.code}
+                  style={styles.languageItem}
+                  onPress={() => {
+                    setCurrentLang(lang.code);
+                    setLanguageMenuVisible(false);
+                  }}
+                >
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    {/* Radio Button Circle */}
+                    <View style={[
+                        styles.radioCircle, 
+                        currentLang === lang.code && styles.radioCircleSelected
+                    ]}>
+                        {currentLang === lang.code && <View style={styles.radioDot} />}
+                    </View>
+                    
+                    <View style={{marginLeft: 12}}>
+                        <Text style={[
+                            styles.languageNative, 
+                            currentLang === lang.code && {color: colors.primary, fontWeight: '700'}
+                        ]}>
+                            {lang.native}
+                        </Text>
+                        <Text style={styles.languageLabel}>{lang.label}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            
+            <TouchableOpacity
+              style={[styles.menuItem, { marginTop: 10, marginBottom: 8 }]}
+              onPress={() => setLanguageMenuVisible(false)}
+            >
+              <Text style={[styles.menuText, { fontWeight: "700" }]}>{t("cancel")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </View>
   );
 }
@@ -433,17 +669,15 @@ const styles = StyleSheet.create({
   /* >>> FIXED FLOATING HEADER <<< */
   floatingHeader: {
     position: "absolute",
-    top: Platform.OS === "ios" ? 0 : 24,     // FIX
+    top: Platform.OS === "ios" ? 0 : 24,
     left: 0,
     right: 0,
     zIndex: 20,
     backgroundColor: colors.card,
-
-    height: 80,                              // FIX
+    height: 80,
     paddingTop: Platform.OS === "ios" ? 40 : 20,
     paddingHorizontal: 16,
     paddingBottom: 10,
-
     borderBottomWidth: 1,
     borderColor: colors.border,
     justifyContent: "flex-end",
@@ -462,7 +696,7 @@ const styles = StyleSheet.create({
 
   /* >>> HEADER CARD <<< */
   headerCard: {
-    marginTop: Platform.OS === "ios" ? 110 : 120,   // FIX
+    marginTop: Platform.OS === "ios" ? 110 : 120,
     marginHorizontal: 16,
     backgroundColor: colors.card,
     borderRadius: 14,
@@ -543,10 +777,12 @@ const styles = StyleSheet.create({
   kvRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: 'center',
     paddingVertical: 10,
   },
   kvLabel: {
     color: colors.foregroundLight,
+    fontSize: 15,
   },
   kvValue: {
     color: colors.foreground,
@@ -652,5 +888,104 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     opacity: 0,
+  },
+
+  /* ---------- Bottom Action Sheet Styles ---------- */
+  overlay: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    zIndex: 999,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  backdrop: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0,0,0,0.45)",
+  },
+  menuBox: {
+    width: "100%",
+    backgroundColor: colors.card,
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    paddingBottom: Platform.OS === "ios" ? 34 : 18,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    borderColor: colors.border,
+    borderTopWidth: 1,
+  },
+  menuItem: {
+    paddingVertical: 14,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  menuText: {
+    color: colors.foreground,
+    fontSize: 16,
+    textAlign: "center",
+  },
+
+  /* Language Modal Specifics */
+  languageHeader: {
+    fontSize: 16, 
+    fontWeight: '700', 
+    color: colors.foreground, 
+    textAlign: 'center', 
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border
+  },
+  languageItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.backgroundLight,
+  },
+  languageNative: {
+    fontSize: 16,
+    color: colors.foreground,
+  },
+  languageLabel: {
+    fontSize: 12,
+    color: colors.foregroundLight
+  },
+  radioCircle: {
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      borderWidth: 2,
+      borderColor: colors.border,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  radioCircleSelected: {
+      borderColor: colors.primary
+  },
+  radioDot: {
+      width: 10,
+      height: 10,
+      borderRadius: 5,
+      backgroundColor: colors.primary
+  },
+
+  /* View modal */
+  viewModalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.95)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  viewModalImage: {
+    width: "95%",
+    height: "70%",
+    resizeMode: "contain",
+    borderRadius: 8,
   },
 });

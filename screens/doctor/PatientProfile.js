@@ -1,5 +1,5 @@
 // /screens/doctor/PatientProfile.js
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react"; // Changed Imports
 import {
   View,
   Text,
@@ -12,11 +12,14 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native"; // ✅ IMPORT THIS
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../../colors";
 import { patientsAPI } from "../../services/api";
+import { diseaseAPI } from "../../services/api";
 
-// --- Helper: Diet Plan Detail Modal ---
+
+// ... (DietPlanDetailModal remains unchanged) ...
 const DietPlanDetailModal = ({ visible, plan, onClose }) => {
   if (!plan) return null;
 
@@ -36,7 +39,7 @@ const DietPlanDetailModal = ({ visible, plan, onClose }) => {
           <View style={styles.modalMetaRow}>
             <View style={styles.modalBadge}>
                <Ionicons name="leaf" size={14} color={colors.primary} />
-               <Text style={styles.modalBadgeText}>{plan.doshaType || "Tri-Dosha"}</Text>
+               <Text style={styles.modalBadgeText}>{plan.doshaType ? plan.doshaType.replace('_', '-') : "Tri-Dosha"}</Text>
             </View>
             <View style={styles.modalBadge}>
                <Ionicons name="calendar" size={14} color={colors.foregroundLight} />
@@ -47,6 +50,7 @@ const DietPlanDetailModal = ({ visible, plan, onClose }) => {
           <View style={styles.divider} />
           
           <Text style={styles.sectionHeader}>Schedule</Text>
+
           {Array.from({ length: plan.duration }).map((_, i) => {
              const dayNum = i + 1;
              const dayItems = plan.items?.filter(item => item.dayNumber === dayNum) || [];
@@ -58,7 +62,7 @@ const DietPlanDetailModal = ({ visible, plan, onClose }) => {
                   {dayItems.map((item, idx) => (
                     <View key={idx} style={styles.foodItem}>
                         <View style={{width: 60}}>
-                            <Text style={styles.mealType}>{item.mealType.slice(0,1)}{item.mealType.slice(1).toLowerCase()}</Text>
+                            <Text style={styles.mealType}>{item.mealType}</Text>
                             <Text style={styles.mealTime}>{item.time}</Text>
                         </View>
                         <View style={{flex:1}}>
@@ -77,38 +81,72 @@ const DietPlanDetailModal = ({ visible, plan, onClose }) => {
   );
 };
 
+// --- COMPONENT: Condition Card ---
+const ConditionCard = ({ diseaseName }) => {
+  const hasDisease = diseaseName && diseaseName !== "None recorded";
+  return (
+    <View style={[styles.conditionCard, !hasDisease && { backgroundColor: '#f9f9f9', borderColor: '#eee' }]}>
+      <View style={[styles.conditionIconBox, !hasDisease && { backgroundColor: '#eee' }]}>
+        <MaterialCommunityIcons name="stethoscope" size={24} color={hasDisease ? "#E67E22" : colors.foregroundLight} />
+      </View>
+      <View style={{flex: 1}}>
+        <Text style={[styles.conditionLabel, !hasDisease && { color: colors.foregroundLight }]}>Primary Condition</Text>
+        <Text style={[styles.conditionValue, !hasDisease && { color: colors.foregroundLight, fontWeight: '400', fontStyle: 'italic' }]}>
+            {diseaseName || "None recorded"}
+        </Text>
+      </View>
+    </View>
+  );
+};
+
 export default function PatientProfile({ route, navigation }) {
   const { patientId } = route?.params || {};
   
   const [patient, setPatient] = useState(null);
-  const [dietPlans, setDietPlans] = useState([]);
-  const [reports, setReports] = useState([]); 
-  
+  const [dietPlans, setDietPlans] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("profile");
   const [selectedPlan, setSelectedPlan] = useState(null);
 
-  useEffect(() => {
-    loadPatientData();
-  }, [patientId]);
+  // ✅ FIX: Use useFocusEffect instead of useEffect
+  // This runs every time the screen comes into focus (e.g., returning from Edit)
+  useFocusEffect(
+    useCallback(() => {
+      loadPatientData();
+    }, [patientId])
+  );
 
   const loadPatientData = async () => {
-    try {
-      const [patientRes, dietPlansRes, reportsRes] = await Promise.all([
-        patientsAPI.getById(patientId),
-        patientsAPI.getDietPlans(patientId),
-        patientsAPI.getHealthRecords(patientId), 
-      ]);
+  try {
+    if (!patient) setLoading(true);
 
-      setPatient(patientRes.data.data);
-      setDietPlans(dietPlansRes.data.data);
-      setReports(reportsRes.data.data);
-    } catch (error) {
-      console.error("Error loading patient data:", error);
-    } finally {
-      setLoading(false);
+    const [patientRes, dietPlansRes] = await Promise.all([
+      patientsAPI.getById(patientId),
+      patientsAPI.getDietPlans(patientId),
+    ]);
+
+    const p = patientRes.data.data;
+
+    // 🔥 FIX: If user has diseaseId but no disease object → fetch disease details
+    if (p.user?.diseaseId && !p.user.disease) {
+      try {
+        const diseaseRes = await diseaseAPI.getById(p.user.diseaseId);
+        p.user.disease = diseaseRes.data.data;
+      } catch (e) {
+        console.warn("Could not fetch disease details:", e);
+      }
     }
-  };
+
+    setPatient(p);
+    setDietPlans(dietPlansRes.data.data);
+
+  } catch (error) {
+    console.error("Error loading patient data:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleDelete = () => {
     Alert.alert("Delete Patient?", "This action cannot be undone.", [
@@ -137,11 +175,13 @@ export default function PatientProfile({ route, navigation }) {
     );
   }
 
-  const user = patient.user;
+  const user = patient.user || {};
+  // ✅ Get disease name safely
+  const diseaseName = user.disease?.name || "None recorded";
 
   // --- INFO CARD COMPONENT ---
-  const InfoCard = ({ label, value, icon }) => (
-    <View style={styles.infoCard}>
+  const InfoCard = ({ label, value, icon, fullWidth = false }) => (
+    <View style={[styles.infoCard, fullWidth && { width: '100%' }]}>
       <View style={styles.iconBox}>
         <Ionicons name={icon} size={18} color={colors.primary} />
       </View>
@@ -159,7 +199,6 @@ export default function PatientProfile({ route, navigation }) {
             <MaterialCommunityIcons name={icon} size={18} color={color} />
             <Text style={[styles.textBlockLabel, { color: color }]}>{label}</Text>
         </View>
-        {/* FIXED: Uses safe access with fallback */}
         <Text style={styles.textBlockValue}>{value || "None recorded"}</Text>
     </View>
   );
@@ -171,29 +210,28 @@ export default function PatientProfile({ route, navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backBtn}>
             <Ionicons name="arrow-back" size={24} color={colors.foreground} />
         </TouchableOpacity>
-        
-        {/* Profile Info */}
+
         <View style={styles.headerContent}>
             <View style={styles.avatar}>
                 <Text style={styles.avatarText}>{user.name?.charAt(0).toUpperCase()}</Text>
             </View>
             <View style={styles.headerTextContainer}>
-                <Text style={styles.name} numberOfLines={1}>{user.name}</Text>
-                <Text style={styles.email} numberOfLines={1}>{user.email}</Text>
+                <Text style={styles.name}>{user.name}</Text>
+                <Text style={styles.email}>{user.email}</Text>
             </View>
         </View>
       </View>
 
       {/* --- TABS --- */}
       <View style={styles.tabContainer}>
-        {["profile", "diet", "reports"].map((t) => (
+        {["profile", "diet"].map((t) => (
           <TouchableOpacity
             key={t}
             style={[styles.tab, activeTab === t && styles.tabActive]}
             onPress={() => setActiveTab(t)}
           >
             <Text style={[styles.tabText, activeTab === t && styles.tabTextActive]}>
-              {t === "profile" ? "Profile" : t === "diet" ? "Diet Plans" : "Reports"}
+              {t === "profile" ? "Profile" : "Diet Plans"}
             </Text>
           </TouchableOpacity>
         ))}
@@ -204,20 +242,16 @@ export default function PatientProfile({ route, navigation }) {
         {/* ================= PROFILE TAB ================= */}
         {activeTab === "profile" && (
           <>
-            {/* 1. Personal Details */}
             <Text style={styles.sectionTitle}>Personal Details</Text>
             <View style={styles.grid}>
-                <InfoCard label="Age" value={`${user.age} yrs`} icon="calendar-outline" />
-                <InfoCard label="Gender" value={user.gender} icon="person-outline" />
+                <InfoCard label="Age" value={`${user.age || patient.age} yrs`} icon="calendar-outline" />
+                <InfoCard label="Gender" value={user.gender || patient.gender} icon="person-outline" />
                 <InfoCard label="Phone" value={user.phone} icon="call-outline" />
-                <InfoCard label="Dosha" value={user.doshaType} icon="leaf-outline" />
-                <View style={{ width: '100%' }}> 
-                    {/* Full width for address */}
-                    <InfoCard label="Address" value={user.address} icon="location-outline" />
-                </View>
+                <InfoCard label="Dosha" value={user.doshaType ? user.doshaType.replace('_', '-') : '-'} icon="leaf-outline" />
+                
+                <InfoCard label="Address" value={user.address} icon="location-outline" fullWidth />
             </View>
 
-            {/* 2. Health Metrics */}
             <Text style={styles.sectionTitle}>Health Metrics</Text>
             <View style={styles.grid}>
                 <InfoCard label="Height" value={`${patient.height} cm`} icon="resize-outline" />
@@ -226,34 +260,19 @@ export default function PatientProfile({ route, navigation }) {
                 <InfoCard label="Digestion" value={patient.bowelMovement} icon="water-outline" />
             </View>
 
-            {/* 3. Medical Profile (FIXED: Using 'user' object instead of 'patient') */}
             <Text style={styles.sectionTitle}>Medical Profile</Text>
-            <View style={styles.medicalCard}>
-                <TextBlock 
-                    label="Medical History" 
-                    value={user.medicalHistory} 
-                    icon="clipboard-text-outline" 
-                    color="#4ECDC4"
-                />
-                <View style={styles.divider} />
-                
-                <TextBlock 
-                    label="Allergies" 
-                    value={user.allergies} 
-                    icon="alert-circle-outline" 
-                    color="#FF6B6B" 
-                />
-                <View style={styles.divider} />
 
-                <TextBlock 
-                    label="Current Medications" 
-                    value={user.medications} 
-                    icon="pill" 
-                    color={colors.primary} 
-                />
+            {/* ✅ CONDITION CARD */}
+            <ConditionCard diseaseName={diseaseName} />
+
+            <View style={styles.medicalCard}>
+                <TextBlock label="Medical History" value={user.medicalHistory} icon="clipboard-text-outline" color="#4ECDC4" />
+                <View style={styles.divider} />
+                <TextBlock label="Allergies" value={user.allergies} icon="alert-circle-outline" color="#FF6B6B" />
+                <View style={styles.divider} />
+                <TextBlock label="Current Medications" value={user.medications} icon="pill" color={colors.primary} />
             </View>
 
-            {/* Actions */}
             <View style={styles.actionRow}>
                 <TouchableOpacity style={styles.editBtn} onPress={() => navigation.navigate("EditPatient", { patientId })}>
                     <Text style={styles.editBtnText}>Edit Profile</Text>
@@ -278,56 +297,32 @@ export default function PatientProfile({ route, navigation }) {
                     <TouchableOpacity 
                         key={plan.id} 
                         style={styles.planCard}
-                        onPress={() => setSelectedPlan(plan)} 
+                        onPress={() => setSelectedPlan(plan)}
                     >
                         <View style={[styles.leftStrip, {backgroundColor: '#A29BFE'}]} />
                         <View style={styles.planContent}>
                             <Text style={styles.planTitle}>{plan.name}</Text>
-                            <Text style={styles.planDesc} numberOfLines={1}>{plan.description}</Text>
+                            <Text style={styles.planDesc}>{plan.description}</Text>
                             <View style={styles.planMeta}>
                                 <Text style={styles.metaText}>{plan.duration} Days</Text>
                                 <Text style={styles.metaText}>•</Text>
-                                <Text style={styles.metaText}>{new Date(plan.createdAt).toLocaleDateString()}</Text>
+                                <Text style={styles.metaText}>
+                                  {new Date(plan.createdAt).toLocaleDateString()}
+                                </Text>
                             </View>
                         </View>
                         <Ionicons name="chevron-forward" size={20} color={colors.border} style={{marginRight: 16}} />
                     </TouchableOpacity>
                 ))
             )}
+
             <TouchableOpacity 
                 style={styles.addBtn}
-                onPress={() => navigation.navigate("CreateDietChart")}
+                onPress={() => navigation.navigate("CreateDietChart", { patientId })}
+
             >
                 <Text style={styles.addBtnText}>+ Assign New Plan</Text>
             </TouchableOpacity>
-          </View>
-        )}
-
-        {/* ================= REPORTS TAB ================= */}
-        {activeTab === "reports" && (
-          <View>
-            {reports.length === 0 ? (
-                <View style={styles.emptyState}>
-                    <MaterialCommunityIcons name="file-document-outline" size={48} color={colors.border} />
-                    <Text style={styles.emptyText}>No reports uploaded.</Text>
-                </View>
-            ) : (
-                reports.map((report) => (
-                    <View key={report.id} style={styles.reportCard}>
-                        <View style={styles.reportIcon}>
-                            <Ionicons name="document-text" size={24} color={colors.primary} />
-                        </View>
-                        <View style={{flex:1}}>
-                            <Text style={styles.reportTitle}>{report.recordType}</Text>
-                            <Text style={styles.reportDate}>{new Date(report.date).toDateString()}</Text>
-                            {report.notes && <Text style={styles.reportNotes} numberOfLines={2}>{report.notes}</Text>}
-                        </View>
-                        <TouchableOpacity>
-                            <Ionicons name="download-outline" size={24} color={colors.foregroundLight} />
-                        </TouchableOpacity>
-                    </View>
-                ))
-            )}
           </View>
         )}
 
@@ -380,6 +375,29 @@ const styles = StyleSheet.create({
   infoLabel: { fontSize: 12, color: colors.foregroundLight, marginBottom: 2 },
   infoValue: { fontSize: 15, fontWeight: '600', color: colors.foreground },
 
+  /* Condition Card */
+  conditionCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#FFF3E0', // Light Orange bg
+      borderRadius: 16,
+      padding: 16,
+      marginBottom: 16,
+      borderWidth: 1,
+      borderColor: '#FFE0B2',
+  },
+  conditionIconBox: {
+      width: 48,
+      height: 48,
+      borderRadius: 24,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: 16,
+  },
+  conditionLabel: { fontSize: 12, color: '#E67E22', fontWeight: '600', marginBottom: 4, textTransform: 'uppercase' },
+  conditionValue: { fontSize: 18, fontWeight: '700', color: '#D35400' },
+
   /* Medical Card */
   medicalCard: { backgroundColor: colors.card, borderRadius: 16, padding: 20, borderWidth: 1, borderColor: colors.border },
   textBlock: { marginBottom: 4 },
@@ -405,13 +423,6 @@ const styles = StyleSheet.create({
   addBtn: { marginTop: 10, alignSelf: 'center', padding: 10 },
   addBtnText: { color: colors.primary, fontWeight: '600' },
 
-  /* Reports */
-  reportCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.card, padding: 16, borderRadius: 12, marginBottom: 12, borderWidth: 1, borderColor: colors.border },
-  reportIcon: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.primary + '10', alignItems: 'center', justifyContent: 'center', marginRight: 14 },
-  reportTitle: { fontSize: 16, fontWeight: '600', color: colors.foreground },
-  reportDate: { fontSize: 12, color: colors.foregroundLight, marginTop: 2 },
-  reportNotes: { fontSize: 13, color: colors.foreground, marginTop: 6, fontStyle: 'italic' },
-
   emptyState: { alignItems: 'center', padding: 40 },
   emptyText: { color: colors.foregroundLight, marginTop: 10 },
 
@@ -425,7 +436,7 @@ const styles = StyleSheet.create({
   modalBadgeText: { fontSize: 13, fontWeight: '600', color: colors.primary },
   sectionHeader: { fontSize: 18, fontWeight: '700', marginBottom: 16, marginTop: 10 },
   dayBlock: { marginBottom: 24 },
-  dayTitle: { fontSize: 16, fontWeight: '700', color: colors.foreground, marginBottom: 10, backgroundColor: colors.background, padding: 8, borderRadius: 8, overflow: 'hidden' },
+  dayTitle: { fontSize: 16, fontWeight: '700', color: colors.foreground, marginBottom: 10, backgroundColor: colors.background, padding: 8, borderRadius: 8 },
   foodItem: { flexDirection: 'row', marginBottom: 12, alignItems: 'flex-start' },
   mealType: { fontSize: 12, fontWeight: '700', color: colors.primary, textTransform: 'uppercase' },
   mealTime: { fontSize: 11, color: colors.foregroundLight },

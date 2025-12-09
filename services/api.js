@@ -174,12 +174,34 @@ export const recipesAPI = {
 ------------------------------------------------------*/
 export const dietPlansAPI = {
   getAll: (params) => api.get("/diet-plans", { params }),
+
   create: (data) => api.post("/diet-plans", data),
+
   getById: (id) => api.get(`/diet-plans/${id}`),
+
   update: (id, data) => api.put(`/diet-plans/${id}`, data),
+
   delete: (id) => api.delete(`/diet-plans/${id}`),
+
+  // ✔ CORRECT ROUTE TO ADD NEW ITEM
+  addItem: (planId, data) =>
+    api.post(`/diet-plans/${planId}/add-item`, data),
+
+  // ✔ CORRECT ROUTE TO UPDATE ITEM
+  updateItem: (itemId, data) =>
+    api.put(`/diet-plans/item/${itemId}`, data),
+
+  // ✔ CORRECT ROUTE TO DELETE ITEM
+  deleteItem: (itemId) =>
+    api.delete(`/diet-plans/item/${itemId}`),
+
+  getAllByPatient: (patientId) => api.get(`/diet-plans/patient/${patientId}`),
+  // ✔ EXISTS
   getItems: (id) => api.get(`/diet-plans/${id}/items`),
 };
+
+
+
 
 /* ----------------------------------------------------
    CHAT API
@@ -214,6 +236,52 @@ export const healthRecordsAPI = {
   update: (id, data) => api.put(`/health-records/${id}`, data),
   delete: (id) => api.delete(`/health-records/${id}`),
 };
+
+// services/api.js
+
+/* ... existing imports and api setup ... */
+
+/* ----------------------------------------------------
+   DISEASE API
+------------------------------------------------------*/
+export const diseaseAPI = {
+  // GET all diseases (supports pagination/search via params)
+  getAll: (params) => api.get("/diseases", { params }),
+
+  // CREATE disease
+  create: (data) => api.post("/diseases", data),
+
+  // GET disease by ID
+  getById: (id) => api.get(`/diseases/${id}`),
+
+  // UPDATE disease
+  update: (id, data) => api.put(`/diseases/${id}`, data),
+
+  // DELETE disease
+  delete: (id) => api.delete(`/diseases/${id}`),
+};
+
+/* ... existing exports ... */
+export const adminAPI = {
+  // ✔ Matches GET /super-admin/stats
+  getStats: () => api.get("/super-admin/stats"),
+
+  // ✔ Matches GET /super-admin/doctors/pending
+  getPendingDoctors: () => api.get("/super-admin/doctors/pending"),
+
+  // ✔ Matches GET /super-admin/doctors
+  getAllDoctors: () => api.get("/super-admin/doctors"),
+
+  // ✔ Matches POST /super-admin/doctors/:id/approve
+  approveDoctor: (id) => api.post(`/super-admin/doctors/${id}/approve`),
+
+  // ✔ Matches POST /super-admin/doctors/:id/reject
+  rejectDoctor: (id) => api.post(`/super-admin/doctors/${id}/reject`),
+
+  // ✔ Matches GET /super-admin/doctors/:id
+  getDoctorById: (id) => api.get(`/super-admin/doctors/${id}`),
+};
+
 
 /* ----------------------------------------------------
    EXPORT DEFAULT AXIOS

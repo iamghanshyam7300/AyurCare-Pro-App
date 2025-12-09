@@ -22,56 +22,30 @@ export default function ChatEntryForPatient({ navigation }) {
     waitForTokenThenLoad();
   }, []);
 
-  /* -------------------------------
-      WAIT UNTIL TOKEN IS READY
-  --------------------------------*/
   const waitForTokenThenLoad = async () => {
     let tries = 0;
-
     while (tries < 10) {
       const token = await AsyncStorage.getItem("accessToken");
-      console.log("🔐 TOKEN IN STORAGE:", token);
-      console.log("🧑‍⚕️ USER ROLE:", user?.role);
-
       if (token) break;
-
-      console.log("⏳ Waiting for token...");
       await new Promise((r) => setTimeout(r, 300));
       tries++;
     }
-
     loadDoctor();
   };
 
-  /* -------------------------------
-      FETCH ASSIGNED DOCTOR
-  --------------------------------*/
   const loadDoctor = async () => {
     try {
-      console.log("📡 Fetching assigned doctor...");
-
       const token = await AsyncStorage.getItem("accessToken");
-
       const res = await api.get("/patients/stats/doctor", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      console.log("📡 FULL RESPONSE:", res.data);
-
       setDoctor(res.data.data || null);
     } catch (err) {
-      console.log("❌ Doctor fetch error:", err);
       setDoctor(null);
     } finally {
       setLoading(false);
     }
   };
-
-  /* -------------------------------
-      UI STATES
-  --------------------------------*/
 
   if (loading) {
     return (
@@ -93,10 +67,20 @@ export default function ChatEntryForPatient({ navigation }) {
   }
 
   /* -------------------------------
-      DOCTOR CARD
+      RENDER UI
   --------------------------------*/
   return (
     <View style={styles.container}>
+
+      {/* ⭐ BOTPRESS CHAT AI BUTTON */}
+      <TouchableOpacity
+        style={styles.chatBotBtn}
+        onPress={() => navigation.navigate("BotpressChat")}
+      >
+        <Text style={styles.chatBotBtnText}>Chat with AyurBot AI 🌿</Text>
+      </TouchableOpacity>
+
+      {/* ⭐ Assigned Doctor Card */}
       <View style={styles.card}>
         <Text style={styles.heading}>Your Assigned Doctor</Text>
 
@@ -134,16 +118,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     padding: 20,
   },
+
   center: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 30,
     backgroundColor: colors.background,
   },
+
   noDoctorTitle: {
     fontSize: 22,
     fontWeight: "700",
@@ -154,8 +139,23 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "center",
     color: colors.foregroundLight,
-    lineHeight: 20,
   },
+
+  /* ⭐ NEW AI CHAT BUTTON */
+  chatBotBtn: {
+    backgroundColor: colors.primary,
+    paddingVertical: 14,
+    borderRadius: 14,
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  chatBotBtnText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+
+  /* Doctor Card */
   card: {
     backgroundColor: colors.card,
     padding: 22,
@@ -197,8 +197,8 @@ const styles = StyleSheet.create({
   doctorSpecial: {
     fontSize: 13,
     color: colors.foregroundLight,
-    marginTop: 3,
   },
+
   chatBtn: {
     backgroundColor: colors.primary,
     paddingVertical: 14,

@@ -18,12 +18,10 @@ import { Ionicons } from "@expo/vector-icons";
 import LottieView from "lottie-react-native";
 import { useAuth } from "../../contexts/AuthContext";
 import { colors } from "../../colors";
+import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native"; // ✅ ADDED
 
-/* ---------------------------
-   FloatingLabelInput Component
-   - Animated label (float up on focus/value)
-   - Accepts a right accessory (icon button)
-   --------------------------- */
+/* ---------------- Floating Label Input ---------------- */
 const FloatingLabelInput = ({
   label,
   value,
@@ -48,16 +46,18 @@ const FloatingLabelInput = ({
       easing: Easing.out(Easing.quad),
       useNativeDriver: false,
     }).start();
-  }, [value, anim]);
+  }, [value]);
 
   const labelTop = anim.interpolate({
     inputRange: [0, 1],
     outputRange: [16, -8],
   });
+
   const labelFontSize = anim.interpolate({
     inputRange: [0, 1],
     outputRange: [16, 12],
   });
+
   const labelColor = anim.interpolate({
     inputRange: [0, 1],
     outputRange: [colors.foreground, colors.primary],
@@ -68,19 +68,15 @@ const FloatingLabelInput = ({
       <Animated.Text
         style={[
           styles.floatingLabel,
-          {
-            top: labelTop,
-            fontSize: labelFontSize,
-            color: labelColor,
-          },
+          { top: labelTop, fontSize: labelFontSize, color: labelColor },
         ]}
-        numberOfLines={1}
       >
         {label}
       </Animated.Text>
 
-      <View style={rightAccessory ? styles.passwordWrapper : styles.inputWrapper}>
-
+      <View
+        style={rightAccessory ? styles.passwordWrapper : styles.inputWrapper}
+      >
         <TextInput
           style={[styles.passwordInput, inputStyle]}
           value={value}
@@ -88,14 +84,13 @@ const FloatingLabelInput = ({
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
-          placeholder={placeholder ? placeholder : ""}
+          placeholder={placeholder || ""}
           placeholderTextColor={colors.foregroundLight}
           onFocus={() => {
             focused.current = true;
             Animated.timing(anim, {
               toValue: 1,
               duration: 150,
-              easing: Easing.out(Easing.quad),
               useNativeDriver: false,
             }).start();
             onFocus && onFocus();
@@ -105,26 +100,44 @@ const FloatingLabelInput = ({
             Animated.timing(anim, {
               toValue: value ? 1 : 0,
               duration: 150,
-              easing: Easing.out(Easing.quad),
               useNativeDriver: false,
             }).start();
             onBlur && onBlur();
           }}
         />
 
-        {rightAccessory ? <View style={styles.eyeButton}>{rightAccessory}</View> : null}
+        {rightAccessory ? (
+          <View style={styles.eyeButton}>{rightAccessory}</View>
+        ) : null}
       </View>
     </View>
   );
 };
 
-/* ---------------------------
-   Main LoginPage Component
-   --------------------------- */
-export default function LoginPage({ navigation }) {
+/* ---------------- Main Component ---------------- */
+export default function LoginPage() {
+  const navigation = useNavigation(); // ✅ FIXED
   const { login, register, clearError } = useAuth();
+  const { t, i18n } = useTranslation();
 
-  // states
+  const [langOpen, setLangOpen] = useState(false);
+
+  const LANGS = [
+    { code: "en", label: "English" },
+    { code: "hi", label: "हिंदी" },
+    { code: "gu", label: "ગુજરાતી" },
+    { code: "or", label: "ଓଡିଆ" },
+  ];
+
+  const currentLang = i18n.language;
+  const currentLangLabel =
+    LANGS.find((l) => l.code === currentLang)?.label || "English";
+
+  const changeLanguage = async (lng) => {
+    await i18n.changeLanguage(lng);
+    setLangOpen(false);
+  };
+
   const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const [regStep, setRegStep] = useState(1);
@@ -133,14 +146,12 @@ export default function LoginPage({ navigation }) {
   const [showRegPassword, setShowRegPassword] = useState(false);
   const [showRegConfirm, setShowRegConfirm] = useState(false);
 
-  // Login state
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
     role: "",
   });
 
-  // Register state
   const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
@@ -156,119 +167,168 @@ export default function LoginPage({ navigation }) {
     address: "",
   });
 
-  /* ---------------------------
-     Animated form transition values
-     - formAnim is used to slide/fade forms when switching tabs
-     --------------------------- */
-  const formAnim = useRef(new Animated.Value(0)).current; // 0 = login, 1 = register
+  const formAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(formAnim, {
       toValue: isLogin ? 0 : 1,
       duration: 350,
-      easing: Easing.out(Easing.cubic),
       useNativeDriver: false,
     }).start();
-  }, [isLogin, formAnim]);
+  }, [isLogin]);
 
-  // Derived animated styles
-  const loginOpacity = formAnim.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
-  const loginTranslateY = formAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 20] });
+  const loginOpacity = formAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 0],
+  });
 
-  const regOpacity = formAnim.interpolate({ inputRange: [0, 1], outputRange: [0, 1] });
-  const regTranslateY = formAnim.interpolate({ inputRange: [0, 1], outputRange: [-20, 0] });
+  const loginTranslateY = formAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 20],
+  });
 
-  /* ---------------------------
-     LOGIN / REGISTER HANDLERS
-     (kept logic aligned with your previous code)
-     --------------------------- */
+  const regOpacity = formAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
+
+  const regTranslateY = formAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-20, 0],
+  });
+
+  /* ---------------- LOGIN ---------------- */
   const handleLogin = async () => {
-    if (!loginData.email || !loginData.password || !loginData.role) {
-      Alert.alert("Error", "Please fill in all fields");
+  if (!loginData.email || !loginData.password || !loginData.role) {
+    Alert.alert(t("common.error"), t("auth.fillAllFields"));
+    return;
+  }
+
+  try {
+    setIsLoading(true);
+    clearError();
+
+    const result = await login(loginData);
+
+    // 🚫 Doctor blocked because not verified
+    if (result?.blocked) {
+      Alert.alert(
+        "Verification Pending",
+        "Your account is awaiting approval from admin."
+      );
+
+      navigation.navigate("WaitingVerification");
       return;
     }
-    try {
-      setIsLoading(true);
-      clearError();
-      const res = await login(loginData);
-      if (res) {
-        Alert.alert("Success", "Login successful!");
-      }
-    } catch (error) {
-      Alert.alert("Error", error.response?.data?.message || "Login failed");
-      setIsLogin(true);
-      setRegStep(1);
-      setLoginData({ email: "", password: "", role: "" });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
+    // 🎉 Normal login continues automatically by AuthContext
+  } catch (error) {
+    Alert.alert(
+      t("common.error"),
+      error.response?.data?.message || "Login failed"
+    );
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
+  /* ---------------- REGISTER ---------------- */
   const handleNextStep = () => {
-    if (!registerData.name || !registerData.email || !registerData.password || !registerData.role) {
-      Alert.alert("Error", "Please fill in all basic fields");
+    if (
+      !registerData.name ||
+      !registerData.email ||
+      !registerData.password ||
+      !registerData.role
+    ) {
+      Alert.alert(t("common.error"), t("auth.fillAllFields"));
       return;
     }
     if (registerData.password !== registerData.confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
+      Alert.alert(t("common.error"), t("auth.passwordsNotMatch"));
       return;
     }
     setRegStep(2);
   };
 
   const handleRegister = async () => {
-    const basePayload = {
-      name: registerData.name,
-      email: registerData.email,
-      password: registerData.password,
-      role: registerData.role,
-    };
-
-    if (registerData.role === "DOCTOR") {
-      if (!registerData.specialization || !registerData.licenseNumber || !registerData.experience) {
-        Alert.alert("Error", "Please fill all doctor details");
-        return;
-      }
-      basePayload.specialization = registerData.specialization;
-      basePayload.licenseNumber = registerData.licenseNumber;
-      basePayload.experience = Number(registerData.experience);
-      basePayload.phone = registerData.phone || undefined;
-      basePayload.address = registerData.address || undefined;
-    } else if (registerData.role === "PATIENT") {
-      if (!registerData.age || !registerData.gender) {
-        Alert.alert("Error", "Please fill all patient details");
-        return;
-      }
-      basePayload.age = Number(registerData.age);
-      basePayload.gender = registerData.gender;
-      basePayload.phone = registerData.phone || undefined;
-      basePayload.address = registerData.address || undefined;
-    }
+    setIsLoading(true);
+    clearError();
 
     try {
-      setIsLoading(true);
-      clearError();
-      await register(basePayload);
+      let { confirmPassword, experience, age, ...payload } = registerData;
+
+      if (payload.role === "DOCTOR") {
+        delete payload.age;
+        delete payload.gender;
+        payload.experience = experience ? Number(experience) : null;
+      }
+
+      if (payload.role === "PATIENT") {
+        delete payload.specialization;
+        delete payload.licenseNumber;
+        delete payload.experience;
+        payload.age = age ? Number(age) : null;
+      }
+
+      console.log("FINAL PAYLOAD SENT TO BACKEND →", payload);
+
+      const result = await register(payload);
+
+if (result?.waiting) {
+  return navigation.navigate("WaitingVerification");
+}
+
+
       Alert.alert("Success", "Registration successful!");
     } catch (error) {
-      Alert.alert("Error", error.response?.data?.message || "Registration failed");
+      console.log("REGISTRATION ERROR →", error);
+      Alert.alert(
+        "Error",
+        error.response?.data?.message || "Registration failed"
+      );
     } finally {
       setIsLoading(false);
     }
   };
-
-  /* ---------------------------
-     Render
-     --------------------------- */
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
-        {/* Header Lottie + Title */}
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      {/* 🌐 LANGUAGE DROPDOWN TOP RIGHT */}
+      <View style={styles.languageContainer}>
+        <TouchableOpacity style={styles.langBtn} onPress={() => setLangOpen(!langOpen)}>
+          <Text style={styles.langBtnText}>{currentLangLabel}</Text>
+          <Ionicons
+            name={langOpen ? "chevron-up" : "chevron-down"}
+            size={18}
+            color={colors.primary}
+          />
+        </TouchableOpacity>
+
+        {langOpen && (
+          <View style={styles.langDropdown}>
+            {LANGS.map((lng) => (
+              <TouchableOpacity
+                key={lng.code}
+                style={styles.langItem}
+                onPress={() => changeLanguage(lng.code)}
+              >
+                <Text
+                  style={[
+                    styles.langItemText,
+                    lng.code === currentLang && { fontWeight: "bold", color: colors.primary },
+                  ]}
+                >
+                  {lng.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
+      </View>
+
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* HEADER */}
         <View style={styles.header}>
-          {/* Lottie Animation: place your lottie JSON at ../../assets/ayur_lottie.json */}
           <View style={styles.lottieWrap}>
             <LottieView
               source={require("../../assets/lottie/ayur_lottie.json")}
@@ -278,17 +338,18 @@ export default function LoginPage({ navigation }) {
             />
           </View>
 
-          <Text style={styles.title}>AyurDiet Pro</Text>
+          <Text style={styles.title}>{t("auth.appName")}</Text>
+
           <Text style={styles.subtitle}>
             {isLogin
-              ? "Modern Ayurvedic Diet Management System"
+              ? t("auth.systemSubtitle")
               : regStep === 2
-              ? `Complete your ${registerData.role.toLowerCase()} profile`
-              : "Create your account"}
+              ? t("auth.completeProfile", { role: registerData.role })
+              : t("auth.createAccount")}
           </Text>
         </View>
 
-        {/* Tabs */}
+        {/* ---------------- TABS ---------------- */}
         <View style={styles.tabs}>
           <TouchableOpacity
             style={[styles.tab, isLogin && styles.tabActive]}
@@ -297,7 +358,9 @@ export default function LoginPage({ navigation }) {
               setRegStep(1);
             }}
           >
-            <Text style={[styles.tabText, isLogin && styles.tabTextActive]}>Login</Text>
+            <Text style={[styles.tabText, isLogin && styles.tabTextActive]}>
+              {t("auth.login")}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -307,37 +370,33 @@ export default function LoginPage({ navigation }) {
               setRegStep(1);
             }}
           >
-            <Text style={[styles.tabText, !isLogin && styles.tabTextActive]}>Register</Text>
+            <Text style={[styles.tabText, !isLogin && styles.tabTextActive]}>
+              {t("auth.register")}
+            </Text>
           </TouchableOpacity>
         </View>
 
-        {/* Animated Login Card */}
+        {/* ---------------- LOGIN FORM ---------------- */}
         <Animated.View
           style={[
             styles.form,
-            {
-              opacity: loginOpacity,
-              transform: [{ translateY: loginTranslateY }],
-              // Hide pointer events when invisible (to avoid accidental taps)
-              display: isLogin ? "flex" : "none",
-            },
+            { opacity: loginOpacity, transform: [{ translateY: loginTranslateY }] },
+            { display: isLogin ? "flex" : "none" },
           ]}
         >
           <FloatingLabelInput
-            label="Email"
+            label={t("auth.email")}
             value={loginData.email}
-            onChangeText={(t) => setLoginData({ ...loginData, email: t })}
+            onChangeText={(v) => setLoginData({ ...loginData, email: v })}
             keyboardType="email-address"
             autoCapitalize="none"
-            
           />
 
           <FloatingLabelInput
-            label="Password"
+            label={t("auth.password")}
             value={loginData.password}
-            onChangeText={(t) => setLoginData({ ...loginData, password: t })}
             secureTextEntry={!showPassword}
-            
+            onChangeText={(v) => setLoginData({ ...loginData, password: v })}
             rightAccessory={
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 <Ionicons name={showPassword ? "eye-off" : "eye"} size={22} color={colors.primary} />
@@ -346,23 +405,59 @@ export default function LoginPage({ navigation }) {
           />
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Role</Text>
+            <Text style={styles.label}>{t("auth.role")}</Text>
+
+            {/* --- UPDATED ROLE BUTTONS FOR LOGIN --- */}
             <View style={styles.roleButtons}>
               <TouchableOpacity
-                style={[styles.roleButton, loginData.role === "DOCTOR" && styles.roleButtonActive]}
+                style={[
+                  styles.roleButton,
+                  loginData.role === "DOCTOR" && styles.roleButtonActive,
+                ]}
                 onPress={() => setLoginData({ ...loginData, role: "DOCTOR" })}
               >
-                <Text style={[styles.roleButtonText, loginData.role === "DOCTOR" && styles.roleButtonTextActive]}>
+                <Text
+                  style={[
+                    styles.roleButtonText,
+                    loginData.role === "DOCTOR" && styles.roleButtonTextActive,
+                  ]}
+                >
                   Doctor
                 </Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={[styles.roleButton, loginData.role === "PATIENT" && styles.roleButtonActive]}
+                style={[
+                  styles.roleButton,
+                  loginData.role === "PATIENT" && styles.roleButtonActive,
+                ]}
                 onPress={() => setLoginData({ ...loginData, role: "PATIENT" })}
               >
-                <Text style={[styles.roleButtonText, loginData.role === "PATIENT" && styles.roleButtonTextActive]}>
+                <Text
+                  style={[
+                    styles.roleButtonText,
+                    loginData.role === "PATIENT" && styles.roleButtonTextActive,
+                  ]}
+                >
                   Patient
+                </Text>
+              </TouchableOpacity>
+
+              {/* ✅ NEW: SUPER ADMIN BUTTON (Matches Controller Middleware) */}
+              <TouchableOpacity
+                style={[
+                  styles.roleButton,
+                  loginData.role === "SUPER_ADMIN" && styles.roleButtonActive,
+                ]}
+                onPress={() => setLoginData({ ...loginData, role: "SUPER_ADMIN" })}
+              >
+                <Text
+                  style={[
+                    styles.roleButtonText,
+                    loginData.role === "SUPER_ADMIN" && styles.roleButtonTextActive,
+                  ]}
+                >
+                  Admin
                 </Text>
               </TouchableOpacity>
             </View>
@@ -371,45 +466,41 @@ export default function LoginPage({ navigation }) {
           <TouchableOpacity
             style={[styles.button, isLoading && styles.buttonDisabled]}
             onPress={handleLogin}
-            disabled={isLoading}
           >
-            {isLoading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.buttonText}>Login</Text>}
+            {isLoading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.buttonText}>{t("auth.login")}</Text>}
           </TouchableOpacity>
         </Animated.View>
 
-        {/* Animated Register Card */}
+        {/* ---------------- REGISTER FORM ---------------- */}
         <Animated.View
           style={[
             styles.form,
-            {
-              opacity: regOpacity,
-              transform: [{ translateY: regTranslateY }],
-              display: !isLogin ? "flex" : "none",
-            },
+            { opacity: regOpacity, transform: [{ translateY: regTranslateY }] },
+            { display: !isLogin ? "flex" : "none" },
           ]}
         >
           {regStep === 1 ? (
             <>
               <FloatingLabelInput
-                label="Full Name"
+                label={t("auth.fullName")}
                 value={registerData.name}
-                onChangeText={(t) => setRegisterData({ ...registerData, name: t })}
+                onChangeText={(v) => setRegisterData({ ...registerData, name: v })}
                 autoCapitalize="words"
               />
 
               <FloatingLabelInput
-                label="Email"
+                label={t("auth.email")}
                 value={registerData.email}
-                onChangeText={(t) => setRegisterData({ ...registerData, email: t })}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                onChangeText={(v) => setRegisterData({ ...registerData, email: v })}
               />
 
               <FloatingLabelInput
-                label="Password"
+                label={t("auth.password")}
                 value={registerData.password}
-                onChangeText={(t) => setRegisterData({ ...registerData, password: t })}
                 secureTextEntry={!showRegPassword}
+                onChangeText={(v) => setRegisterData({ ...registerData, password: v })}
                 rightAccessory={
                   <TouchableOpacity onPress={() => setShowRegPassword(!showRegPassword)}>
                     <Ionicons name={showRegPassword ? "eye-off" : "eye"} size={22} color={colors.primary} />
@@ -418,10 +509,10 @@ export default function LoginPage({ navigation }) {
               />
 
               <FloatingLabelInput
-                label="Confirm Password"
+                label={t("auth.confirmPassword")}
                 value={registerData.confirmPassword}
-                onChangeText={(t) => setRegisterData({ ...registerData, confirmPassword: t })}
                 secureTextEntry={!showRegConfirm}
+                onChangeText={(v) => setRegisterData({ ...registerData, confirmPassword: v })}
                 rightAccessory={
                   <TouchableOpacity onPress={() => setShowRegConfirm(!showRegConfirm)}>
                     <Ionicons name={showRegConfirm ? "eye-off" : "eye"} size={22} color={colors.primary} />
@@ -430,126 +521,165 @@ export default function LoginPage({ navigation }) {
               />
 
               <View style={styles.inputGroup}>
-                <Text style={styles.label}>Registering As</Text>
+                <Text style={styles.label}>{t("auth.registeringAs")}</Text>
+
+                {/* --- REGISTER ROLES (NO ADMIN HERE) --- */}
                 <View style={styles.roleButtons}>
                   <TouchableOpacity
-                    style={[styles.roleButton, registerData.role === "PATIENT" && styles.roleButtonActive]}
+                    style={[
+                      styles.roleButton,
+                      registerData.role === "PATIENT" && styles.roleButtonActive,
+                    ]}
                     onPress={() => setRegisterData({ ...registerData, role: "PATIENT" })}
                   >
-                    <Text style={[styles.roleButtonText, registerData.role === "PATIENT" && styles.roleButtonTextActive]}>
-                      Patient
+                    <Text
+                      style={[
+                        styles.roleButtonText,
+                        registerData.role === "PATIENT" && styles.roleButtonTextActive,
+                      ]}
+                    >
+                      {t("auth.patient")}
                     </Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    style={[styles.roleButton, registerData.role === "DOCTOR" && styles.roleButtonActive]}
+                    style={[
+                      styles.roleButton,
+                      registerData.role === "DOCTOR" && styles.roleButtonActive,
+                    ]}
                     onPress={() => setRegisterData({ ...registerData, role: "DOCTOR" })}
                   >
-                    <Text style={[styles.roleButtonText, registerData.role === "DOCTOR" && styles.roleButtonTextActive]}>
-                      Doctor
+                    <Text
+                      style={[
+                        styles.roleButtonText,
+                        registerData.role === "DOCTOR" && styles.roleButtonTextActive,
+                      ]}
+                    >
+                      {t("auth.doctor")}
                     </Text>
                   </TouchableOpacity>
                 </View>
               </View>
 
               <TouchableOpacity style={styles.button} onPress={handleNextStep}>
-                <Text style={styles.buttonText}>Next Step</Text>
+                <Text style={styles.buttonText}>{t("auth.nextStep")}</Text>
               </TouchableOpacity>
             </>
           ) : (
             <>
-              {/* Step 2: Doctor or Patient extra fields */}
+              {/* DOCTOR FIELDS */}
               {registerData.role === "DOCTOR" ? (
                 <>
                   <FloatingLabelInput
-                    label="Specialization"
+                    label={t("auth.specialization")}
                     value={registerData.specialization}
-                    onChangeText={(t) => setRegisterData({ ...registerData, specialization: t })}
+                    onChangeText={(v) => setRegisterData({ ...registerData, specialization: v })}
                   />
+
                   <FloatingLabelInput
-                    label="License Number"
+                    label={t("auth.licenseNumber")}
                     value={registerData.licenseNumber}
-                    onChangeText={(t) => setRegisterData({ ...registerData, licenseNumber: t })}
+                    onChangeText={(v) => setRegisterData({ ...registerData, licenseNumber: v })}
                   />
+
                   <FloatingLabelInput
-                    label="Years of Experience"
+                    label={t("auth.experience")}
                     value={registerData.experience}
-                    onChangeText={(t) => setRegisterData({ ...registerData, experience: t })}
                     keyboardType="numeric"
+                    onChangeText={(v) => setRegisterData({ ...registerData, experience: v })}
                   />
+
                   <FloatingLabelInput
-                    label="Phone Number"
+                    label={t("auth.phone")}
                     value={registerData.phone}
-                    onChangeText={(t) => setRegisterData({ ...registerData, phone: t })}
                     keyboardType="phone-pad"
+                    onChangeText={(v) => setRegisterData({ ...registerData, phone: v })}
                   />
+
                   <FloatingLabelInput
-                    label="Clinic Address"
+                    label={t("auth.address")}
                     value={registerData.address}
-                    onChangeText={(t) => setRegisterData({ ...registerData, address: t })}
+                    onChangeText={(v) => setRegisterData({ ...registerData, address: v })}
                   />
                 </>
               ) : (
                 <>
-                  <View style={styles.row}>
-                    <View style={[styles.halfWidth, styles.floatingContainer]}>
-                      {/* AGE - full width */}
-                      <FloatingLabelInput
-                        label="Age"
-                        value={registerData.age}
-                        keyboardType="numeric"
-                        onChangeText={(t) => setRegisterData({ ...registerData, age: t })}
-                      />
+                  <FloatingLabelInput
+                    label={t("auth.age")}
+                    value={registerData.age}
+                    keyboardType="numeric"
+                    onChangeText={(v) => setRegisterData({ ...registerData, age: v })}
+                  />
 
-                      {/* GENDER - full width */}
-                      <View style={styles.inputGroup}>
-                        <Text style={styles.label}>Gender</Text>
-                        <View style={styles.roleButtons}>
-                          <TouchableOpacity
-                            style={[styles.roleButton, registerData.gender === "male" && styles.roleButtonActive]}
-                            onPress={() => setRegisterData({ ...registerData, gender: "male" })}
-                          >
-                            <Text style={[styles.roleButtonText, registerData.gender === "male" && styles.roleButtonTextActive]}>
-                              Male
-                            </Text>
-                          </TouchableOpacity>
+                  <View style={styles.inputGroup}>
+                    <Text style={styles.label}>{t("auth.gender")}</Text>
 
-                          <TouchableOpacity
-                            style={[styles.roleButton, registerData.gender === "female" && styles.roleButtonActive]}
-                            onPress={() => setRegisterData({ ...registerData, gender: "female" })}
-                          >
-                            <Text style={[styles.roleButtonText, registerData.gender === "female" && styles.roleButtonTextActive]}>
-                              Female
-                            </Text>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
+                    <View style={styles.roleButtons}>
+                      <TouchableOpacity
+                        style={[
+                          styles.roleButton,
+                          registerData.gender === "male" && styles.roleButtonActive,
+                        ]}
+                        onPress={() => setRegisterData({ ...registerData, gender: "male" })}
+                      >
+                        <Text
+                          style={[
+                            styles.roleButtonText,
+                            registerData.gender === "male" && styles.roleButtonTextActive,
+                          ]}
+                        >
+                          {t("auth.male")}
+                        </Text>
+                      </TouchableOpacity>
 
+                      <TouchableOpacity
+                        style={[
+                          styles.roleButton,
+                          registerData.gender === "female" && styles.roleButtonActive,
+                        ]}
+                        onPress={() => setRegisterData({ ...registerData, gender: "female" })}
+                      >
+                        <Text
+                          style={[
+                            styles.roleButtonText,
+                            registerData.gender === "female" && styles.roleButtonTextActive,
+                          ]}
+                        >
+                          {t("auth.female")}
+                        </Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
 
                   <FloatingLabelInput
-                    label="Phone Number (Optional)"
+                    label={t("auth.phone")}
                     value={registerData.phone}
-                    onChangeText={(t) => setRegisterData({ ...registerData, phone: t })}
                     keyboardType="phone-pad"
+                    onChangeText={(v) => setRegisterData({ ...registerData, phone: v })}
                   />
 
                   <FloatingLabelInput
-                    label="Address (Optional)"
+                    label={t("auth.address")}
                     value={registerData.address}
-                    onChangeText={(t) => setRegisterData({ ...registerData, address: t })}
+                    onChangeText={(v) => setRegisterData({ ...registerData, address: v })}
                   />
                 </>
               )}
 
               <View style={styles.row}>
                 <TouchableOpacity style={[styles.button, styles.buttonOutline]} onPress={() => setRegStep(1)}>
-                  <Text style={styles.buttonOutlineText}>Back</Text>
+                  <Text style={styles.buttonOutlineText}>{t("auth.back")}</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.button, styles.buttonFlex]} onPress={handleRegister} disabled={isLoading}>
-                  {isLoading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.buttonText}>Complete Registration</Text>}
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonFlex]}
+                  onPress={handleRegister}
+                >
+                  {isLoading ? (
+                    <ActivityIndicator color="#FFF" />
+                  ) : (
+                    <Text style={styles.buttonText}>{t("auth.completeRegistration")}</Text>
+                  )}
                 </TouchableOpacity>
               </View>
             </>
@@ -560,60 +690,101 @@ export default function LoginPage({ navigation }) {
   );
 }
 
-/* ---------------------------
-   STYLES
-   (keeps your existing palette via colors)
-   --------------------------- */
+/* -------------------- STYLES -------------------- */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
   },
+
+  /* LANGUAGE TOP-RIGHT BUTTON */
+  languageContainer: {
+    position: "absolute",
+    top: 40,
+    right: 20,
+    zIndex: 1000,
+  },
+
+  langBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.card,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+
+  langBtnText: {
+    color: colors.primary,
+    fontSize: 14,
+    marginRight: 6,
+    fontWeight: "600",
+  },
+
+  langDropdown: {
+    marginTop: 6,
+    backgroundColor: colors.card,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingVertical: 4,
+    width: 140,
+  },
+
+  langItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+
+  langItemText: {
+    color: colors.foreground,
+  },
+
   scrollContent: {
-    flexGrow: 1,
-    padding: 20,
-    justifyContent: "center",
+    paddingTop: 100,
+    paddingHorizontal: 20,
+    paddingBottom: 40,
   },
 
   header: {
     alignItems: "center",
-    marginBottom: 18,
+    marginBottom: 20,
   },
+
   lottieWrap: {
     width: 110,
     height: 110,
-    borderRadius: 999,
+    borderRadius: 100,
     overflow: "hidden",
-    marginBottom: 6,
   },
-  lottie: {
-    width: "100%",
-    height: "100%",
-  },
+
+  lottie: { width: "100%", height: "100%" },
+
   title: {
     fontSize: 28,
     fontWeight: "bold",
     color: colors.primary,
-    marginBottom: 6,
+    marginTop: 10,
   },
-
-  floatingContainer: {
-  width: "100%",
-},
 
   subtitle: {
     fontSize: 13,
     color: colors.foregroundLight,
-    textAlign: "center",
+    marginTop: 4,
   },
 
+  /* TABS */
   tabs: {
     flexDirection: "row",
-    marginBottom: 18,
     backgroundColor: colors.card,
     borderRadius: 10,
     padding: 4,
+    marginTop: 20,
+    marginBottom: 20,
   },
+
   tab: {
     flex: 1,
     paddingVertical: 10,
@@ -624,149 +795,112 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   tabText: {
-    fontSize: 16,
     color: colors.foregroundLight,
+    fontSize: 16,
   },
   tabTextActive: {
     color: "#FFF",
     fontWeight: "600",
   },
 
+  /* FORM */
   form: {
     backgroundColor: colors.card,
-    borderRadius: 12,
     padding: 18,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
+    borderRadius: 12,
     elevation: 4,
-    marginBottom: 16,
+    marginBottom: 20,
   },
 
   inputGroup: {
-    marginBottom: 12,
+    marginBottom: 16,
   },
+
   floatingLabel: {
     position: "absolute",
-    left: 12,
-    zIndex: 2,
-    backgroundColor: "transparent",
-    paddingHorizontal: 2,
+    left: 14,
+    zIndex: 10,
   },
 
-  label: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: colors.foreground,
-    marginBottom: 8,
-  },
-
-  input: {
+  inputWrapper: {
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
     backgroundColor: colors.backgroundLight,
-    color: colors.foreground,
+    paddingHorizontal: 12,
+    justifyContent: "center",
+    minHeight: 48,
   },
 
   passwordWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
     borderColor: colors.border,
-    backgroundColor: colors.backgroundLight,
+    borderWidth: 1,
     borderRadius: 8,
+    backgroundColor: colors.backgroundLight,
     paddingRight: 10,
     minHeight: 48,
   },
 
-  inputWrapper: {
-  borderWidth: 1,
-  borderColor: colors.border,
-  backgroundColor: colors.backgroundLight,
-  borderRadius: 8,
-  paddingHorizontal: 12,
-  minHeight: 48,
-  justifyContent: "center",
-},
-
   passwordInput: {
     flex: 1,
-    padding: 12,
     fontSize: 16,
+    padding: 12,
     color: colors.foreground,
   },
+
   eyeButton: {
     padding: 6,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  row: {
-    flexDirection: "row",
-    gap: 12,
-  },
-  halfWidth: {
-    flex: 1,
   },
 
   roleButtons: {
     flexDirection: "row",
     gap: 10,
   },
+
   roleButton: {
     flex: 1,
-    paddingVertical: 12,
-    backgroundColor: colors.backgroundLight,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 8,
+    backgroundColor: colors.backgroundLight,
+    paddingVertical: 12,
     alignItems: "center",
   },
+
   roleButtonActive: {
     backgroundColor: colors.primary,
     borderColor: colors.primary,
   },
-  roleButtonText: {
-    fontSize: 14,
-    color: colors.foreground,
-  },
-  roleButtonTextActive: {
-    color: "#FFF",
-    fontWeight: "600",
-  },
+
+  roleButtonText: { color: colors.foreground, fontSize: 13 },
+  roleButtonTextActive: { color: "#FFF", fontWeight: "600" },
 
   button: {
     backgroundColor: colors.primary,
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 8,
   },
-  buttonDisabled: {
-    opacity: 0.6,
-  },
-  buttonFlex: {
-    flex: 2,
-  },
+  buttonDisabled: { opacity: 0.6 },
+
+  buttonText: { color: "#FFF", fontWeight: "600", fontSize: 16 },
+
   buttonOutline: {
     backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: colors.primary,
     flex: 1,
-    marginRight: 8,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#FFF",
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: "center",
   },
   buttonOutlineText: {
     color: colors.primary,
     fontWeight: "600",
     fontSize: 16,
   },
+
+  row: { flexDirection: "row", gap: 12 },
 });

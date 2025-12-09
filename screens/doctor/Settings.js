@@ -1,3 +1,4 @@
+// /screens/doctor/Settings.js
 import React, { useState, useRef, useEffect } from "react";
 import {
   View,
@@ -10,6 +11,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   Keyboard,
+  Modal,
+  ScrollView,
+  Pressable
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import LottieView from "lottie-react-native";
@@ -19,15 +23,78 @@ import { colors } from "../../colors";
 import { useAuth } from "../../contexts/AuthContext";
 import { usersAPI } from "../../services/api";
 
-/**
- * Doctor Settings (matches PatientSettings UI)
- * - Floating header
- * - Header card with avatar + pulse
- * - Edit mode with fields: phone, address, specialization, experience
- * - Notification toggles
- * - Logout
- * - Uses useAuth.refreshUser() and logout()
- */
+// --- 1. LANGUAGE CONFIGURATION ---
+const LANGUAGES = [
+  { code: "en", label: "English", native: "English" },
+  { code: "hi", label: "Hindi", native: "हिंदी" },
+  { code: "mr", label: "Marathi", native: "मराठी" },
+  { code: "gu", label: "Gujarati", native: "ગુજરાતી" },
+  { code: "bn", label: "Bengali", native: "বাংলা" },
+  { code: "ta", label: "Tamil", native: "தமிழ்" },
+  { code: "te", label: "Telugu", native: "తెలుగు" },
+  { code: "kn", label: "Kannada", native: "ಕನ್ನಡ" },
+  { code: "or", label: "Odia", native: "ଓଡ଼ିଆ" },
+];
+
+const DICTIONARY = {
+  en: {
+    title: "Settings",
+    subtitle_view: "Manage your account",
+    subtitle_edit: "Editing profile",
+    section_account: "Account",
+    section_settings: "App Settings",
+    phone: "Phone",
+    address: "Address",
+    specialization: "Specialization",
+    experience: "Experience",
+    experience_unit: "yrs",
+    notifications: "Notifications",
+    push_notif: "Push Notifications",
+    push_desc: "Receive notifications on device",
+    email_notif: "Email Notifications",
+    email_desc: "Receive updates via email",
+    language: "Language",
+    edit: "Edit",
+    change_pass: "Change Password",
+    logout: "Logout",
+    save: "Save",
+    cancel: "Cancel",
+    role: "Role",
+    active: "Active",
+    yes: "Yes",
+    no: "No",
+    years: "years"
+  },
+  hi: {
+    title: "सेटिंग्स",
+    subtitle_view: "अपना खाता प्रबंधित करें",
+    subtitle_edit: "प्रोफ़ाइल संपादित करें",
+    section_account: "खाता",
+    section_settings: "ऐप सेटिंग्स",
+    phone: "फ़ोन",
+    address: "पता",
+    specialization: "विशेषज्ञता",
+    experience: "अनुभव",
+    experience_unit: "वर्ष",
+    notifications: "सूचनाएं",
+    push_notif: "पुश सूचनाएं",
+    push_desc: "डिवाइस पर सूचनाएं प्राप्त करें",
+    email_notif: "ईमेल सूचनाएं",
+    email_desc: "ईमेल के माध्यम से अपडेट प्राप्त करें",
+    language: "भाषा",
+    edit: "संपादित करें",
+    change_pass: "पासवर्ड बदलें",
+    logout: "लॉग आउट",
+    save: "सहेजें",
+    cancel: "रद्द करें",
+    role: "भूमिका",
+    active: "सक्रिय",
+    yes: "हाँ",
+    no: "नहीं",
+    years: "वर्ष"
+  },
+  // Defaulting others to English for brevity in this snippet
+};
 
 export default function Settings({ navigation }) {
   const { user, refreshUser, logout } = useAuth();
@@ -38,6 +105,16 @@ export default function Settings({ navigation }) {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
 
+  // --- Language State ---
+  const [currentLang, setCurrentLang] = useState("en");
+  const [languageMenuVisible, setLanguageMenuVisible] = useState(false);
+
+  // Helper to get text
+  const t = (key) => {
+    const dict = DICTIONARY[currentLang] || DICTIONARY["en"];
+    return dict[key] || DICTIONARY["en"][key];
+  };
+
   const [formData, setFormData] = useState({
     phone: user?.phone || "",
     address: user?.address || "",
@@ -47,6 +124,7 @@ export default function Settings({ navigation }) {
   });
 
   const [localAvatar, setLocalAvatar] = useState(user?.avatar || null);
+  const [avatarSheetVisible, setAvatarSheetVisible] = useState(false);
 
   // animated header
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -75,12 +153,13 @@ export default function Settings({ navigation }) {
     });
   }, [user]);
 
-  // Avatar picker
-  const pickAvatar = async () => {
+  // ---------------- Avatar logic ----------------
+  const pickAvatarFromGallery = async () => {
     try {
+      setAvatarSheetVisible(false);
       const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (!permission.granted) {
-        Alert.alert("Permission required", "Please enable media library access.");
+        Alert.alert("Permission required", "Please enable gallery access in settings.");
         return;
       }
 
@@ -91,16 +170,23 @@ export default function Settings({ navigation }) {
         aspect: [1, 1],
       });
 
-      if (!res.cancelled) {
-        setLocalAvatar(res.uri);
-        setFormData((s) => ({ ...s, avatarUrl: res.uri }));
+      if (!res.canceled && res.assets?.length > 0) {
+        const uri = res.assets[0].uri;
+        setLocalAvatar(uri);
+        setFormData((s) => ({ ...s, avatarUrl: uri }));
       }
     } catch (err) {
-      console.log("Avatar pick error:", err);
+      console.log("pickAvatarFromGallery err:", err);
+      Alert.alert("Error", "Could not pick image.");
     }
   };
 
-  // remove empty values
+  const removeAvatar = () => {
+    setAvatarSheetVisible(false);
+    setLocalAvatar(null);
+    setFormData((s) => ({ ...s, avatarUrl: null }));
+  };
+
   const cleanPayload = (obj) =>
     Object.fromEntries(
       Object.entries(obj).filter(
@@ -108,12 +194,10 @@ export default function Settings({ navigation }) {
       )
     );
 
-  // Save profile
   const handleSave = async () => {
     Keyboard.dismiss();
     try {
       setSaving(true);
-
       const payload = {
         phone: formData.phone || null,
         address: formData.address || null,
@@ -123,7 +207,6 @@ export default function Settings({ navigation }) {
       };
 
       const cleaned = cleanPayload(payload);
-
       await usersAPI.update(user.id, cleaned);
 
       if (successRef.current) successRef.current.play();
@@ -142,14 +225,13 @@ export default function Settings({ navigation }) {
   };
 
   const handleLogout = () => {
-    Alert.alert("Logout", "Are you sure you want to logout?", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("logout"), "Are you sure you want to logout?", [
+      { text: t("cancel"), style: "cancel" },
       {
-        text: "Logout",
+        text: t("logout"),
         style: "destructive",
         onPress: () => {
           logout();
-          
         },
       },
     ]);
@@ -164,9 +246,9 @@ export default function Settings({ navigation }) {
           { transform: [{ translateY: headerTranslateY }], opacity: headerOpacity },
         ]}
       >
-        <Text style={styles.floatingTitle}>Settings</Text>
+        <Text style={styles.floatingTitle}>{t("title")}</Text>
         <Text style={styles.floatingSubtitle}>
-          {editMode ? "Editing profile" : "Manage your account"}
+          {editMode ? t("subtitle_edit") : t("subtitle_view")}
         </Text>
       </Animated.View>
 
@@ -180,7 +262,7 @@ export default function Settings({ navigation }) {
       >
         {/* Header card */}
         <View style={styles.headerCard}>
-          <TouchableOpacity activeOpacity={0.85} onPress={pickAvatar}>
+          <TouchableOpacity activeOpacity={0.85} onPress={() => setAvatarSheetVisible(true)}>
             <View style={styles.avatarWrap}>
               {localAvatar ? (
                 <Image source={{ uri: localAvatar }} style={styles.avatar} />
@@ -190,7 +272,6 @@ export default function Settings({ navigation }) {
                   style={styles.avatar}
                 />
               )}
-
               {!editMode && (
                 <View style={styles.lottieOverlay}>
                   <LottieView
@@ -211,40 +292,61 @@ export default function Settings({ navigation }) {
 
             <View style={styles.rowMini}>
               <Text style={styles.statLabel}>
-                Role: <Text style={styles.statValue}>{user?.role ?? "—"}</Text>
+                {t("role")}: <Text style={styles.statValue}>{user?.role ?? "—"}</Text>
               </Text>
               <Text style={[styles.statLabel, { marginLeft: 18 }]}>
-                Active: <Text style={styles.statValue}>{user?.isActive ? "Yes" : "No"}</Text>
+                {t("active")}: <Text style={styles.statValue}>{user?.isActive ? t("yes") : t("no")}</Text>
               </Text>
             </View>
           </View>
         </View>
 
-        {/* Main sections */}
+        {/* --- APP SETTINGS CARD (LANGUAGE) --- */}
         <View style={styles.sectionCard}>
-          <Text style={styles.sectionTitle}>Account</Text>
+          <Text style={styles.sectionTitle}>{t("section_settings")}</Text>
+          
+          <TouchableOpacity 
+            style={styles.kvRow} 
+            onPress={() => setLanguageMenuVisible(true)}
+          >
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={{fontSize: 16, marginRight: 8}}>🌐</Text>
+                <Text style={styles.kvLabel}>{t("language")}</Text>
+            </View>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Text style={styles.kvValue}>
+                    {LANGUAGES.find(l => l.code === currentLang)?.native}
+                </Text>
+                <Text style={[styles.kvValue, {marginLeft: 6, fontSize: 12}]}>▼</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
+        {/* Account Details Sections */}
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>{t("section_account")}</Text>
 
           {!editMode ? (
             <>
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Phone</Text>
+                <Text style={styles.kvLabel}>{t("phone")}</Text>
                 <Text style={styles.kvValue}>{user?.phone || "—"}</Text>
               </View>
 
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Address</Text>
+                <Text style={styles.kvLabel}>{t("address")}</Text>
                 <Text style={styles.kvValue}>{user?.address || "—"}</Text>
               </View>
 
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Specialization</Text>
+                <Text style={styles.kvLabel}>{t("specialization")}</Text>
                 <Text style={styles.kvValue}>{user?.specialization || "—"}</Text>
               </View>
 
               <View style={styles.kvRow}>
-                <Text style={styles.kvLabel}>Experience</Text>
+                <Text style={styles.kvLabel}>{t("experience")}</Text>
                 <Text style={styles.kvValue}>
-                  {user?.experience !== undefined ? `${user.experience} yrs` : "—"}
+                  {user?.experience !== undefined ? `${user.experience} ${t("experience_unit")}` : "—"}
                 </Text>
               </View>
 
@@ -252,14 +354,12 @@ export default function Settings({ navigation }) {
 
               {/* Notifications block */}
               <View style={{ marginBottom: 8 }}>
-                <Text style={styles.blockTitle}>Notifications</Text>
+                <Text style={styles.blockTitle}>{t("notifications")}</Text>
 
                 <View style={styles.settingItem}>
                   <View style={styles.settingInfo}>
-                    <Text style={styles.settingLabel}>Push Notifications</Text>
-                    <Text style={styles.settingDescription}>
-                      Receive notifications on device
-                    </Text>
+                    <Text style={styles.settingLabel}>{t("push_notif")}</Text>
+                    <Text style={styles.settingDescription}>{t("push_desc")}</Text>
                   </View>
                   <TouchableOpacity
                     style={[styles.toggleBtn, notificationsEnabled ? styles.toggleOn : styles.toggleOff]}
@@ -275,10 +375,8 @@ export default function Settings({ navigation }) {
 
                 <View style={styles.settingItem}>
                   <View style={styles.settingInfo}>
-                    <Text style={styles.settingLabel}>Email Notifications</Text>
-                    <Text style={styles.settingDescription}>
-                      Receive updates via email
-                    </Text>
+                    <Text style={styles.settingLabel}>{t("email_notif")}</Text>
+                    <Text style={styles.settingDescription}>{t("email_desc")}</Text>
                   </View>
                   <TouchableOpacity
                     style={[styles.toggleBtn, emailNotifications ? styles.toggleOn : styles.toggleOff]}
@@ -295,28 +393,28 @@ export default function Settings({ navigation }) {
 
               {/* Actions */}
               <View style={styles.actionsRow}>
-                  <TouchableOpacity style={styles.smallPrimary} onPress={() => setEditMode(true)}>
-                    <Text style={styles.smallPrimaryText}>Edit</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity style={styles.smallPrimary} onPress={() => setEditMode(true)}>
+                  <Text style={styles.smallPrimaryText}>{t("edit")}</Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.smallOutline}
-                    onPress={() => navigation.navigate("ChangePassword")}
-                  >
-                    <Text style={styles.smallOutlineText}>Change Password</Text>
-                  </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.smallOutline}
+                  onPress={() => navigation.navigate("ChangePassword")}
+                >
+                  <Text style={styles.smallOutlineText}>{t("change_pass")}</Text>
+                </TouchableOpacity>
 
-                  <TouchableOpacity style={styles.smallOutline} onPress={handleLogout}>
-                    <Text style={styles.smallOutlineText}>Logout</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.smallOutline} onPress={handleLogout}>
+                  <Text style={styles.smallOutlineText}>{t("logout")}</Text>
+                </TouchableOpacity>
+              </View>
             </>
           ) : (
             <>
               {/* Edit form */}
-              <Text style={styles.formLabel}>Phone</Text>
+              <Text style={styles.formLabel}>{t("phone")}</Text>
               <TextInput
-                placeholder="Phone"
+                placeholder={t("phone")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.phone}
                 onChangeText={(t) => setFormData({ ...formData, phone: t })}
@@ -324,9 +422,9 @@ export default function Settings({ navigation }) {
                 keyboardType="phone-pad"
               />
 
-              <Text style={styles.formLabel}>Address</Text>
+              <Text style={styles.formLabel}>{t("address")}</Text>
               <TextInput
-                placeholder="Address"
+                placeholder={t("address")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.address}
                 onChangeText={(t) => setFormData({ ...formData, address: t })}
@@ -334,18 +432,18 @@ export default function Settings({ navigation }) {
                 multiline
               />
 
-              <Text style={styles.formLabel}>Specialization</Text>
+              <Text style={styles.formLabel}>{t("specialization")}</Text>
               <TextInput
-                placeholder="Specialization"
+                placeholder={t("specialization")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.specialization}
                 onChangeText={(t) => setFormData({ ...formData, specialization: t })}
                 style={styles.input}
               />
 
-              <Text style={styles.formLabel}>Experience (years)</Text>
+              <Text style={styles.formLabel}>{t("experience")} ({t("years")})</Text>
               <TextInput
-                placeholder="Experience"
+                placeholder={t("experience")}
                 placeholderTextColor={colors.foregroundLight}
                 value={formData.experience}
                 onChangeText={(t) => setFormData({ ...formData, experience: t })}
@@ -369,7 +467,7 @@ export default function Settings({ navigation }) {
                     setLocalAvatar(user?.avatar || null);
                   }}
                 >
-                  <Text style={styles.smallOutlineText}>Cancel</Text>
+                  <Text style={styles.smallOutlineText}>{t("cancel")}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -377,7 +475,7 @@ export default function Settings({ navigation }) {
                   onPress={handleSave}
                   disabled={saving}
                 >
-                  <Text style={styles.smallPrimaryText}>{saving ? "Saving..." : "Save"}</Text>
+                  <Text style={styles.smallPrimaryText}>{saving ? "Saving..." : t("save")}</Text>
                 </TouchableOpacity>
               </View>
             </>
@@ -395,6 +493,104 @@ export default function Settings({ navigation }) {
           />
         </View>
       </Animated.ScrollView>
+
+      {/* Avatar action sheet (bottom modal) */}
+      <Modal visible={avatarSheetVisible} animationType="slide" transparent>
+        <View style={sheetStyles.overlay}>
+          <View style={sheetStyles.sheet}>
+            <TouchableOpacity
+              style={sheetStyles.row}
+              onPress={pickAvatarFromGallery}
+              activeOpacity={0.8}
+            >
+              <Text style={sheetStyles.rowText}>Change Photo</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={sheetStyles.row}
+              onPress={() =>
+                Alert.alert("Remove Photo", "Remove profile photo?", [
+                  { text: "Cancel", style: "cancel" },
+                  {
+                    text: "Remove",
+                    style: "destructive",
+                    onPress: removeAvatar,
+                  },
+                ])
+              }
+              activeOpacity={0.8}
+            >
+              <Text style={[sheetStyles.rowText, { color: "#FF4D4F" }]}>Remove Photo</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[sheetStyles.row, { marginTop: 8 }]}
+              onPress={() => setAvatarSheetVisible(false)}
+              activeOpacity={0.8}
+            >
+              <Text style={[sheetStyles.rowText, { fontWeight: "700" }]}>{t("cancel")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* ---------- LANGUAGE SELECTION MODAL ---------- */}
+      <Modal
+        visible={languageMenuVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setLanguageMenuVisible(false)}
+      >
+        <View style={sheetStyles.overlay}>
+          <Pressable 
+            style={sheetStyles.backdrop} 
+            onPress={() => setLanguageMenuVisible(false)} 
+          />
+          <View style={[sheetStyles.sheet, {maxHeight: '70%'}]}>
+            <Text style={styles.languageHeader}>Select Language</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {LANGUAGES.map((lang) => (
+                <TouchableOpacity
+                  key={lang.code}
+                  style={styles.languageItem}
+                  onPress={() => {
+                    setCurrentLang(lang.code);
+                    setLanguageMenuVisible(false);
+                  }}
+                >
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    {/* Radio Button Circle */}
+                    <View style={[
+                        styles.radioCircle, 
+                        currentLang === lang.code && styles.radioCircleSelected
+                    ]}>
+                        {currentLang === lang.code && <View style={styles.radioDot} />}
+                    </View>
+                    
+                    <View style={{marginLeft: 12}}>
+                        <Text style={[
+                            styles.languageNative, 
+                            currentLang === lang.code && {color: colors.primary, fontWeight: '700'}
+                        ]}>
+                            {lang.native}
+                        </Text>
+                        <Text style={styles.languageLabel}>{lang.label}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+            
+            <TouchableOpacity
+              style={[sheetStyles.row, { marginTop: 10, marginBottom: 8 }]}
+              onPress={() => setLanguageMenuVisible(false)}
+            >
+              <Text style={[sheetStyles.rowText, { fontWeight: "700" }]}>{t("cancel")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
     </View>
   );
 }
@@ -511,6 +707,7 @@ const styles = StyleSheet.create({
   kvRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: 'center',
     paddingVertical: 10,
   },
   kvLabel: {
@@ -541,7 +738,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     marginTop: 12,
-    gap: 20,
+    gap: 12,
+    flexWrap: 'wrap'
   },
 
   smallPrimary: {
@@ -549,7 +747,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 14,
-    marginLeft: 8,
   },
   smallPrimaryText: {
     color: "#fff",
@@ -583,7 +780,6 @@ const styles = StyleSheet.create({
     color: colors.foreground,
   },
 
-  /* notification style for this screen (custom toggles) */
   settingItem: {
     backgroundColor: colors.card,
     padding: 10,
@@ -634,4 +830,70 @@ const styles = StyleSheet.create({
     height: 120,
     opacity: 0,
   },
+
+  // Language specific
+  languageHeader: {
+    fontSize: 16, 
+    fontWeight: '700', 
+    color: colors.foreground, 
+    textAlign: 'center', 
+    marginBottom: 10,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border
+  },
+  languageItem: {
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.backgroundLight,
+  },
+  languageNative: {
+    fontSize: 16,
+    color: colors.foreground,
+  },
+  languageLabel: {
+    fontSize: 12,
+    color: colors.foregroundLight
+  },
+  radioCircle: {
+      width: 20,
+      height: 20,
+      borderRadius: 10,
+      borderWidth: 2,
+      borderColor: colors.border,
+      alignItems: 'center',
+      justifyContent: 'center'
+  },
+  radioCircleSelected: {
+      borderColor: colors.primary
+  },
+  radioDot: {
+      width: 10,
+      height: 10,
+      borderRadius: 5,
+      backgroundColor: colors.primary
+  },
+});
+
+/* ---------------- Avatar sheet styles ---------------- */
+const sheetStyles = StyleSheet.create({
+  overlay: { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(0,0,0,0.4)" },
+  backdrop: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
+  sheet: {
+    backgroundColor: colors.background,
+    padding: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  row: { paddingVertical: 16, alignItems: "center" },
+  rowText: { fontSize: 16, fontWeight: "600", color: colors.foreground },
 });
